@@ -44,39 +44,14 @@ foreach($views_containers as $views_container) {
     }
 }
 
-class category {
-    public function __construct(array $arguments = array()) {
-        if (!empty($arguments)) {
-            foreach ($arguments as $property => $argument) {
-                $this->{$property} = $argument;
-            }
-        }
-    }
-
-    public function __call($method, $arguments) {
-        $arguments = array_merge(array("stdObject" => $this), $arguments); // Note: method argument 0 will always referred to the main class ($this).
-        if (isset($this->{$method}) && is_callable($this->{$method})) {
-            return call_user_func_array($this->{$method}, $arguments);
-        } else {
-            throw new Exception("Fatal error: Call to undefined method stdObject::{$method}()");
-        }
-    }
-}
-
 for($i=1; $i<count($category_titles); $i++) { 
-    $category = new category();
-    $category->title = $category_titles[$i];
-    $category->views = $views[$i];
-    $categories[] = $category;
+    $categories[] = '("' . $category_titles[$i] . '","'.$views[$i].'")';
 }
 
-for($i = 0; $i<count($categories); $i++) {
-    $query = "INSERT INTO categories (id, title, views) VALUES (". $i . ",'" . $categories[$i]->title ."',". $categories[$i]->views .")";
-    $result = $db->query($query);
-    if(! $result) {
-        die("could not enter data: " . $db->error);
-    }
-    //echo $query;
+$query = "INSERT INTO categories (title, views) VALUES " . implode(',',$categories) . ";";
+$result = $db->query($query);
+if(! $result) {
+    die("could not enter data: " . $db->error);
 }
 
 echo "Data entered correctly";
