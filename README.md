@@ -4,11 +4,11 @@ Contribution Guide
 Prerequisites
 ---------
 ### Git : 
-To install git on **mac** the easiest way is to copy this: 
+To install git on **mac** the easiest way is to open terminal and copy this: 
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-Into your terminal window. It will ask you if you want to install xcode command line tools (ruby and others) and you say yes. Then once that is all finished enter: 
+It will ask you if you want to install xcode command line tools (ruby and others) and you say yes. Then once that is all finished enter: 
 ```
 brew install git
 ```
