@@ -56,8 +56,8 @@ Software is an ever changing creation. It can start as one thing and blossom int
 
 To start the project, my plan is this: 
 
-* Populate the Database with a shit ton of movies from ranker. DB is mysql
- Build a RESTful API out of the SLIM framework that accesses or DB and returns it to out client gracefully.
+1. Populate the Database with a shit ton of movies from ranker. DB is mysql
+2. Build a RESTful API out of the SLIM framework that accesses or DB and returns it to out client gracefully.
 3. Build out client side view and service layers using Angular2.
 
 My reasoning behind these choices:
