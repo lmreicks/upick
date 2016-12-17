@@ -41,7 +41,7 @@ Once all the prerequisites have been installed, its time to set up a copy on you
 
 3. Type ```git clone https://git.ece.iastate.edu/rjreicks/upick.git``` and type in your iastate credentials. This will pull all the files down from the repository and add them to a new folder on your machine called upick. 
 
-4. Cd into your newly created UPick folder and type vagrant up
+4. Cd into your newly created UPick folder and type ```vagrant up```
 
 5. This will initiate the server and the project is running. Open your web browser and go to 192.168.33.11 and you will see a welcome message.
  
