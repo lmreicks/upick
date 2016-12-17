@@ -4,13 +4,13 @@ Contribution Guide
 Prerequisites
 ---------
 ### Git : 
-To install git on mac the easiest way is to copy this: 
+To install git on **mac** the easiest way is to copy this: 
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 Into your terminal window. It will ask you if you want to install xcode command line tools (ruby and others) and you say yes. Then once that is all finished enter: brew install git and it will install git on your machine and you should be ready to go.
 
-Now for Windows Users: Git has a build package on windows that you can install here: 
+Now for **Windows Users**: Git has a build package on windows that you can install here: 
 ```
 https://git-scm.com/download/win
 ```
@@ -66,5 +66,10 @@ My reasoning behind these choices:
 3. Angular2 is by far the best frontend framework right now. IMHO. 
 
 All of the contributors are very new to all of these technologies but I think it would be a fun way to learn them all If you are interested. There are plenty of great tutorials online. A good place to start is with Angular.io and their quickstart guide.
+
+A good Text editor that I would recommend is visual studio code. You can download it here: 
+```
+https://code.visualstudio.com/
+```
 
 If you have any questions, you know how to reach me. Lets have some fun!
