@@ -14,6 +14,8 @@ brew install git
 ```
 and it will install git on your machine and you should be ready to go.
 
+---------
+
 Now for **Windows Users**: Git has a build package on windows that you can install here: 
 ```
 https://git-scm.com/download/win
