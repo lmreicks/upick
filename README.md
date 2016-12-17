@@ -3,7 +3,7 @@ Contribution Guide
 
 Prerequisites
 ---------
-###Git : 
+### Git : 
 To install git on mac the easiest way is to copy this: 
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -16,12 +16,12 @@ https://git-scm.com/download/win
 ```
 Once that is installed, run the installer. And you should be all set up. Easy.
 
-###Virtual Box: 
+### Virtual Box: 
 To install virtual box go here and run the correct installer: 
 ```
 https://www.virtualbox.org/wiki/Downloads?replytocom=98578
 ```
-###Vagrant: 
+### Vagrant: 
 To install Vagrant, go here and run the correct install: 
 ```
 https://www.vagrantup.com/downloads.html
