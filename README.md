@@ -8,7 +8,11 @@ To install git on **mac** the easiest way is to copy this:
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-Into your terminal window. It will ask you if you want to install xcode command line tools (ruby and others) and you say yes. Then once that is all finished enter: brew install git and it will install git on your machine and you should be ready to go.
+Into your terminal window. It will ask you if you want to install xcode command line tools (ruby and others) and you say yes. Then once that is all finished enter: 
+```
+brew install git
+```
+and it will install git on your machine and you should be ready to go.
 
 Now for **Windows Users**: Git has a build package on windows that you can install here: 
 ```
