@@ -45,11 +45,11 @@ Once all the prerequisites have been installed, its time to set up a copy on you
 
 5. This will initiate the server and the project is running. Open your web browser and go to 192.168.33.11 and you will see a welcome message.
  
-6. Before you make any changes to the code, we need to set you up with your own branch. To do this, in terminal type git branch BranchName  this will create a new branch called branchName. Now you need to switch to that branch so type git checkout BranchName and you will switch to a branch of your own!
+6. Before you make any changes to the code, we need to set you up with your own branch. To do this, in terminal type ```git branch *BranchName*```  this will create a new branch called branchName. Now you need to switch to that branch so type ```git checkout *BranchName*``` and you will switch to a branch of your own!
 
-7. Now we will do your first commit to show you how to save your changes to the repository. Create a new file in UPick directory called YourName.txt  and add some text in it. Then in your terminal window, type git add -all this will “Stage” all your changes. Next type git commit -m “Type a message here about what your commit is about” this will add a new commit to your local code repository. A commit is a saved change. You can read more about Git on their website.
+7. Now we will do your first commit to show you how to save your changes to the repository. Create a new file in UPick directory called YourName.txt  and add some text in it. Then in your terminal window, type ```git add -all``` this will “Stage” all your changes. Next type ```git commit -m “Type a message here about what your commit is about”``` this will add a new commit to your local code repository. A commit is a saved change. You can read more about Git on their website.
 
-8. Finally, to sync up your local repository with the Iowa State remote repository. Type git push this will push all your pending commits to the remote server and you have finished your first contribution!
+8. Finally, to sync up your local repository with the Iowa State remote repository. Type ```git push``` this will push all your pending commits to the remote server and you have finished your first contribution!
 
 Product Overview/How to Help
 ------------
