@@ -51,7 +51,7 @@ Once all the prerequisites have been installed, its time to set up a copy on you
 
 7. Now we will do your first commit to show you how to save your changes to the repository. Create a new file in UPick directory called YourName.txt  and add some text in it. Then in your terminal window, type ```git add -all``` this will “Stage” all your changes. Next type ```git commit -m “Type a message here about what your commit is about”``` this will add a new commit to your local code repository. A commit is a saved change. You can read more about Git on their website.
 
-8. Finally, to sync up your local repository with the Iowa State remote repository. Type ```git push``` this will push all your pending commits to the remote server and you have finished your first contribution!
+8. Finally, to sync up your local repository with the Iowa State remote repository. Type ```git push -u origin *BranchName*``` this will push all your pending commits to the remote server and you have finished your first contribution!
 
 Product Overview/How to Help
 ------------
