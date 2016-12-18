@@ -59,7 +59,7 @@ function getCategories($count) {
 
     foreach($titles_containers as $titles_container) {
         if($titles_container != "") {
-            $category_titles[] = scrape_between($titles_container, '<span class="black">', '</span>');
+            $category_titles[] = addslashes(scrape_between($titles_container, '<span class="black">', '</span>'));
         }
     }
 
@@ -97,7 +97,7 @@ function getMoviesByCategory($url) {
     $page = scrape_between($page, '<section id="mainListCnt" class=" relative">','</section>');
     $title_containers = explode('<p class="tableAlign visible">', $page);
     foreach ($title_containers as $title_container) {
-        $title = scrape_between($title_container, 'itemprop="name">', '</span>');
+        $title = addslashes(trim(scrape_between($title_container, 'itemprop="name">', '</span>')));
         $titles[] = $title;
     }
     return $titles;
@@ -113,14 +113,18 @@ function populateMoviesTable() {
         $titles = getMoviesByCategory($row['url']);
         for($i=1; $i<count($titles); $i++) { 
             $titlesString[] = "('" . $titles[$i] . "',".$row['id'].")";
-        } 
-        $query = 'INSERT INTO movies (title, categoryId) VALUES ' . implode(',',$titlesString) . ';';
-        if(! $db->query($query)) {
-            //die("could not enter data: " . $db->error);
         }
     }
+    $query = 'INSERT INTO movies (title, categoryId) VALUES ' . implode(',',$titlesString) . ';';
 
     $result->free();
+
+    $result = $db->query($query);
+    if(! $result) {
+        die("Could not enter data: " . $db->error);
+    } else {
+        echo "Successfully inserted " . count($titlesString) . " movies into the database";
+    }
 }
 
 //populateMoviesTable();

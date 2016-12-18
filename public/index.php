@@ -1,5 +1,5 @@
 <?php
-    
+    require("scrapeData.php");
 ?>
 
 <h1>UPick</h1>
