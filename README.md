@@ -78,4 +78,11 @@ A good Text editor that I would recommend is visual studio code. You can downloa
 https://code.visualstudio.com/
 ```
 
+### Slack
+I have created a slack channel for this project. If you dont know what slack is, Ill have tommy come back there and smack you on the head with a tack hammer because youre a retard.
+Heres the link: 
+```
+https://upickit.slack.com/shared_invite/MTE4ODk2NzAwMTk4LTE0ODIwMTk0MTMtOWIxMTE4OWNlMg
+```
+
 If you have any questions, you know how to reach me. Lets have some fun!
