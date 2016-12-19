@@ -6,7 +6,8 @@ import { CategoryListComponent } from './category-list/category-list.component';
 
 
 const appRoutes: Routes = [
-  { path: 'movie', component: MovieComponent},
+  { path: '', redirectTo: '/category-list', pathMatch: 'full' },
+  { path: 'movie/:id', component: MovieComponent},
   { path: 'category-list', component: CategoryListComponent}
 ]
 

@@ -1,5 +1,5 @@
 <?php
-    //require("../scraper/scrapeData.php");
+    require("../scraper/scrapeData.php");
 ?>
 
 <h1>UPick</h1>

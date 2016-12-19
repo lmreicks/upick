@@ -127,7 +127,7 @@ function populateMoviesTable() {
 
 //populateMoviesTable();
 //getMoviesByCategory('http://www.ranker.com/list/best-films-directed-by-famous-actors/ranker-film', 11);
-
+//getCategories(500);
 
 
 ?>
