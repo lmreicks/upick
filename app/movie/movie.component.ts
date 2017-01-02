@@ -11,13 +11,13 @@ import 'rxjs/add/operator/switchMap';
   templateUrl: './app/movie/movie.component.html',
   styleUrls: ['./app/movie/movie.component.css']
 })
-export class MovieComponent implements OnInit{ 
+export class MovieComponent implements OnInit{
   movie: Movie;
-  
+
   constructor(
     private MovService: MovieService,
     private route: ActivatedRoute
-  ) {}              
+  ) {}
 
   ngOnInit(){
     this.route.params
