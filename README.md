@@ -45,7 +45,7 @@ Once all the prerequisites have been installed, its time to set up a copy on you
 
 2. cd into a directory where you would like your project to go. Ie: cd Documents
 
-3. Type ```git clone https://git.ece.iastate.edu/rjreicks/upick.git``` and type in your iastate credentials. This will pull all the files down from the repository and add them to a new folder on your machine called upick. 
+3. Type ```git clone https://github.com/lmreicks/upick``` and type in your iastate credentials. This will pull all the files down from the repository and add them to a new folder on your machine called upick. 
 
 4. Cd into your newly created UPick folder and type ```vagrant up```
 
