@@ -1,7 +1,7 @@
 vagrant/
 .vagrant/
 public/vendor/
-node_modules
+client/node_modules
 jspm_packages
 npm-debug.*
 link-checker-results.txt
