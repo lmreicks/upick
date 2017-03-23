@@ -1,0 +1,7 @@
+<h1>Top Ten</h1>
+<div class="home" *ngIf="!!movies">
+    <div *ngFor="let movie of movies">
+        <h3>{{movie.title}}</h3>
+        <img src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" height="300px" width="200px">
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<h1>{{genres}}</h1>
+
+<ul *ngFor="let movie of movies">
+    <!-- Click to Expand Panel -->
+    <div class="list-panel">
+        <li (click)="toggleMove(movie)">{{movie.title}}</li>
+    </div>
+    <div [@focusPanel]="movie.state==(undefined || 'active')?'active':'inactive'">
+        <p>{{movie.overview}}</p>
+        <p>{{movie.release_date}}</p>
+        <img src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" height="300px" width="200px">
+    </div>
+</ul>

@@ -1,55 +1,68 @@
 <?php
-//Get the movie at a specified ID
-$app->get('/api/movies/{id}', function ($request, $response, $args) {
+//get all movie titles from this genre
+$app->get('/api/genres/{id}', function ($request, $response, $args) {
     require_once('../dbconnect.php');
 
     $id = $request->getAttribute('id');
 
-    $query = "SELECT * FROM movies WHERE `id`='$id'";
+    $movielookup = "SELECT movieId FROM genre_lookup WHERE genreId='$id'";
+
+    $movieIdresult = $db->query($movielookup);
     
-    $result = $db->query($query);
-
-    $data = $result->fetch_assoc();
-
-    header('Content-Type: application/json');
-    echo json_encode($data);
-});
-
-//Get all the movies from a specific category
-$app->get('/api/categories/{id}/movies', function ($request, $response, $args) {
-    require_once('../dbconnect.php');
-
-    $id = $request->getAttribute('id');
-
-    $query = "SELECT * FROM movies WHERE `categoryId`='$id'";
-    
-    $result = $db->query($query);
-
-    while($row = $result->fetch_assoc()) {
-        $data[] = $row;
+    while($movId = $movieIdresult->fetch_assoc()) {
+        $movieId = $movId['movieId'];
+        $movieList = "SELECT * FROM movies WHERE id='$movieId' LIMIT 200";
+        $movieResult = $db->query($movieList);
+        while($movie = $movieResult->fetch_assoc()) {
+            $data[] = $movie;
+        }
     }
-
     header('Content-Type: application/json');
     echo json_encode($data);
 });
 
-//Get a random movie from a specific category
-$app->get('/api/categories/{id}/movies/random', function ($request, $response, $args) {
+//Get random movie from genre
+$app->get('/api/genres/{id}/random', function ($request, $response, $args) {
     require_once('../dbconnect.php');
 
     $id = $request->getAttribute('id');
 
-    $query = "SELECT * FROM movies WHERE `categoryId`='$id'";
-    
+    $query = "SELECT * FROM genre_lookup WHERE `genreId`='$id'";
+
     $result = $db->query($query);
 
     while($row = $result->fetch_assoc()) {
-        $data[] = $row;
+        $data[] = $row['movieId'];
     }
 
     $rand = rand(0, count($data));
+    
+    $randmovid = $data[$rand];
+
+    $moviequery = "SELECT * FROM movies WHERE `id`='$randmovid'";
+    $movresult = $db->query($moviequery);
+
+    while($movie = $movresult->fetch_assoc()) {
+        $movdata[] = $movie;
+    }
 
     header('Content-Type: application/json');
-    echo json_encode($data[$rand]);
+    echo json_encode($movdata[0]);
 });
+
+//get top movies
+$app->get('/api/top', function ($request, $response, $args) {
+    require_once('../dbconnect.php');
+
+    $query = "SELECT * FROM `movies` ORDER BY `movies`.`popularity` DESC LIMIT 10";
+
+    $result = $db->query($query);
+
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+
+    echo json_encode($data);
+})
+
 ?>

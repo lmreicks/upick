@@ -1,6 +1,14 @@
 <template [ngIf]="!!movie">
     <div>
-        You will be watching {{movie.title}}
-        Director: {{movie.director}}
+        <h4 *ngIf = "movie.title">You will be watching {{movie.title}}</h4><br>
+        <div *ngFor ="let item of movie.genre">
+            <h4 [routerLink]="['/../genre', item]">{{item}}</h4>
+        </div>
+        <h4 *ngIf = "movie.description">Description: {{movie.description}}</h4><br>
+        <h4 *ngIf = "movie.parental_rating">Parental Rating: {{movie.parental_rating}}</h4><br>
+        <h4 *ngIf = "movie.actors">Cast: {{movie.actors}}<br></h4>
+        <h4 *ngIf = "movie.director">Director: {{movie.director}}</h4>
+        <button [routerLink]="['']">Back to Categories</button>
+        <button [routerLink]="['/../genre']">Back to Genres</button>
     </div>
 </template>

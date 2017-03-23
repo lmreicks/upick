@@ -1,0 +1,17 @@
+.inline {
+    display: flex;
+}
+
+.list-panel {
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: lightblue;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.list-panel li{
+    list-style-type: none;
+    margin: 5px;
+    font-size: 20px; 
+}

@@ -1,5 +1,3 @@
-<h1>UPick</h1>
-<h2>Top Categories</h2>
 <div *ngFor="let category of categories">
-    <h3 [routerLink]="['/movie', category.id]">{{category.title}}</h3>
+    <h3 [routerLink]="['movies', category.id]">{{category.title}}</h3>
 </div>

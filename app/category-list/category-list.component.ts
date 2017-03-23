@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
 import { CategoryService } from '../services/categories.service';
 import { MovieService } from '../services/movie.service';
 
@@ -9,8 +10,10 @@ import { MovieService } from '../services/movie.service';
 })
 export class CategoryListComponent implements OnInit { 
   name = 'UPick'; 
-  constructor(private CatService: CategoryService,
-  private MovService: MovieService) {
+  constructor(
+    private CatService: CategoryService,
+    private MovService: MovieService,
+    private router: Router) {
 
   }
 
@@ -20,4 +23,5 @@ export class CategoryListComponent implements OnInit {
   ngOnInit() {
     this.CatService.getCategories().then(x => this.categories = x);
   }
+
 }

@@ -1,0 +1,18 @@
+<h1>{{category}}</h1>
+
+<div *ngFor="let movie of movies">
+
+<ol>
+    <!-- Click to Expand Panel -->
+    <li class="list-panel" (click)="toggleMove(movie)">{{movie.title}}</li>
+    </ol>
+    <div [@focusPanel]="movie.state==(undefined || 'active')?'active':'inactive'">
+        <p>{{movie.description}}</p>
+        <div *ngFor ="let item of movie.genre">
+            <p [routerLink]="['/../genre', item]">{{item}}</p>
+        </div>
+            <p>{{movie.director}}</p>
+            <p>{{movie.parental_rating}}</p>
+            <p>{{movie.actors}}</p>
+    </div>
+</div>
