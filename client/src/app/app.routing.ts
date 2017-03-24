@@ -19,7 +19,8 @@ const appRoutes: Routes = [
   // list of all movies in that genre using genre id
   { path: 'genre/:genre/:id', component: GenreDetailsComponent},
   // list of all genres
-  { path: 'genre', component: GenreComponent}
+  { path: 'genre', component: GenreComponent},
+  { path: '**', component: HomeComponent}
 ]
 
 export const appRoutingProviders: any[] = [];
