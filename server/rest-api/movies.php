@@ -1,24 +1,26 @@
 <?php
 //get all movie titles from this genre
-$app->get('/genres/{id}', function ($request, $response, $args) {
+$app->get('/genres/{id}/{page}', function ($request, $response, $args) {
     require_once('dbconnect.php');
 
     $id = $request->getAttribute('id');
+    $page = $request->getAttribute('page');
 
     $movielookup = "SELECT movieId FROM genre_lookup WHERE genreId='$id'";
 
     $movieIdresult = $db->query($movielookup);
-    
+
     while($movId = $movieIdresult->fetch_assoc()) {
         $movieId = $movId['movieId'];
-        $movieList = "SELECT * FROM movies WHERE id='$movieId' LIMIT 200";
+        $movieList = "SELECT * FROM movies WHERE id='$movieId'";
         $movieResult = $db->query($movieList);
         while($movie = $movieResult->fetch_assoc()) {
             $data[] = $movie;
         }
     }
     header('Content-Type: application/json');
-    echo json_encode($data);
+    $movies = array_slice($data, 20 * ($page - 1), 20);
+    echo json_encode($movies);
 });
 
 //Get random movie from genre

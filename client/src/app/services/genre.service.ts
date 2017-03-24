@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 
-import { Genres } from '../models/genre.model';
-import { MovieList } from '../models/movie-list.model';
-import { Movie } from '../models/movie.model'; 
+import { Genre } from '../models/genre.model';
  
 import 'rxjs/add/operator/toPromise';
 
@@ -14,7 +12,7 @@ export class GenreService {
   constructor(private http: Http) { };
 
 
-  getGenres(): Promise<Genres[]> {
+  getGenres(): Promise<Genre[]> {
     return this.http.get(this.baseUrl)
       .toPromise()
       .then(function(res) {
