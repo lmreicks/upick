@@ -24,32 +24,6 @@ export class MovieComponent implements OnInit{
   ) {}
 
   ngOnInit(){
-
-    this.route.params
-      .subscribe((params: Params) => {
-        let genreId = params['genreId']
-        let categoryId = params['categoryId']
-        if (genreId != null) {
-            this.getMovie("genre")
-        }
-        else if (categoryId != null) {
-            this.getMovie("category")
-            
-        }
-        else {
-          console.log(+params['genreId'])
-          console.log(params)
-          console.log('no category or genre id')
-        }
-      });
+    this.MovService.getRandom().then(res => this.movie = res);
   }
-
-getMovie(section:String) {
-  if (section == "genre") {
-    this.route.params
-    .switchMap((params: Params) => this.MovService.getRandomMovieByGenre(+params['genreId']))
-    .subscribe(res => this.movie = res)
-  }
-}
-
 }

@@ -50,6 +50,27 @@ $app->get('/api/genres/{id}/random', function ($request, $response, $args) {
     echo json_encode($movdata[0]);
 });
 
+$app->get('/api/movies', function ($request, $response, $args) {
+    require_once('../dbconnect.php');
+
+    $query = "SELECT id FROM movies";
+    $result = $db->query($query);
+
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+
+    $moviequery = "SELECT * FROM `movies` WHERE `id` = " . $rand;
+
+    $movieresult = $db->query($moviequery);
+
+    while ($movie = $movieresult->fetch_assoc()) {
+        $moviedata[] = $movie;
+    }
+
+    echo json_encode($moviedata);
+});
+
 //get top movies
 $app->get('/api/top', function ($request, $response, $args) {
     require_once('../dbconnect.php');

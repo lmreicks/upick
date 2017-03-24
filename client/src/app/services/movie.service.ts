@@ -22,8 +22,8 @@ export class MovieService {
       });
   }
 
-  getMovieDetails(id:number): Promise<Movie> {
-    return this.http.get(this.baseUrl + "movie/" + id)
+  getRandom(): Promise<Movie> {
+    return this.http.get(this.baseUrl + "movies")
     .toPromise()
     .then(function(res) {
       return res.json();

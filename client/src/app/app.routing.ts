@@ -10,9 +10,11 @@ import { GenreComponent} from './genre-list/genre-list.component';
 
 
 const appRoutes: Routes = [
-  //list of all genres
-  { path: '', component: HomeComponent },
+  //list of top most popular movies
+  { path: '', redirectTo: 'top', pathMatch: 'full'},
+  { path: 'top', component: HomeComponent },
   //random genre button // list of genres
+  { path: 'random', component: MovieComponent },
   { path: 'genre/random', component: GenreComponent },
   //random movie in that genre, genre title and movie id
   { path: 'genre/random/:genre/:id', component: GenreDetailsComponent},
