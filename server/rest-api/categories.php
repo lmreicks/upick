@@ -1,6 +1,6 @@
 <?php
 //Get all categories for the DB and return them to the client
-$app->get('/api/categories', function () {
+$app->get('/categories', function () {
     require_once('../dbconnect.php');
 
     $query = 'SELECT id,title FROM categories ORDER BY views DESC';

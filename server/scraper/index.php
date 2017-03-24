@@ -37,23 +37,23 @@ function getGenres() {
         }
     }
 
-    //$query = "INSERT INTO genres (id, name) VALUES " . implode(", " , $genreList) . ";";
-        //$result = $db->query($query);
-        //if(! $result) {
-        //    die("could not enter data: " . $db->error);
-        //}
+    $query = "INSERT INTO genres (id, name) VALUES " . implode(", " , $genreList) . ";";
+        $result = $db->query($query);
+        if(! $result) {
+            die("could not enter data: " . $db->error);
+        }
 
-        //echo "Data entered correctly";
-        //$db->close();
+        echo "Data entered correctly";
+        $db->close();
 }
 
-function getMoviesByGenre() { 
-    require_once('../dbconnect.php');
-
-    $movieRequest = "https://api.themoviedb.org/3/discover/movie?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US&include_adult=true&page=";
+function getMoviesByGenre($genreId) {
+    require('../dbconnect.php');
+    echo "Quering movies from genre: " . $genreId . "</br>";
+    $movieRequest = "https://api.themoviedb.org/3/discover/movie?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US&include_adult=true&with_genres=" . $genreId . "&page=";
     //15599 pages
-
-    for ($i = 1; $i < 40; $i++) {
+    echo "Using Query String " . $movieRequest . "</br>";
+    for ($i = 1; $i <= 40; $i++) {
         $response = curl($movieRequest . $i);
         $responseArray = json_decode($response, true);
 
@@ -80,15 +80,13 @@ function getMoviesByGenre() {
                             $posterPath = $movie['poster_path'];
                             // put each movie into an array in sql form
                             array_push($movieArray, "('" . $adult . "', '" . $movieId . "', '" . $language . "', '" . $title . "', '" . $overview . "', '" . $releasedate . "', '" . $popularity . "', '" . $voteAverage . "', '" . $voteCount . "', '" . $posterPath . "')");
-                            echo var_dump($movieArray);
+                            //echo var_dump($movieArray);
 
                             // loop through genres and put them into aray with movie id
                             //use this genre ids array to make a genre lookup table with movie ids
                             $genreIdArray = $movie['genre_ids'];
 
-                            for ($j = 0; $j < sizeof($genreIdArray); $j++) {
-                                array_push($lookupArray, "('" . $genreIdArray[$j] . "', '" . $movieId . "')");
-                            }
+                            array_push($lookupArray, "('" . $genreId . "', '" . $movieId . "')");
                         }
                     }
                 }
@@ -123,6 +121,7 @@ function getMoviesByGenre() {
 
 function fillgenrelookup() {
     require_once('../dbconnect.php');
+    echo "Connected";
 
     $movieQuery = "SELECT id FROM movies";
     $movResult = $db->query($movieQuery);
@@ -133,7 +132,28 @@ function fillgenrelookup() {
         $movieId = $row['id'];
     }
 }
-//getMoviesByGenre();
+
+function printGenres()
+{
+    require_once('../dbconnect.php');
+    $results = $db->query("SELECT * FROM genres");
+    $db->close();
+    while($row = $results->fetch_assoc()) {
+        getMoviesByGenre($row['id']);
+    }
+}
+
+function clearDb() 
+{
+    require_once('../dbconnect.php');
+    $db->query("DELETE FROM movies");
+    $db->query("DELETE FROM genre_lookup");
+    $db->close();
+}
+
+//clearDb();
+//printGenres();
+//getMoviesByGenre(12);
 //getGenres();
 
 ?>

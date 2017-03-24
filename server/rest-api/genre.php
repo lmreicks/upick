@@ -1,7 +1,7 @@
 <?php
 //Get genres, $app->get is configured in routing.php
-$app->get('/api/genre', function () {
-    require_once('../dbconnect.php');
+$app->get('/genre', function () {
+    require_once('dbconnect.php');
 
     $query = 'SELECT id, name FROM genres LIMIT 50';
 
@@ -16,8 +16,8 @@ $app->get('/api/genre', function () {
 
 });
 
-$app->get('/api/genre/{id}/random', function ($request, $response, $args) {
-    require_once('../dbconnect.php');
+$app->get('/genre/{id}/random', function ($request, $response, $args) {
+    require_once('dbconnect.php');
 
     $id = $request->getAttribute('id');
 
@@ -47,8 +47,8 @@ $app->get('/api/genre/{id}/random', function ($request, $response, $args) {
 });
 
 //get all movies from one genre
-$app->get('/api/genre/{id}', function ($request, $response, $args) {
-    require_once('../dbconnect.php');
+$app->get('/genre/{id}', function ($request, $response, $args) {
+    require_once('dbconnect.php');
 
     $id = $request->getAttribute('id');
 
