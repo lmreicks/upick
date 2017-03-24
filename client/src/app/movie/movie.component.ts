@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router} from '@angular/router';
 
 import { Movie } from '../models/movie.model';
 import { GenreService } from '../services/genre.service';
@@ -14,7 +14,7 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./movie.component.css']
 })
 export class MovieComponent implements OnInit{
-  movie: any;
+  movie: Movie;
 
   constructor(
     private MovService: MovieService,
@@ -23,7 +23,7 @@ export class MovieComponent implements OnInit{
     private router: Router
   ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.MovService.getRandom().then(res => this.movie = res);
   }
 }

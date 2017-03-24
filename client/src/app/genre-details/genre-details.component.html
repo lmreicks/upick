@@ -1,13 +1,12 @@
-<h1>{{genres}}</h1>
-
-<ul *ngFor="let movie of movies">
-    <!-- Click to Expand Panel -->
-    <div class="list-panel">
-        <li (click)="toggleMove(movie)">{{movie.title}}</li>
-    </div>
-    <div [@focusPanel]="movie.state==(undefined || 'active')?'active':'inactive'">
-        <p>{{movie.overview}}</p>
-        <p>{{movie.release_date}}</p>
+<h1 style="display: inline-block;">{{genre.name}}</h1><div class="btn btn-primary" style="float: right; margin: 20px 25px 10px 0px;">Random {{genre.name}} Movie</div>
+<div *ngIf="!!movies" style="display: flex; flex-wrap: wrap">
+    <div *ngFor="let movie of movies" style="width: 20%">
         <img src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" height="300px" width="200px">
+        <h3 class="text-center" style="width: 200px">{{movie.title}}</h3>
     </div>
-</ul>
+</div>
+
+<div *ngIf="!!movies" class="pageination">
+    <div *ngIf="page !== 1" class="btn" (click)="nextPage()"><i class="fa fa-arrow-left"></i> Prev </div>
+    <div *ngIf="page < 41" class="btn" (click)="nextPage()">Next <i class="fa fa-arrow-right"></i></div>
+</div>

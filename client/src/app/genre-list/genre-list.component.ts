@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Genres } from '../models/genre.model';
-import { ActivatedRoute, Params, Router } from '@angular/router'
-import { MovieService } from '../services/movie.service';
+import { Genre } from '../models/genre.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GenreService } from '../services/genre.service';
-import { MovieList } from '../models/movie-list.model'; 
+import { Movie } from '../models/movie.model';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -14,16 +13,14 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./genre-list.component.css'],
 })
 
-export class GenreComponent implements OnInit { 
-    constructor(
-    private GenService: GenreService,
-    private router: Router,
-    private route: ActivatedRoute) {
+export class GenreComponent implements OnInit {
+    genres: Genre[];
+    movie: any;
+    movies: Movie[];
 
-  }
-  genres: any[];
-  movie: any;
-  movies: MovieList[];
+    constructor(private GenService: GenreService,
+                private router: Router,
+                private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.GenService.getGenres().then(x => this.genres = x);
