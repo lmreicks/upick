@@ -30,6 +30,16 @@ export class MovieService {
     });
   }
 
+  getMoreInfo(id: number): Promise<Movie> {
+    return this.http.get(this.baseUrl + 'movies/' + id + '/more')
+      .toPromise()
+      .then(function(res) {
+        return res.json();
+      }, function(err) {
+        return err;
+      });
+  }
+
   getRandomMovieByGenre(id:number): Promise<Movie> {
     return this.http.get(this.baseUrl + 'genres/' + id + '/random')
       .toPromise()
