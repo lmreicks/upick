@@ -1,12 +1,19 @@
-<div class="header"><img src="./assets/Upick.png" height="70px">
-<ul>
-    <li><a [routerLink]="['/']">Home</a></li>
-    <li><a [routerLink]="['/genre']">Categories</a></li>
-    <li><a [routerLink]="['/genre']">Genre</a></li>                                                                                                                                                                                                                  
-    <li class="dropdown">
-        <a class="dropbtn" [routerLink]="['random']">Random</a>
-    </li>
-</ul>
+<div class="header">
+        <div class="container">
+            <img src="./assets/Upick.png" height="70px">
+        </div>
+        <div style="background-color: #44A1C2">
+            <div class="container">
+                <ul>
+                    <li><a [routerLink]="['/']">Home</a></li>
+                    <li><a [routerLink]="['/genre']">Categories</a></li>
+                    <li><a [routerLink]="['/genre']">Genre</a></li>                                                                                                                                                                                                                  
+                    <li class="dropdown">
+                        <a class="dropbtn" [routerLink]="['random']">Random</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
 </div>
 <div class="container">
     <router-outlet></router-outlet>
