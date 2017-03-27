@@ -1,9 +1,4 @@
-import { Component, OnInit,
-  trigger,
-  state,
-  style,
-  transition,
-  animate } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Genre } from '../models/genre.model';
 import { MovieService } from '../services/movie.service';
@@ -17,19 +12,6 @@ import 'rxjs';
   selector: 'genre-details',
   templateUrl: './genre-details.component.html',
   styleUrls: ['./genre-details.component.css'],
-  animations: [
-    trigger('focusPanel', [
-      state('inactive', style({
-        float: 'right',
-        display: 'none'
-      })),
-      state('active',   style({
-        display: 'block'
-      })),
-      transition('inactive => active', animate('100ms ease-in')),
-      transition('active => inactive', animate('100ms ease-out'))
-    ])
-  ]
 })
 
 export class GenreDetailsComponent implements OnInit {

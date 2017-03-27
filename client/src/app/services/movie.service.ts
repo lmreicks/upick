@@ -41,7 +41,7 @@ export class MovieService {
   }
 
   getRandomMovieByGenre(id:number): Promise<Movie> {
-    return this.http.get(this.baseUrl + 'genres/' + id + '/random')
+    return this.http.get(this.baseUrl + 'genre/' + id + '/random')
       .toPromise()
       .then(function(res) {
         return res.json();

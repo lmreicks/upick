@@ -24,7 +24,7 @@ $app->get('/genres/{id}/{page}', function ($request, $response, $args) {
 });
 
 //Get random movie from genre
-$app->get('/genres/{id}/random', function ($request, $response, $args) {
+$app->get('/genre/{id}/random', function ($request, $response, $args) {
     require_once('dbconnect.php');
 
     $id = $request->getAttribute('id');
@@ -45,11 +45,13 @@ $app->get('/genres/{id}/random', function ($request, $response, $args) {
     $movresult = $db->query($moviequery);
 
     while($movie = $movresult->fetch_assoc()) {
-        $movdata[] = $movie;
+        $movdata = $movie;
     }
 
+    //echo var_dump($movdata[0]);
     header('Content-Type: application/json');
-    echo json_encode($movdata[0]);
+    echo json_encode($movdata);
+
 });
 
 //get top movies
