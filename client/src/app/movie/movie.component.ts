@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 
 import { Movie } from '../models/movie.model';
 import { GenreService } from '../services/genre.service';
@@ -14,7 +14,11 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./movie.component.css']
 })
 export class MovieComponent implements OnInit{
-  movie: any;
+  movie: Movie;
+  genreId: number;
+  genreName: String;
+  movieId:number;
+  url:UrlSegment[];
 
   constructor(
     private MovService: MovieService,
@@ -23,33 +27,49 @@ export class MovieComponent implements OnInit{
     private router: Router
   ) {}
 
-  ngOnInit(){
+  ngOnInit() {
+    this.route.params.subscribe(res => this.genreId = res['id']);
+    this.route.params.subscribe(res => this.genreName = res['genre']);
+    this.route.params.subscribe(res => this.movieId = res['id']);
+    this.route.url.subscribe(res => this.url = res);
+    console.log(this.url[0]);
+    if (this.url[0].path === 'genre') {
+      this.getRandomFromGenre(this.genreId);
+    }
+    if (this.url[0].path === 'movie') {
+      this.getMovieInfo(this.movieId);
+    }
 
-    this.route.params
-      .subscribe((params: Params) => {
-        let genreId = params['genreId']
-        let categoryId = params['categoryId']
-        if (genreId != null) {
-            this.getMovie("genre")
-        }
-        else if (categoryId != null) {
-            this.getMovie("category")
-            
-        }
-        else {
-          console.log(+params['genreId'])
-          console.log(params)
-          console.log('no category or genre id')
-        }
-      });
+    if (this.url[0].path === 'random') {
+      this.getRandomAll();
+    }
   }
 
-getMovie(section:String) {
-  if (section == "genre") {
-    this.route.params
-    .switchMap((params: Params) => this.MovService.getRandomMovieByGenre(+params['genreId']))
-    .subscribe(res => this.movie = res)
+  getRandomFromGenre(id:number) {
+    this.MovService.getRandomMovieByGenre(id).then(res => this.movie = res);
   }
-}
+
+  getMovieInfo(id:number) {
+    this.MovService.getMoreInfo(id).then(res => this.movie = res);
+  } 
+
+  getRandomAll() {
+    this.MovService.getRandom().then(res => this.movie = res);
+  }
 
 }
+
+/*accepted
+To complement the two previous answers, Angular2 supports both query parameters and path variables within routing. In @RouteConfig definition, if you define parameters within a path, Angular2 handles them as path variables and as query parameters if not.
+
+Let's take a sample:
+
+@RouteConfig([
+  { path: '/:id', component: DetailsComponent, name: 'Details'}
+])
+If you call the navigate method of the router like this:
+
+this.router.navigate( [
+  'Details', { id: 'companyId', param1: 'value1'
+}]);
+*/

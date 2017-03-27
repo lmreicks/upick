@@ -1,7 +1,8 @@
 <h1>Top Ten</h1>
-<div class="home" *ngIf="!!movies">
-    <div *ngFor="let movie of movies">
-        <h3>{{movie.title}}</h3>
+<div class="home" *ngIf="!!movies" style="display: flex; flex-wrap: wrap">
+
+    <div *ngFor="let movie of movies" style="width: 20%; min-width: 210px;">
         <img src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" height="300px" width="200px">
+        <h3 class="text-center" style="width: 200px">{{movie.title}}</h3>
     </div>
 </div>

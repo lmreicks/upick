@@ -1,7 +1,7 @@
 <?php
 //Get genres, $app->get is configured in routing.php
-$app->get('/api/genre', function () {
-    require_once('../dbconnect.php');
+$app->get('/genre', function () {
+    require_once('dbconnect.php');
 
     $query = 'SELECT id, name FROM genres LIMIT 50';
 
@@ -16,39 +16,9 @@ $app->get('/api/genre', function () {
 
 });
 
-$app->get('/api/genre/{id}/random', function ($request, $response, $args) {
-    require_once('../dbconnect.php');
-
-    $id = $request->getAttribute('id');
-
-    $query = "SELECT * FROM genre_lookup WHERE `genreId`='$id'";
-
-    $result = $db->query($query);
-
-    while($row = $result->fetch_assoc()) {
-        $data[] = $row['movieId'];
-    }
-
-    $rand = rand(0, count($data));
-    
-    $randmovid = $data[$rand];
-
-    $moviequery = "SELECT * FROM movies WHERE `id`='$randmovid'";
-    $movresult = $db->query($moviequery);
-
-    while($movie = $movresult->fetch_assoc()) {
-        $movdata[] = $movie;
-    }
-
-    //echo var_dump($movdata[0]);
-    header('Content-Type: application/json');
-    echo json_encode($movdata[0]);
-
-});
-
 //get all movies from one genre
-$app->get('/api/genre/{id}', function ($request, $response, $args) {
-    require_once('../dbconnect.php');
+$app->get('/genre/{id}', function ($request, $response, $args) {
+    require_once('dbconnect.php');
 
     $id = $request->getAttribute('id');
 

@@ -1,0 +1,21 @@
+.u-container {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.genres {
+    display: inline-flex;
+    margin: 10px;
+    margin-top: 20px;
+}
+
+.btn {
+    background-color: lightgray;
+    font-size: 20px;
+}
+
+.btn:hover {
+    background-color: #44A1C2;
+}

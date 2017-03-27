@@ -1,3 +1,6 @@
-<div *ngFor="let genre of genres">
-    <h3 [routerLink]="[genre.name, genre.id]" >{{genre.name}}</h3>
+<div class="u-container">
+    <div class="genres" *ngFor="let genre of genres">
+        <button class="btn" [routerLink]="[genre.name, genre.id]" role="button">{{genre.name}}</button>
+    </div>
+    <button class="genres btn" role="button" [routerLink]="['../random']">Random</button>
 </div>
