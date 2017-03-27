@@ -11,11 +11,8 @@ const appRoutes: Routes = [
   // list of top most popular movies
   { path: '', redirectTo: 'top', pathMatch: 'full'},
   { path: 'top', component: HomeComponent },
-  // random genre button // list of genres
-  { path: 'random/all', component: MovieComponent },
   // random movie in that genre, genre title and movie id
   { path: 'movie/:id', component: MovieComponent },
-  { path: 'genre/random/:genre/:id', component: MovieComponent },
   // list of all movies in that genre using genre id
   { path: 'genre/:genre/:id', component: GenreDetailsComponent},
   // list of all genres

@@ -15,10 +15,7 @@ import 'rxjs/add/operator/switchMap';
 })
 export class MovieComponent implements OnInit{
   movie: Movie;
-  genreId: number;
-  genreName: String;
-  movieId:number;
-  url:UrlSegment[];
+  movieId:number
 
   constructor(
     private MovService: MovieService,
@@ -28,35 +25,10 @@ export class MovieComponent implements OnInit{
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(res => this.genreId = res['id']);
-    this.route.params.subscribe(res => this.genreName = res['genre']);
-    this.route.params.subscribe(res => this.movieId = res['id']);
-    this.route.url.subscribe(res => this.url = res);
-    console.log(this.url[0]);
-    if (this.url[0].path === 'genre') {
-      this.getRandomFromGenre(this.genreId);
-    }
-    if (this.url[0].path === 'movie') {
-      this.getMovieInfo(this.movieId);
-    }
-
-    if (this.url[0].path === 'random') {
-      this.getRandomAll();
-    }
+    this.route.params
+    .subscribe(res => this.movieId = +res['id']);
+    this.MovService.getMoreInfo(this.movieId).then(res => this.movie = res);
   }
-
-  getRandomFromGenre(id:number) {
-    this.MovService.getRandomMovieByGenre(id).then(res => this.movie = res);
-  }
-
-  getMovieInfo(id:number) {
-    this.MovService.getMoreInfo(id).then(res => this.movie = res);
-  } 
-
-  getRandomAll() {
-    this.MovService.getRandom().then(res => this.movie = res);
-  }
-
 }
 
 /*accepted
