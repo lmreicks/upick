@@ -88,14 +88,29 @@ $app->get('/movies', function ($request, $response, $args) {
     echo json_encode($movieresult->fetch_assoc());
 });
 
+function curl($url) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $data = curl_exec($ch);
+    $err = curl_error($ch);
+    curl_close($ch);
+    if ($data) {
+        return $data;
+    }
+    else {
+        return $err;
+    }
+}
+
 // Get more info about a movie, if we dont have it in the db, query the movie api
 $app->get('/movies/{id}/more', function ($request, $response, $args) {
     require_once('dbconnect.php');
     $id = $request->getAttribute('id');
     $query = "SELECT * FROM movies WHERE id =". $id;
     $movie = $db->query($query)->fetch_assoc();
-    $releaseDate[] = split('-', $movie['release_date']);
-    if($movie['hasExtraData'] == 1) {
+    $releaseDate[] = explode('-', $movie['release_date']);
+    if($movie['hasMoreInfo'] == 1) {
         echo json_encode($movie);
     } else {
         // We haven't fetched additional data yet, lets do it now
@@ -104,20 +119,26 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         $netflixresponse = curl($netflixApi);
         $trailerResponse = curl($getTrailerUrl);
 
-        $trailerResponseArray = json_encode($trailerResponse, true);
+        $trailerResponseArray = json_decode($trailerResponse, true);
         $netflixresponseArray = json_decode($netflixresponse, true);
-
-        foreach ($trailerResponseArray as $movie) {
-            $trailerKey = $movie['key'];
-        }
-
-        if (is_array($netflixresponseArray)) {
+        $trailerKey =  "'" . $trailerResponseArray['results'][0]['key'] . "'";
+        $netflixid = "NULL";
+        $cast = "NULL";
+        $director = "NULL";
+        $actors = "NULL";
+        if ($netflixresponseArray['errorcode'] == 404) {
+            // Movie is not on netflix
+        } else {
             foreach ($netflixresponseArray as $movie) {
-                $netflixid = $movie['show_id'];
-                $cast = $movie['cast'];
-                $director = $movie['director'];
+                $netflixid = "'" . $movie['show_id'] . "'";
+                $cast = "'" . $movie['cast'] . "'";
+                $director = "'" . $movie['director'] . "'";
             }
         }
+        $query = "UPDATE movies SET `hasMoreInfo`= 1, `netflix_id` = " . $netflixid . ", `actors` = " . $actors . ", `trailer_url` = " . $trailerKey . ", `director` = " . $director . " WHERE id=" . $id;
+        $db->query($query);
+        $movie = $db->query("SELECT * FROM movies WHERE id =". $id)->fetch_assoc();
+        echo json_encode($movie);
     }
 });
 

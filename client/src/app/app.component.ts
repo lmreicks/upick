@@ -15,8 +15,9 @@ export class AppComponent {
   constructor(public MovService: MovieService, public router: Router) {}
 
   getRandom() {
+    let vm = this;
     this.MovService.getRandom().then(function(res) {
-      this.router.navigate(['movie', res]);
+      vm.router.navigate(['movie', res.id]);
     });
   }
 }
