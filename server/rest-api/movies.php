@@ -91,20 +91,35 @@ $app->get('/movies', function ($request, $response, $args) {
 // Get more info about a movie, if we dont have it in the db, query the movie api
 $app->get('/movies/{id}/more', function ($request, $response, $args) {
     require_once('dbconnect.php');
-
     $id = $request->getAttribute('id');
-
     $query = "SELECT * FROM movies WHERE id =". $id;
     $movie = $db->query($query)->fetch_assoc();
-
+    $releaseDate[] = split('-', $movie['release_date']);
     if($movie['hasExtraData'] == 1) {
         echo json_encode($movie);
     } else {
         // We haven't fetched additional data yet, lets do it now
-        $movieUrl = "https://api.themoviedb.org/3/movie/" . $id . "?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US";
-        $response = curl($movieUrl);
-        $responseArray = json_decode($response, true);
+        $netflixApi = "http://netflixroulette.net/api/api.php?title=" . $movie['title'] . "&year=" . $releaseDate[0];
+        $getTrailerUrl = "https://api.themoviedb.org/3/movie/" . $id . "/videos?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US";
+        $netflixresponse = curl($netflixApi);
+        $trailerResponse = curl($getTrailerUrl);
+
+        $trailerResponseArray = json_encode($trailerResponse, true);
+        $netflixresponseArray = json_decode($netflixresponse, true);
+
+        foreach ($trailerResponseArray as $movie) {
+            $trailerKey = $movie['key'];
+        }
+
+        if (is_array($netflixresponseArray)) {
+            foreach ($netflixresponseArray as $movie) {
+                $netflixid = $movie['show_id'];
+                $cast = $movie['cast'];
+                $director = $movie['director'];
+            }
+        }
     }
 });
+
 
 ?>
