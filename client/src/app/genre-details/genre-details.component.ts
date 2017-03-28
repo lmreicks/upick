@@ -47,14 +47,18 @@ export class GenreDetailsComponent implements OnInit {
     }
 
     getRandom() {
+      let vm = this;
+
       this.MovService.getRandomMovieByGenre(this.genre.id).then(function(res) {
-        this.router.navigate(['movie', res.id]);
+        vm.router.navigate(['movie', res.id]);
       });
     }
     
     getMovieInfo(id:number) {
+      let vm = this;
+
       this.MovService.getMoreInfo(id).then(function(res) {
-        this.router.navigate(['movie', res]);
+        vm.router.navigate(['movie', res]);
       });
     }
 }

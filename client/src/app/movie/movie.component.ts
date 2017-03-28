@@ -30,18 +30,3 @@ export class MovieComponent implements OnInit{
     this.MovService.getMoreInfo(this.movieId).then(res => this.movie = res);
   }
 }
-
-/*accepted
-To complement the two previous answers, Angular2 supports both query parameters and path variables within routing. In @RouteConfig definition, if you define parameters within a path, Angular2 handles them as path variables and as query parameters if not.
-
-Let's take a sample:
-
-@RouteConfig([
-  { path: '/:id', component: DetailsComponent, name: 'Details'}
-])
-If you call the navigate method of the router like this:
-
-this.router.navigate( [
-  'Details', { id: 'companyId', param1: 'value1'
-}]);
-*/
