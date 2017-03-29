@@ -30,15 +30,17 @@ export class MovieComponent implements OnInit{
   ) {}
 
   ngOnInit() {
-    this.route.params
-    .subscribe(res => this.movieId = +res['id']);
-    // until we get api set up correctly, this will just get a random movie
-    this.MovService.getMoreInfo(this.movieId).then(res => {
-      this.movie = res;
-      if(this.movie.trailer_url) {
-        this.loadFrame(this.movie.trailer_url);
-      }
-    });
+    this.route.params.subscribe(param => {
+      this.movieId = +param['id'];
+
+      this.MovService.getMoreInfo(this.movieId).then(movie => {
+        this.movie = movie;
+        if(this.movie.trailer_url) {
+          this.loadFrame(this.movie.trailer_url);
+        }
+      });
+      
+    }); 
   }
 
   loadFrame(id:String) {
