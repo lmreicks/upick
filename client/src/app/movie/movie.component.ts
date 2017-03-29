@@ -33,14 +33,15 @@ export class MovieComponent implements OnInit{
     this.route.params
     .subscribe(res => this.movieId = +res['id']);
     // until we get api set up correctly, this will just get a random movie
-    this.MovService.getMoreInfo(this.movieId).then(res => this.movie = res);
+    this.MovService.getMoreInfo(this.movieId).then(res => {
+      this.movie = res;
+      if(this.movie.trailer_url) {
+        this.loadFrame(this.movie.trailer_url);
+      }
+    });
   }
 
   loadFrame(id:String) {
-    var iframe = document.getElementById('iframe');
-    var iWindow = (<HTMLIFrameElement>iframe).contentWindow;
-    var doc = (<HTMLIFrameElement>iframe).contentWindow.document;
-    doc.write("<h1>CLICK ME BITCH</h1>");
     this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + id);
   }
 
