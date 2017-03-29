@@ -114,7 +114,7 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         echo json_encode($movie);
     } else {
         // We haven't fetched additional data yet, lets do it now
-        $netflixApi = "http://netflixroulette.net/api/api.php?title=" . $movie['title'] . "&year=" . $releaseDate[0];
+        $netflixApi = "http://netflixroulette.net/api/api.php?title=" . $movie['title'] . "&year=" . $releaseDate[0][0];
         $getTrailerUrl = "https://api.themoviedb.org/3/movie/" . $id . "/videos?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US";
         $netflixresponse = curl($netflixApi);
         $trailerResponse = curl($getTrailerUrl);
@@ -122,20 +122,18 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         $trailerResponseArray = json_decode($trailerResponse, true);
         $netflixresponseArray = json_decode($netflixresponse, true);
         $trailerKey =  "'" . $trailerResponseArray['results'][0]['key'] . "'";
-        $netflixid = "NULL";
+        $Netid = "NULL";
         $cast = "NULL";
         $director = "NULL";
         $actors = "NULL";
         if ($netflixresponseArray['errorcode'] == 404) {
             // Movie is not on netflix
         } else {
-            foreach ($netflixresponseArray as $movie) {
-                $netflixid = "'" . $movie['show_id'] . "'";
-                $cast = "'" . $movie['cast'] . "'";
-                $director = "'" . $movie['director'] . "'";
-            }
+            $Netid = "'" . $netflixresponseArray["show_id"] . "'";
+            $cast = "'" . $netflixresponseArray['show_cast'] . "'";
+            $director = "'" . $netflixresponseArray['director'] . "'";
         }
-        $query = "UPDATE movies SET `hasMoreInfo`= 1, `netflix_id` = " . $netflixid . ", `actors` = " . $actors . ", `trailer_url` = " . $trailerKey . ", `director` = " . $director . " WHERE id=" . $id;
+        $query = "UPDATE movies SET `hasMoreInfo`= 1, `netflix_id` = " . $Netid . ", `actors` = " . $cast . ", `trailer_url` = " . $trailerKey . ", `director` = " . $director . " WHERE id=" . $id;
         $db->query($query);
         $movie = $db->query("SELECT * FROM movies WHERE id =". $id)->fetch_assoc();
         echo json_encode($movie);
