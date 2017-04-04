@@ -20,7 +20,7 @@
         </iframe>
 
         <div class="rec-wrapper" *ngIf="movie.recommended">
-            <div class="recommended" *ngFor="let item of movie.recommended">
+            <div class="recommended" *ngFor="let item of movie.recommended" [routerLink]="['/movie', item.id]">
                 <img class="poster" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" height="300px" width="200px">
                 <h5 class="rec-title">{{item.title}}</h5>
             </div>

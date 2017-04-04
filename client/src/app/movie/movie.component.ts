@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { ActivatedRoute, Router, UrlSegment, NavigationEnd } from '@angular/router';
 
 import { Movie } from '../models/movie.model';
 import { GenreService } from '../services/genre.service';
@@ -30,6 +30,12 @@ export class MovieComponent implements OnInit{
   ) {}
 
   ngOnInit() {
+    this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+    });
     this.route.params.subscribe(param => {
       this.movieId = +param['id'];
 
