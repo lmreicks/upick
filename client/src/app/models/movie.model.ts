@@ -10,4 +10,5 @@ export class Movie {
     poster_path: String;
     netflix_id: String;
     trailer_url: String;
+    recommended: Movie[];
 }

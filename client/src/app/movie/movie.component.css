@@ -1,3 +1,28 @@
-.directorcss {
-    display:none;
+.wrapper {
+    margin-top: 50px;
+}
+
+.movie-container {
+    display: inline-flex;
+}
+
+#poster {
+
+}
+
+#title {
+    font-size: 30px;
+}
+
+#date {
+    margin-left: 10px;
+    font-size: 30px;
+}
+
+.rec-wrapper {
+     display:inline-flex;
+}
+
+.recommended {
+    margin: 10px;
 }
