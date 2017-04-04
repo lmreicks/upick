@@ -1,6 +1,6 @@
 <?php
 //get all movie titles from this genre
-$app->get('/genres/{id}/{page}', function ($request, $response, $args) {
+$app->get('/genres/{id}/pagenumber={page}', function ($request, $response, $args) {
     require_once('dbconnect.php');
 
     $id = $request->getAttribute('id');
@@ -24,7 +24,7 @@ $app->get('/genres/{id}/{page}', function ($request, $response, $args) {
 });
 
 //Get random movie from genre
-$app->get('/genre/{id}/random', function ($request, $response, $args) {
+/*$app->get('/genre/{id}/random', function ($request, $response, $args) {
     require_once('dbconnect.php');
 
     $id = $request->getAttribute('id');
@@ -52,7 +52,7 @@ $app->get('/genre/{id}/random', function ($request, $response, $args) {
     header('Content-Type: application/json');
     echo json_encode($movdata);
 
-});
+});*/
 
 //get top movies
 $app->get('/top', function ($request, $response, $args) {
@@ -116,14 +116,18 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         $imdbresponse = curl($getIMDB);
         $imdbresponseArray = json_decode($imdbresponse, true);
         $imdbId = $imdbresponseArray['imdb_id'];
+        echo $imdbId;
         $imdbkey = "'" . $imdbresponseArray['imdb_id'] . "'";
-        $query = "UPDATE movies SET `imdb_id`= " . $imdbkey;
+        $query = "UPDATE movies SET `imdb_id`=" . $imdbkey . " WHERE `id`=" . $id;
+        echo $imdbId;
         $db->query($query);
     }
 
     if($movie['hasMoreInfo'] == 1) {
         echo json_encode($movie);
     } else {
+        $imdbId = $db->query("SELECT `imdb_id` FROM movies WHERE id =". $id)->fetch_assoc();
+        echo $imdbId;
         // We haven't fetched additional data yet, lets do it now
         $netflixApi = "http://netflixroulette.net/api/api.php?title=" . $movie['title'] . "&year=" . $releaseDate[0][0];
         $getTrailerUrl = "https://api.themoviedb.org/3/movie/" . $id . "/videos?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US";
@@ -140,9 +144,9 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         $openMovieResponseArray = json_decode($openMovieResponse, true);
         $recommendedResponseArray = json_decode($recommendedResponse, true);
 
-        echo json_encode($openMovieResponseArray);
-
         $trailerKey =  "'" . $trailerResponseArray['results'][0]['key'] . "'";
+
+        echo json_encode($openMovieResponseArray);
 
         $Netid = "NULL";
         $cast = "NULL";
@@ -150,29 +154,31 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         $actors = "NULL";
         $recommended = "NULL";
 
-        $parental_rating = "'" . $openMovieResponseArray['Rated'] . "'";
-        $ratings = $openMovieResponseArray['Ratings']['Source'];
-        $rottentomatoes = "'" . $ratings['Rotten Tomatoes']['Value'] . "'";
-        $imdbrating = "'" . $openMovieResponseArray['imdbRating'] . "'";
-        $plot = "'" . $openMovieResponseArray['Plot'] . "'";
+        if ($openMovieResponseArray['Response'] == true) {
+            $parental_rating = "'" . $openMovieResponseArray['Rated'] . "'";
+            $ratings = $openMovieResponseArray['Ratings']['Source'];
+            $rottentomatoes = "'" . $ratings['Rotten Tomatoes']['Value'] . "'";
+            $imdbrating = "'" . $openMovieResponseArray['imdbRating'] . "'";
+            $plot = "'" . $openMovieResponseArray['Plot'] . "'";
+            $cast = "'" . $openMovieResponseArray['Actors'] . "'";
+            $director = "'" . $openMovieResponseArray['Director'] . "'";
+        }
 
         //come back to this, should we just return the title, id, poster path?
         //$recommended = "'" . $recommendedResponseArray['']
 
         if ($netflixresponseArray['errorcode'] == 404) {
             // Movie is not on netflix
-            // get cast/director from imdb
-            $cast = "'" . $openMovieResponseArray['Actors'] . "'";
-            $director = "'" . $openMovieResponseArray['Director'] . "'";
         } else {
             $Netid = "'" . $netflixresponseArray["show_id"] . "'";
-            $cast = "'" . $netflixresponseArray['show_cast'] . "'";
-            $director = "'" . $netflixresponseArray['director'] . "'";
         }
-        $query = "UPDATE movies SET `hasMoreInfo`= 1, `netflix_id` = " . $Netid . ", `actors` = " . $cast . ", `trailer_url` = " . $trailerKey . ", `director` = " . $director . ", `imdb_rating` = " . $imdbrating . ", `parental_rating` = " . $parental_rating . ", `rotten_tomatoes` = " . $rottentomatoes . ", `recommended` = " . $recommended . " WHERE id=" . $id;
-        $db->query($query);
-        $movie = $db->query("SELECT * FROM movies WHERE id =". $id)->fetch_assoc();
-        echo json_encode($movie);
+
+        /*$query = "UPDATE movies SET `hasMoreInfo`= 1, `netflix_id` = " . $Netid . ", `actors` = " . $cast . ", `trailer_url` = " . $trailerKey . ", `director` = " . $director . ", `imdb_rating` = " . $imdbrating . ", `parental_rating` = " . $parental_rating . ", `rotten_tomatoes` = " . $rottentomatoes . ", `recommended` = " . $recommended . " WHERE id=" . $id;
+
+        $db->query($query);*/
+
+       /* $movie = $db->query("SELECT * FROM movies WHERE id =". $id)->fetch_assoc();
+        echo json_encode($movie);*/
     }
 });
 
