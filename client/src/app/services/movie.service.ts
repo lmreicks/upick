@@ -11,7 +11,7 @@ export class MovieService {
   constructor(private http: Http) { };
 
   getMoviesByGenre(id: number, pageNumber: number): Promise<Movie[]> {
-    return this.http.get(this.baseUrl + 'genres/' + id + '/movies/' + pageNumber)
+    return this.http.get(this.baseUrl + 'genre/' + id + '/movies/' + pageNumber)
       .toPromise()
       .then(function(res) {
         return res.json();
