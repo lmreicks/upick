@@ -20,5 +20,5 @@ export class GenreService {
       }, function(err) {
         return err;
       });
-  }
+  };
 }
