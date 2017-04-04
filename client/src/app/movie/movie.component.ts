@@ -19,6 +19,7 @@ export class MovieComponent implements OnInit{
   movieId:number;
   baseUrl:string = 'https://www.youtube.com/embed/';
   url:SafeResourceUrl;
+  trailer:boolean = false;
   startSrc:string = "about:blank";
 
   constructor(
@@ -45,6 +46,10 @@ export class MovieComponent implements OnInit{
 
   loadFrame(id:String) {
     this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + id);
+  }
+  
+  showTrailer() {
+    this.trailer = !this.trailer;
   }
 
 }

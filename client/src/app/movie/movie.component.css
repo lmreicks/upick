@@ -3,7 +3,7 @@
 }
 
 .movie-container {
-    display: inline-flex;
+    display:flex;
 }
 
 #poster {
@@ -19,10 +19,21 @@
     font-size: 30px;
 }
 
+.movie-rec-wrapper {
+    justify-content: center;
+    margin-top: 30px;
+    display:flex;
+}
+
 .rec-wrapper {
-     display:inline-flex;
+    text-align:center;
+}
+
+#line1 {
+    display:flex !important;
 }
 
 .recommended {
+    justify-content:center;
     margin: 10px;
 }

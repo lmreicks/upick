@@ -6,10 +6,8 @@
             <div class="container">
                 <ul>
                     <li><a [routerLink]="['/']">Home</a></li>
-                    <li><a [routerLink]="['/genre']">Genre</a></li>                                                                                                                                                                                                                  
-                    <li class="dropdown">
-                        <a class="dropbtn" (click)="getRandom()">Random</a>
-                    </li>
+                    <li><a [routerLink]="['/genre']">Genre</a></li>                                 
+                    <li><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
                 </ul>
             </div>
         </div>
