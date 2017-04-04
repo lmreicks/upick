@@ -22,7 +22,6 @@
         <div id="genres" *ngFor ="let item of movie.genre">
             <h4 [routerLink]="['/../genre', item]">{{item}}</h4>
         </div>
-
         <div class="col-sm-12 rec-wrapper" *ngIf="movie.recommended">
             <h3 id="rec">Recommended</h3>
             <div class="movie-rec-wrapper">
