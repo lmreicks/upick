@@ -11,7 +11,7 @@ export class MovieService {
   constructor(private http: Http) { };
 
   getMoviesByGenre(id: number, pageNumber: number): Promise<Movie[]> {
-    return this.http.get(this.baseUrl + 'genres/' + id + '/pagenumber=' + pageNumber)
+    return this.http.get(this.baseUrl + 'genre/' + id + '/movies/' + pageNumber)
       .toPromise()
       .then(function(res) {
         return res.json();
@@ -21,7 +21,7 @@ export class MovieService {
   }
 
   getRandom(): Promise<Movie> {
-    return this.http.get(this.baseUrl + 'movies')
+    return this.http.get(this.baseUrl + 'movies/random')
     .toPromise()
     .then(function(res) {
       return res.json();
@@ -51,7 +51,7 @@ export class MovieService {
   }
 
   getTopMovies(): Promise<Movie[]> {
-    return this.http.get(this.baseUrl + 'top')
+    return this.http.get(this.baseUrl + 'movies/top')
     .toPromise()
     .then(function(res) {
       return res.json();
