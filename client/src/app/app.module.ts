@@ -1,6 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, JsonpModule } from '@angular/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent }  from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -13,7 +14,7 @@ import { MovieService } from './services/movie.service';
 import { routing, appRoutingProviders } from './app.routing';
 
 @NgModule({
-  imports:      [ BrowserModule, HttpModule, JsonpModule, routing ],
+  imports:      [ BrowserModule, HttpModule, JsonpModule, routing, NgbModule.forRoot() ],
   declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent ],
   providers:    [ GenreService, MovieService, appRoutingProviders, GenreService ],
   bootstrap:    [ AppComponent ]
