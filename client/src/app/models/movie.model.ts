@@ -11,4 +11,6 @@ export class Movie {
     netflix_id: String;
     trailer_url: String;
     recommended: Movie[];
+    imdb_rating:number;
+    rotten_tomatoes:string;
 }

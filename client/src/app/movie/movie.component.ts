@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterContentChecked, TemplateRef } from '@angular/core';
-import { NgbModal, NgbActiveModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router, UrlSegment, NavigationEnd } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser"; 
 
 import { Movie } from '../models/movie.model';
 import { GenreService } from '../services/genre.service';
@@ -18,6 +17,31 @@ import 'slick-carousel';
   styleUrls: ['./movie.component.css'],
 })
 export class MovieComponent implements OnInit, AfterContentChecked {
+  public data:any = [];
+  public rottendata:any = [];
+  public type:string = 'doughnut';
+  public options:any = {
+    responsive:true,
+    legend:false,
+    tooltips: {
+      enabled:false,
+    }
+  };
+  public rottenoptions:any = {
+    responsive:true,
+    legend:false,
+    tooltips: {
+      enabled:false,
+    }
+  };
+  public colors:any[] = [{ 
+    backgroundColor: ["#2ADF2A", "#DF2A2A"],
+    borderColor: ["#2ADF2A", "#DF2A2A"]
+   }];
+  public rottencolors:any[] = [{ 
+    backgroundColor: ["#2ADF2A", "#DF2A2A"],
+    borderColor: ["#2ADF2A", "#DF2A2A"]
+  }];
   movie: Movie = new Movie();
   movieId:number;
   baseUrl:string = 'https://www.youtube.com/embed/';
@@ -25,14 +49,16 @@ export class MovieComponent implements OnInit, AfterContentChecked {
   trailer:boolean = false;
   startSrc:string = "about:blank";
   closeResult: string;
+  chart:boolean = false;
+  rottenchart:boolean = false;
+  slides:number = 4;
 
   constructor(
     private MovService: MovieService,
     private GenService: GenreService,
     private route: ActivatedRoute,
     private router: Router,
-    private sanitizer: DomSanitizer,
-    private modalService: NgbModal
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -50,19 +76,24 @@ export class MovieComponent implements OnInit, AfterContentChecked {
         if(this.movie.trailer_url) {
           this.loadFrame(this.movie.trailer_url);
         }
-      });
-      
+        if(this.movie.imdb_rating) {
+          this.loadImdb(this.movie.imdb_rating);
+        }
+        if(this.movie.rotten_tomatoes) {
+          this.loadRotten(parseInt(this.movie.rotten_tomatoes));
+        }
+      })
     });
   }
 
   ngAfterContentChecked() {
+
     $('.rec-slider').not('.slick-initialized').slick({
-          centerMode:true,
-          slidesToShow: 3,
+          slidesToShow: this.slides,
           arrows:true,
           slidesToScroll: 1,
           autoplay: true,
-          autoplaySpeed: 2000,
+          autoplaySpeed: 2000
         });
   }
 
@@ -70,8 +101,22 @@ export class MovieComponent implements OnInit, AfterContentChecked {
     this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + id);
   }
 
+  loadImdb(rating:number) {
+    this.data = [rating, 10 - rating];
+      this.chart = !this.chart;
+  }
+
+  loadRotten(rating:number) {
+    this.rottendata = [rating, 100 - rating];
+      this.rottenchart = !this.rottenchart;
+  }
+
   showTrailer() {
     this.trailer = !this.trailer;
+  }
+  
+  setSlides(event:any) {
+
   }
 
 }

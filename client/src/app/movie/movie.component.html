@@ -1,25 +1,62 @@
 <template [ngIf]="!!movie">
-    <div class="wrapper">
-        <div class="col-sm-4">
-            <img id="poster" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" height="450px" width="325px">
+    <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
+    <div class="container wrapper">
+        <div class="row">
+        <div class="col-xs-4">
+            <img *ngIf="movie.poster_path" id="poster" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" class="img-responsive">
         </div>
-        <div class="col-sm-8">
+        <div class="col-xs-7 description">
             <span id="line1">
                 <h4 id="title" *ngIf = "movie.title">{{movie.title}}</h4>
                 <h4 id="date" *ngIf="movie.release_date">({{movie.release_date.substring(0, 4)}})</h4>
-                <button class="btn"(mouseover)="showTrailer()">Hover For Trailer</button>
-                <!--<a *ngIf="movie.netflix_id" href="https://netflix.com/watch/{{movie.netflix_id}}">
-                <img src="http://appsforlaptop.com/wp-content/uploads/2017/02/com.netflix.mediaclient.png" height="50px" width="50px"></a>-->
+                <button class="btn trailer_button" (click)="showTrailer()">Trailer</button>
             </span>
+            <ul>
+                <li>
+                    <div *ngIf="chart">
+                        <div class="chart">
+                        <canvas height="100%" width="100%" id="chart"
+                            baseChart
+                            [colors]="colors"
+                            [data]="data"
+                            [options]="options"
+                            [chartType]="type">
+                        </canvas>
+                        </div>
+                        <p>IMDB Rating</p>
+                    </div>
+                </li>
+                <li>
+                    <div *ngIf="rottenchart">
+                        <div class="chart">
+                        <canvas height="100%" width="100%" id="chart"
+                            baseChart
+                            [colors]="rottencolors"
+                            [data]="rottendata"
+                            [options]="rottenoptions"
+                            [chartType]="type">
+                        </canvas>
+                        </div>
+                        <p>Rotten Tomatoes</p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                    <a *ngIf="movie.netflix_id" href="https://netflix.com/watch/{{movie.netflix_id}}"><img src="https://img.clipartfest.com/150375db1abffd280f73465b3e236510_client-logo-netflix-logo-png-netflix-clipart-transparent_720-377.png" height="100px" width="200px"></a>
+                    </div>
+                </li>
+            </ul>
             <iframe id="iframe" *ngIf="movie.trailer_url && url && trailer"
                 width="510" height="400"
                 [src]="url">
             </iframe>
-            <h4 *ngIf = "movie.overview">Description: {{movie.overview}}</h4><br>
-            <h4 *ngIf = "movie.actors">Cast: {{movie.actors}}<br></h4>
+            <h4 *ngIf="movie.overview">Description: {{movie.overview}}</h4>
+            <h4 *ngIf = "movie.actors">Cast: {{movie.actors}}</h4>
             <h4 *ngIf = "movie.director">Director: {{movie.director}}</h4>
         </div>
-        <div class="col-sm-11 rec-wrapper">
+        </div>
+        <div class="col-sm-12 rec-wrapper">
+            <h3 id="rec">Recommened</h3><br>
             <div class="col-sm-10">
             <div class="rec-slider" *ngIf="movie.recommended">
                 <div style="cursor:pointer" *ngFor="let item of movie.recommended" [routerLink]="['/movie', item.id]">
