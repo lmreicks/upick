@@ -16,6 +16,7 @@
                     <div *ngIf="chart">
                         <div class="chart">
                         <canvas height="100%" width="100%" id="chart"
+                            #thischart
                             baseChart
                             [colors]="colors"
                             [data]="data"
@@ -30,15 +31,22 @@
                     <div *ngIf="rottenchart">
                         <div class="chart">
                         <canvas height="100%" width="100%" id="chart"
+                            #thischart
                             baseChart
                             [colors]="rottencolors"
                             [data]="rottendata"
                             [options]="rottenoptions"
                             [chartType]="type">
                         </canvas>
+                        <!--<span id="percent"><h4>75</h4><i class="fa fa-percent" style="font-size:8px;" aria-hidden="true"></i></span>-->
                         </div>
                         <p>Rotten Tomatoes</p>
                     </div>
+                </li>
+                <li>
+                    <!--<div class="rating">
+                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                    </div>-->
                 </li>
                 <li>
                     <div>
@@ -50,9 +58,26 @@
                 width="510" height="400"
                 [src]="url">
             </iframe>
-            <h4 *ngIf="movie.overview">Description: {{movie.overview}}</h4>
-            <h4 *ngIf = "movie.actors">Cast: {{movie.actors}}</h4>
-            <h4 *ngIf = "movie.director">Director: {{movie.director}}</h4>
+            <div class="panel panel-default">
+                <div *ngIf="movie.overview" class="panel-heading">
+                    <h3 class="panel-title">Description</h3>
+                </div>
+                <div class="panel-body">
+                    {{movie.overview}}
+                </div>
+                <div *ngIf = "movie.actors" class="panel-heading">
+                    <h3 class="panel-title">Cast</h3>
+                </div>
+                <div *ngIf = "movie.actors" class="panel-body">
+                    {{movie.actors}}
+                </div>
+                <div *ngIf = "movie.director" class="panel-heading">
+                    <h3 class="panel-title">Director</h3>
+                </div>
+                <div *ngIf = "movie.director" class="panel-body">
+                    {{movie.director}}
+                </div>
+            </div>
         </div>
         </div>
         <div class="col-sm-12 rec-wrapper">

@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterContentChecked, TemplateRef } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, OnInit, AfterContentChecked, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment, NavigationEnd } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser"; 
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 import { Movie } from '../models/movie.model';
 import { GenreService } from '../services/genre.service';
@@ -23,6 +23,7 @@ export class MovieComponent implements OnInit, AfterContentChecked {
   public options:any = {
     responsive:true,
     legend:false,
+    cutoutPercentage: 75,
     tooltips: {
       enabled:false,
     }
@@ -30,17 +31,18 @@ export class MovieComponent implements OnInit, AfterContentChecked {
   public rottenoptions:any = {
     responsive:true,
     legend:false,
+    cutoutPercentage: 75,
     tooltips: {
       enabled:false,
     }
   };
   public colors:any[] = [{ 
-    backgroundColor: ["#2ADF2A", "#DF2A2A"],
-    borderColor: ["#2ADF2A", "#DF2A2A"]
+    backgroundColor: ["#006494", "#44A1C2"],
+    borderColor: ["#006494", "#44A1C2"]
    }];
   public rottencolors:any[] = [{ 
-    backgroundColor: ["#2ADF2A", "#DF2A2A"],
-    borderColor: ["#2ADF2A", "#DF2A2A"]
+    backgroundColor: ["#006494", "#44A1C2"],
+    borderColor: ["#006494", "#44A1C2"]
   }];
   movie: Movie = new Movie();
   movieId:number;
@@ -51,7 +53,6 @@ export class MovieComponent implements OnInit, AfterContentChecked {
   closeResult: string;
   chart:boolean = false;
   rottenchart:boolean = false;
-  slides:number = 4;
 
   constructor(
     private MovService: MovieService,
@@ -87,9 +88,8 @@ export class MovieComponent implements OnInit, AfterContentChecked {
   }
 
   ngAfterContentChecked() {
-
     $('.rec-slider').not('.slick-initialized').slick({
-          slidesToShow: this.slides,
+          slidesToShow: 4,
           arrows:true,
           slidesToScroll: 1,
           autoplay: true,
@@ -102,12 +102,12 @@ export class MovieComponent implements OnInit, AfterContentChecked {
   }
 
   loadImdb(rating:number) {
-    this.data = [rating, 10 - rating];
+    this.data = [10 - rating, rating];
       this.chart = !this.chart;
   }
 
   loadRotten(rating:number) {
-    this.rottendata = [rating, 100 - rating];
+    this.rottendata = [100 - rating, rating];
       this.rottenchart = !this.rottenchart;
   }
 
