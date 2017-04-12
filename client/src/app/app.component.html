@@ -3,7 +3,7 @@
 <div class="header">
         <div style="background-color: #44A1C2">
             <div class="container">
-                <ul>
+                <ul class="main-nav">
                     <li class="nav"><a [routerLink]="['/']" style="padding:0;">
                             <img id="upick" src="./assets/Upick.png" height="70px">
                     </a></li>
@@ -15,10 +15,7 @@
                         <div (click)="searchVisible = !searchVisible" id="mobile-search-tab"><i class="fa fa-search fa-2x" aria-hidden="true"></i>
                         </div>
                         <div class="input-group search-bar">
-                            <input type="text" class="form-control" placeholder="Search.." [(ngModel)]="query"/>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" (click)="movieSearch()">Search</button>
-                            </span>
+                            <input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
                         </div>
                     </li>
                 </ul>
@@ -40,12 +37,22 @@
                 </ul>
 
                 <div class="input-group search-active" [ngClass]="{'mobile-search': searchVisible }">
-                    <input type="text" class="form-control" placeholder="Search.." [(ngModel)]="query"/>
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" (click)="movieSearch()">Search</button>
-                    </span>
+                    <!--<input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
+                    <ul>
+                        <li *ngFor="let item of searchItems">{{item}}</li>
+                    </ul>-->
                 </div>
             </div>
+        </div>
+        <div>
+            <ul class="dropdown" *ngIf=!!searchItems>
+                <div class=searchItem *ngFor="let movie of searchItems;  let l = last">
+                    <li>
+                        <a [routerLink]="['/movie', movie.id]">{{movie.title}}</a>
+                    </li>
+                    <hr *ngIf=!l/>
+                </div>
+            </ul>
         </div>
 </div>
 <div class="container router">
