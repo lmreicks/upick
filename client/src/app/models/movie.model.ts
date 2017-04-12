@@ -1,4 +1,4 @@
-import { Genre } from "./genre.model";
+import { Genre } from './genre.model';
 
 export class Movie {
     id: String;
@@ -13,8 +13,8 @@ export class Movie {
     netflix_id: String;
     trailer_url: String;
     recommended: Movie[];
-    imdb_rating:number;
-    rotten_tomatoes:string;
-    genres:Genre[];
-    gomovies_id:string;
+    imdb_rating: number;
+    rotten_tomatoes: string;
+    genres: Genre[];
+    gomovies_id: string;
 }

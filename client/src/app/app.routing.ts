@@ -6,7 +6,7 @@ import { MovieComponent } from './movie/movie.component';
 import { NowPlayingComponent } from './now-playing/now-playing.component';
 import { GenreDetailsComponent } from './genre-details/genre-details.component';
 import { GenreComponent} from './genre-list/genre-list.component';
-import { PageNotFound } from './notfound/notfound.component';  
+import { PageNotFound } from './404/notfound.component';
 
 
 const appRoutes: Routes = [
@@ -20,8 +20,8 @@ const appRoutes: Routes = [
   { path: 'genre/:genre/:id', component: GenreDetailsComponent},
   // list of all genres
   { path: 'genre', component: GenreComponent},
-  { path: '**', component: PageNotFound },
-  { path: 'PageNotFound', component: PageNotFound}
+  // { path: '404', component: PageNotFound},
+  // {path: '**', redirectTo: '/404'}
 ]
 
 export const appRoutingProviders: any[] = [];

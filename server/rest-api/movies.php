@@ -87,12 +87,12 @@ $app->get('/movies/search', function ($request, $response, $args) {
 
     $queryString = $request->getQueryParams();
 
-    $query = "SELECT * FROM movies WHERE `title` LIKE '" . rawurldecode($queryString['query']) . "'";
+    $query = "SELECT * FROM movies WHERE `title` LIKE '%" . rawurldecode($queryString['query']) . "%' LIMIT 5";
 
     $result = $db->query($query);
 
     while ($row = $result->fetch_assoc()) {
-        $movies = $row;
+        $movies[] = $row;
     }
     echo json_encode($movies);
 });
