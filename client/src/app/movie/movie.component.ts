@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, ViewChild, OnInit, AfterContentChecked, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment, NavigationEnd } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import 'chart.js';
 
 import { Movie } from '../models/movie.model';
 import { GenreService } from '../services/genre.service';
