@@ -1,4 +1,4 @@
-<ng-template [ngIf]="!!movie">
+<template [ngIf]="!!movie">
     <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
     <div class="container wrapper">
         <div class="row">
@@ -89,13 +89,15 @@
             <h3 id="rec">Recommened</h3><br>
             <div class="col-sm-10">
             <div class="rec-slider" *ngIf="movie.recommended">
-                <div style="cursor:pointer" *ngFor="let item of movie.recommended" [routerLink]="['/movie', item.id]">
-                    <img class="poster" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" height="300px" width="200px">
-                    <h5 class="rec-title">{{item.title}}</h5>
+                <div style="cursor:pointer" *ngFor="let item of movie.recommended">
+                    <div *ngIf="item != null" [routerLink]="['/movie', item.id]">
+                        <img class="poster" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" height="300px" width="200px">
+                        <h5 class="rec-title">{{item.title}}</h5>
+                    </div>
                 </div>
             </div>
             </div>
         </div>
     </div>
 
-</ng-template>
+</template>

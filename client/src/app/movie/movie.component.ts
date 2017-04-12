@@ -124,9 +124,5 @@ export class MovieComponent implements OnInit, AfterContentChecked {
   showTrailer() {
     this.trailer = !this.trailer;
   }
-  
-  setSlides(event:any) {
-
-  }
 
 }

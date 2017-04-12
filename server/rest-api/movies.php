@@ -170,7 +170,7 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         $getMovie = "https://gomovies.to/movie/search/" . $title;
         $fileoutput = @file_get_contents($getMovie);
 
-        //if ($fileoutput === TRUE) {
+        if ($fileoutput == TRUE) {
             $doc = new DOMDocument();
             libxml_use_internal_errors(true);
             $doc->loadHTML($fileoutput);
@@ -185,7 +185,7 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
             }
             $query = "UPDATE movies SET `gomovies_id`=" . $gomovieid . " WHERE `id`=" . $id;
             $db->query($query);
-        //}
+        }
     }
 
     $releaseDate[] = explode('-', $movie['release_date']);
@@ -208,9 +208,12 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         $recommendedString = implode(',', $recommendedIds);
         $query = "SELECT * FROM movies WHERE id in (". $recommendedString.")";
         $movieResult = $db->query($query);
+//if no result skip
 
-        while($movieRes = $movieResult->fetch_assoc()) {
-            $movies[] = $movieRes;
+        if ($movieResult) {
+            while($movieRes = $movieResult->fetch_assoc()) {
+                $movies[] = $movieRes;
+            }
         }
         $movie['recommended'] = $movies;
         $movie['genres'] = $genres;
