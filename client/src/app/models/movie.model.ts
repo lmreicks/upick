@@ -1,3 +1,5 @@
+import { Genre } from "./genre.model";
+
 export class Movie {
     id: String;
     language: String;
@@ -13,4 +15,6 @@ export class Movie {
     recommended: Movie[];
     imdb_rating:number;
     rotten_tomatoes:string;
+    genres:Genre[];
+    gomovies_id:string;
 }

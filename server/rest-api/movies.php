@@ -14,10 +14,37 @@ $app->get('/movies/top', function ($request, $response, $args) {
     echo json_encode($data);
 });
 
+//get now playing
+$app->get('/movies/nowplaying', function ($request, $response, $args) {
+    require_once('dbconnect.php');
+
+//query the movie db for movies now playing
+    $requestUrl = "https://api.themoviedb.org/3/movie/now_playing?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US";
+    $response = curl($requestUrl);
+    $responseArray = json_decode($response, true);
+
+    $movieIds = Array();
+
+    foreach ($responseArray['results'] as $movie) {
+        array_push($movieIds, $movie['id']);
+    }
+
+    $idString = implode(',', $movieIds);
+
+    $query = "SELECT * FROM `movies` WHERE id in (" . $idString . ")";
+    $result = $db->query($query);
+
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+
+    echo json_encode($data);
+});
+
 $app->get('/movies/random', function ($request, $response, $args) {
     require_once('dbconnect.php');
 
-    $query = "SELECT * FROM movies";
+    $query = "SELECT id FROM movies";
     $result = $db->query($query);
 
     while ($row = $result->fetch_assoc()) {
@@ -57,16 +84,17 @@ $app->get('/movies/netflix/random', function ($request, $response, $args) {
 
 $app->get('/movies/search', function ($request, $response, $args) {
     require_once('dbconnect.php');
+
     $queryString = $request->getQueryParams();
 
-    $query = "SELECT * FROM movies WHERE `title` LIKE '" . rawurldecode($queryString['param']) . "'";
-    
+    $query = "SELECT * FROM movies WHERE `title` LIKE '" . rawurldecode($queryString['query']) . "'";
+
     $result = $db->query($query);
 
     while ($row = $result->fetch_assoc()) {
-        $movies[] = $row;
+        $movies = $row;
     }
-    echo json_encode($movies);    
+    echo json_encode($movies);
 });
 
 $app->get('/movies/netflix', function ($request, $response, $args) {
@@ -102,7 +130,64 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
     require_once('dbconnect.php');
     $id = $request->getAttribute('id');
     $query = "SELECT * FROM movies WHERE id =". $id;
-    $movie = $db->query($query)->fetch_assoc();
+
+    $movie = $db->query($query);
+    if ($movie->num_rows <= 0) {
+        // query tmdb, add new movie
+        echo "no results";
+    }
+    
+    else {
+    $movie = $movie->fetch_assoc();
+
+    $queryGenre = "SELECT * FROM genre_lookup WHERE `movieId`= " . $id;
+    $genreList = $db->query($queryGenre);
+
+    while($row = $genreList->fetch_assoc()) {
+        $genreIdArray[] = $row['genreId'];
+    }
+
+    $queryGenreTitle = "SELECT * FROM genres WHERE id in (" . implode(",", $genreIdArray) . ")";
+
+    $genreTitleList = $db->query($queryGenreTitle);
+
+    if(! $genreTitleList) {
+        die("could not enter data: " . $db->error);
+    }
+    else {
+
+        while($row = $genreTitleList->fetch_assoc()) {
+            $genres[] = $row;
+        }
+    }
+
+    if ($movie['gomovies_id'] == 'NULL' || $movie['gomovies_id'] == NULL || $movie['gomovies_id'] == "") {
+        $badchars = array(":", "&", "!", "?", ".");
+        $title = substr(preg_replace("/ /", "+", $movie['title']), 0, 50);
+        $title = str_replace($badchars, "", $title);
+        $title = strtolower($title);
+
+        $getMovie = "https://gomovies.to/movie/search/" . $title;
+        $fileoutput = @file_get_contents($getMovie);
+
+        //if ($fileoutput === TRUE) {
+            $doc = new DOMDocument();
+            libxml_use_internal_errors(true);
+            $doc->loadHTML($fileoutput);
+            libxml_use_internal_errors(false);
+            $items = $doc->getElementsByTagName("div");
+            $gomovieid = "";
+            foreach ($items as $item) {
+                if ($item->getAttribute('data-movie-id') !== "") {
+                    $gomovieid = "'" . $item->getAttribute('data-movie-id') . "'";
+                    break;
+                }
+            }
+            $query = "UPDATE movies SET `gomovies_id`=" . $gomovieid . " WHERE `id`=" . $id;
+            $db->query($query);
+        //}
+    }
+
     $releaseDate[] = explode('-', $movie['release_date']);
     //if we don't have an imdb key, get it.'
     if ($movie['imdb_id'] == 'NULL' || $movie['imdb_id'] == NULL) {
@@ -116,7 +201,7 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
     } else {
         $imdbId = $movie['imdb_id'];
     }
-
+    //if have more info, just get recommended and genres, echo result
     if($movie['hasMoreInfo'] == 1) {
         $recommendedIds = explode(',', $movie['recommended']);
         shuffle($recommendedIds);
@@ -128,6 +213,7 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
             $movies[] = $movieRes;
         }
         $movie['recommended'] = $movies;
+        $movie['genres'] = $genres;
         echo json_encode($movie);
     } else {
         // We haven't fetched additional data yet, lets do it now
@@ -193,13 +279,40 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         $recommendedString = implode(',', $recommendedIds);
         $query = "SELECT * FROM movies WHERE id in (". $recommendedString.")";
         $movieResult = $db->query($query);
-        while($movieRes = $movieResult->fetch_assoc()) {
-            $movies[] = $movieRes;
+        if ($movieResult->num_rows > 0 ) {
+            while($movieRes = $movieResult->fetch_assoc()) {
+                $movies[] = $movieRes;
+            }
+        }
+        else {
+            $movies[] = null;
         }
         $movie['recommended'] = $movies;
+        $movie['genres'] = $genres;
+
         echo json_encode($movie);
+    }
     }
 });
 
+$app->get('/test/{id}', function ($request, $response, $args) {
+    require_once('dbconnect.php');
+
+    $id = $request->getAttribute('id');
+    $query = "SELECT * FROM movies WHERE id =". $id;
+
+    $movie = $db->query($query)->fetch_assoc();
+
+    if ($movie['gomovies_id'] == 'NULL') {
+        $getMovie = "https://gomovies.to/movie/search/" . preg_replace("/ /", "+", $movie['title']);
+        $fileoutput = file_get_contents($getMovie);
+        $doc = new DOMDocument();
+        $doc->loadHTML($fileoutput);
+        $items = $doc->getElementsByTagName("div");
+        foreach ($items as $item) {
+            $movieid = $item->getAttribute('data-movie-id');
+        }
+    }
+});
 
 ?>

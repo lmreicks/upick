@@ -53,6 +53,8 @@ export class MovieComponent implements OnInit, AfterContentChecked {
   closeResult: string;
   chart:boolean = false;
   rottenchart:boolean = false;
+  gomovies:any;
+  urltitle:any;
 
   constructor(
     private MovService: MovieService,
@@ -71,6 +73,8 @@ export class MovieComponent implements OnInit, AfterContentChecked {
     });
     this.route.params.subscribe(param => {
       this.movieId = +param['id'];
+      /*this.MovService.getTest(this.movieId).then(movie => {
+        this.movie = movie;*/
 
       this.MovService.getMoreInfo(this.movieId).then(movie => {
         this.movie = movie;
@@ -82,6 +86,11 @@ export class MovieComponent implements OnInit, AfterContentChecked {
         }
         if(this.movie.rotten_tomatoes) {
           this.loadRotten(parseInt(this.movie.rotten_tomatoes));
+        }
+        if(this.movie.title && this.movie.gomovies_id) {
+          this.urltitle = this.movie.title;
+          this.gomovies = "https://gomovies.to/film/" + this.urltitle.toLowerCase().replace(/ /g, "\-") + "-" + this.movie.gomovies_id;
+          console.log(this.gomovies);
         }
       })
     });

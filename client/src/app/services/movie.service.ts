@@ -34,6 +34,17 @@ export class MovieService {
     return this.http.get(this.baseUrl + 'movies/' + id + '/more')
       .toPromise()
       .then(function(res) {
+        console.log(res.json());
+        return res.json();
+      }, function(err) {
+        return err;
+      });
+  }
+
+  getTest(id:number): Promise<Movie> {
+    return this.http.get(this.baseUrl + 'test/' + id)
+      .toPromise()
+      .then(function(res) {
         return res.json();
       }, function(err) {
         return err;
@@ -52,6 +63,26 @@ export class MovieService {
 
   getTopMovies(): Promise<Movie[]> {
     return this.http.get(this.baseUrl + 'movies/top')
+    .toPromise()
+    .then(function(res) {
+      return res.json();
+    }, function(err) {
+      return err;
+    });
+  }
+
+  getNowPlaying(): Promise<Movie[]> {
+    return this.http.get(this.baseUrl + 'movies/nowplaying')
+    .toPromise()
+    .then(function(res) {
+      return res.json();
+    }, function(err) {
+      return err;
+    });
+  }
+
+  movieSearch(query:string): Promise<Movie> {
+    return this.http.get(this.baseUrl + 'movies/search?query=' + query)
     .toPromise()
     .then(function(res) {
       return res.json();
