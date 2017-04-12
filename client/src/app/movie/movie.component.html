@@ -2,8 +2,13 @@
     <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
     <div class="container wrapper">
         <div class="row">
-        <div class="col-xs-4">
+        <div class="col-xs-4 poster">
             <img *ngIf="movie.poster_path" id="poster" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" class="img-responsive">
+            <div class="genre-wrapper">
+                <div class="genres" *ngFor="let genre of movie.genres">
+                    <button class="btn" [routerLink]="['../../genre', genre.name, genre.id]" role="button">{{genre.name}}</button>
+                </div>
+            </div>
         </div>
         <div class="col-xs-7 description">
             <span id="line1">
@@ -44,9 +49,9 @@
                     </div>
                 </li>
                 <li>
-                    <!--<div class="rating">
-                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                    </div>-->
+                    <div *ngIf="movie.gomovies_id">
+                        <a [href]="gomovies"><img src="https://gomovies.to/assets/images/gomovies-logo-light.png" id="gomovies2" class="img-responsive"></a>
+                    </div>
                 </li>
                 <li>
                     <div>

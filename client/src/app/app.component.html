@@ -1,17 +1,68 @@
+<!--992 mobile-->
+
 <div class="header">
-        <div class="container">
-            <img src="./assets/Upick.png" height="70px">
-        </div>
         <div style="background-color: #44A1C2">
             <div class="container">
                 <ul>
-                    <li><a [routerLink]="['/']">Home</a></li>
-                    <li><a [routerLink]="['/genre']">Genre</a></li>                                 
-                    <li><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
+                    <li class="nav"><a [routerLink]="['/']" style="padding:0;">
+                            <img id="upick" src="./assets/Upick.png" height="70px">
+                    </a></li>
+                    <li class="nav" ><a [routerLink]="['/']">Home</a></li>
+                    <li class="nav" ><a [routerLink]="['/genre']">Genre</a></li>   
+                    <li class="nav" ><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
+                    <li class="nav" ><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
+                    <li>
+                        <div (click)="searchVisible = !searchVisible" id="mobile-search-tab"><i class="fa fa-search fa-2x" aria-hidden="true"></i>
+                        </div>
+                        <div class="input-group search-bar">
+                            <input type="text" class="form-control" placeholder="Search.." [(ngModel)]="query"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" (click)="movieSearch()">Search</button>
+                            </span>
+                        </div>
+                    </li>
                 </ul>
+                <div class="mobile">
+                        <div (click)="navVisible = !navVisible" id="mobile-nav"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></div>
+                    <div>
+                        <a [routerLink]="['/']" style="padding:0;">
+                            <img id="upick" src="./assets/Upick.png" height="70px">
+                        </a>
+                    </div>
+                        <div (click)="searchVisible = !searchVisible" id="mobile-search"><i class="fa fa-search fa-2x" aria-hidden="true"></i></div>
+                </div>
+
+                <ul class="nav-active" [ngClass]="{'mobile-nav': navVisible }">
+                    <li class="nav-link"><a [routerLink]="['/']">Home</a></li>
+                    <li class="nav-link"><a [routerLink]="['/genre']">Genre</a></li>   
+                    <li class="nav-link"><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
+                    <li class="nav-link"><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
+                </ul>
+
+                <div class="input-group search-active" [ngClass]="{'mobile-search': searchVisible }">
+                    <input type="text" class="form-control" placeholder="Search.." [(ngModel)]="query"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" (click)="movieSearch()">Search</button>
+                    </span>
+                </div>
             </div>
         </div>
 </div>
-<div class="container">
+<div class="container router">
     <router-outlet></router-outlet>
 </div>
+<footer class="footer">
+    <div class="col-xs-3">
+        <h3>Upick</h3>
+        <ul class="nav-footer">
+            <li><a [routerLink]="['/']">Home</a></li>
+            <li><a [routerLink]="['/genre']">Genre</a></li>   
+            <li><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
+            <li><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
+        </ul>
+    </div>
+    <div class="col-xs-5 col-xs-offset-5 ft-right">
+        <img id="footer-img" src="./assets/Upick.png" height="100px;">
+        <p>Copyright © upick. All rights reservered</p>
+    </div>
+</footer>

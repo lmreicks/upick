@@ -35,10 +35,32 @@
 }
 
 .rec-wrapper {
+    margin-bottom: 40px;
     margin-top: 40px;
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
+}
+
+.genres {
+    display: inline-flex;
+    margin: 5px;
+    margin-top: 10px;
+}
+
+.genres > .btn {
+    background-color: lightgray;
+    font-size: 15px;
+}
+
+.genres > .btn:hover {
+    background-color: #44A1C2;
+}
+
+.genre-wrapper {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .chart {
@@ -92,10 +114,25 @@ ul li {
 }
 
 #line1 {
-    display:flex !important;
+    display:flex;
 }
 
 .recommended {
     justify-content:center;
     margin: 10px;
+    margin-bottom: 30px;
+}
+
+#gomovies {
+    margin:10px;
+    max-height:40px;
+}
+
+#gomovies2 {
+    margin-left:10px;
+    max-height:70px;
+}
+
+@media only screen and (max-width: 992px) {
+
 }
