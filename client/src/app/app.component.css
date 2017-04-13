@@ -1,32 +1,13 @@
 .header {
-  position:relative;
-  z-index:10;
   background-color: #051923;
   box-shadow:0px 0px 5px 0px black;
 }
 
-.router {
-  padding-top:70px;
-}
-
-.header-scroll {
-  position:fixed;
-  z-index:10;
-  top:0;
-  left:0;
-  right:0;
-}
-
-.search-scroll {
-  position:fixed;
-  z-index:10;
-  top:2.5%;
-  right:6.5%;
+.search-bar {
+  float:right;
+  padding-top:20px;
+  margin-left:30px; 
   width:300px;
-}
-
-.dropdown-hidden {
-  display:none;
 }
 
 h1 {
@@ -61,15 +42,11 @@ h1 {
     font-size: 17px;
 }
 
-.search-bar {
-  position:relative;
-  width:300px;
-}
-
 .dropdown {
-  position: fixed;
-  top: 7%;
-  right: 6.5%;
+  position: absolute;
+  top: 55px;
+  right: 382px;
+  z-index: 10;
   padding: 3px;
   margin: 0;
   width: 298px;
@@ -88,7 +65,6 @@ h1 {
 
 .dropdown > .searchItem > hr {
   margin: 0px;
-  border-top:none;
 }
 
 .dropdown > .searchItem > li {
@@ -100,20 +76,8 @@ h1 {
   text-decoration: none;
 }
 
-.dropdown > .searchItem:hover {
-
-}
-
-.dropdown > .selected {
-  background-color: lightblue;
-}
-
-.nav > a:hover {
+li > a:hover {
   box-shadow:inset 0px -3px 0px 0px white;
-}
-
-.search {
-  float:right;
 }
 
 footer {
@@ -230,7 +194,7 @@ footer > div > h3 {
 
 
 @media only screen and (max-width: 991px) {
-    .search {
+    .search-bar {
       display:none;
     }
 
