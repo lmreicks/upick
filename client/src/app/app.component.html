@@ -1,6 +1,4 @@
-<!--992 mobile-->
-
-<div class="header">
+<div class="header" [ngClass]="{'header-scroll': headerVisible }" (keydown)=selectItem($event)>
         <div style="background-color: #44A1C2">
             <div class="container">
                 <ul class="main-nav">
@@ -12,10 +10,21 @@
                     <li class="nav" ><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
                     <li class="nav" ><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
                     <li>
-                        <div (click)="searchVisible = !searchVisible" id="mobile-search-tab"><i class="fa fa-search fa-2x" aria-hidden="true"></i>
-                        </div>
-                        <div class="input-group search-bar">
-                            <input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
+                        <div class="search" [ngClass]="{'search-scroll': headerVisible }">
+                            <div class="input-group search-bar">
+                                <input (focus)="dropVisible = true" (focusout)="dropVisible = false" type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
+                            </div>
+                        <!--<span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </span>-->
+                        <ul class="dropdown" *ngIf="!!searchItems" [ngClass]="{'dropdown-hidden': !headerVisible || !dropVisible}">
+                            <div class=searchItem *ngFor="let item of searchItems;  let l = last" [ngClass]="{'search-selected': item.id}">
+                                <li>
+                                    <a [routerLink]="['/movie', item.id]">{{item.title}}</a>
+                                </li>
+                            <hr *ngIf=!l/>
+                            </div>
+                        </ul>
                         </div>
                     </li>
                 </ul>
@@ -45,14 +54,14 @@
             </div>
         </div>
         <div>
-            <ul class="dropdown" *ngIf=!!searchItems>
-                <div class=searchItem *ngFor="let movie of searchItems;  let l = last">
+            <!--<ul class="dropdown" *ngIf=!!searchItems>
+                <div class=searchItem *ngFor="let item of searchItems;  let l = last">
                     <li>
-                        <a [routerLink]="['/movie', movie.id]">{{movie.title}}</a>
+                        <a [routerLink]="['/movie', item.id]">{{item.title}}</a>
                     </li>
                     <hr *ngIf=!l/>
                 </div>
-            </ul>
+            </ul>-->
         </div>
 </div>
 <div class="container router">
