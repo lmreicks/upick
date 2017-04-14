@@ -9,7 +9,8 @@ import 'rxjs/add/operator/switchMap';
 @Component({
   moduleId: module.id,
   selector: 'now-playing',
-  templateUrl: './now-playing.component.html'
+  templateUrl: './now-playing.component.html',
+  styleUrls: ['./now-playing.component.less']
 })
 
 export class NowPlayingComponent implements OnInit {

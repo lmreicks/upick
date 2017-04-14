@@ -1,75 +1,72 @@
 <!--992 mobile-->
-
-<div class="header">
-        <div style="background-color: #44A1C2">
-            <div class="container">
-                <ul class="main-nav">
-                    <li class="nav"><a [routerLink]="['/']" style="padding:0;">
-                            <img id="upick" src="./assets/Upick.png" height="70px">
-                    </a></li>
-                    <li class="nav" ><a [routerLink]="['/']">Home</a></li>
-                    <li class="nav" ><a [routerLink]="['/genre']">Genre</a></li>   
-                    <li class="nav" ><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
-                    <li class="nav" ><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
-                    <li>
-                        <div (click)="searchVisible = !searchVisible" id="mobile-search-tab"><i class="fa fa-search fa-2x" aria-hidden="true"></i>
-                        </div>
-                        <div class="input-group search-bar">
-                            <input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
-                        </div>
-                    </li>
-                </ul>
-                <div class="mobile">
-                        <div (click)="navVisible = !navVisible" id="mobile-nav"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></div>
-                    <div>
-                        <a [routerLink]="['/']" style="padding:0;">
-                            <img id="upick" src="./assets/Upick.png" height="70px">
-                        </a>
-                    </div>
-                        <div (click)="searchVisible = !searchVisible" id="mobile-search"><i class="fa fa-search fa-2x" aria-hidden="true"></i></div>
+<header>
+    <div>
+        <div class="container">
+            <ul class="main-nav">
+                <li class="nav-link">
+                    <a [routerLink]="['/']" style="padding:0;">
+                        <img src="./assets/Upick.png" height="70px">
+                    </a>
+                </li>
+                <li class="nav-link" ><a [routerLink]="['/']">Home</a></li>
+                <li class="nav-link" ><a [routerLink]="['/genre']">Genre</a></li>   
+                <li class="nav-link" ><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
+                <li class="nav-link" ><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
+                <div class="input-group search-bar">
+                    <input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
                 </div>
+                <div (click)="displayMobileSearch = !displayMobileSearch" class="tablet-search-icon">
+                    <i class="fa fa-search fa-2x" aria-hidden="true"></i>
+                </div>
+            </ul>
+            <div class="mobile">
+                    <div (click)="displayMobileNav = !displayMobileNav" class="mobile-nav-menu-button">
+                        <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+                    </div>
 
-                <ul class="nav-active" [ngClass]="{'mobile-nav': navVisible }">
-                    <li class="nav-link"><a [routerLink]="['/']">Home</a></li>
-                    <li class="nav-link"><a [routerLink]="['/genre']">Genre</a></li>   
-                    <li class="nav-link"><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
-                    <li class="nav-link"><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
-                </ul>
+                    <a [routerLink]="['/']"><img src="./assets/Upick.png" height="70px"></a>
+                    
+                    <div (click)="displayMobileSearch = !displayMobileSearch" class="mobile-search-icon">
+                        <i class="fa fa-search fa-2x" aria-hidden="true"></i>
+                    </div>
+            </div>
 
-                <div class="input-group search-active" [ngClass]="{'mobile-search': searchVisible }">
-                    <!--<input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
-                    <ul>
-                        <li *ngFor="let item of searchItems">{{item}}</li>
-                    </ul>-->
+            <ul class="mobile-nav" *ngIf="displayMobileNav">
+                <li class="nav-link"><a [routerLink]="['/']">Home</a></li>
+                <li class="nav-link"><a [routerLink]="['/genre']">Genre</a></li>   
+                <li class="nav-link"><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
+                <li class="nav-link"><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
+            </ul>
+
+            <div class="mobile-search" *ngIf="displayMobileSearch">
+                <div class="mobile-search-bar">
+                    <input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
                 </div>
             </div>
         </div>
-        <div>
-            <ul class="dropdown" *ngIf=!!searchItems>
-                <div class=searchItem *ngFor="let movie of searchItems;  let l = last">
-                    <li>
-                        <a [routerLink]="['/movie', movie.id]">{{movie.title}}</a>
-                    </li>
-                    <hr *ngIf=!l/>
-                </div>
-            </ul>
-        </div>
-</div>
-<div class="container router">
-    <router-outlet></router-outlet>
-</div>
-<footer class="footer">
-    <div class="col-xs-3">
-        <h3>Upick</h3>
-        <ul class="nav-footer">
-            <li><a [routerLink]="['/']">Home</a></li>
-            <li><a [routerLink]="['/genre']">Genre</a></li>   
-            <li><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
-            <li><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
+    </div>
+    <div>
+        <ul class="dropdown" *ngIf=!!searchItems>
+            <div class=searchItem *ngFor="let movie of searchItems;  let l = last">
+                <li>
+                    <a [routerLink]="['/movie', movie.id]">{{movie.title}}</a>
+                </li>
+                <hr *ngIf=!l/>
+            </div>
         </ul>
     </div>
-    <div class="col-xs-5 col-xs-offset-5 ft-right">
-        <img id="footer-img" src="./assets/Upick.png" height="100px;">
-        <p>Copyright © upick. All rights reservered</p>
+</header>
+<div class="container main">
+    <router-outlet></router-outlet>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="col-xs-3">
+            <h3>UPICK</h3>
+        </div>
+        <div class="col-xs-offset-4 col-xs-5 copywrite">
+            <p>Copyright © upick. All rights reservered</p>
+        </div>
     </div>
 </footer>

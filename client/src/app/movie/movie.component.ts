@@ -15,7 +15,7 @@ import 'slick-carousel';
   moduleId: module.id,
   selector: 'movie',
   templateUrl: './movie.component.html',
-  styleUrls: ['./movie.component.css'],
+  styleUrls: ['./movie.component.less'],
 })
 export class MovieComponent implements OnInit, AfterContentChecked {
   public data: any = [];

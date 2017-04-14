@@ -11,7 +11,7 @@ import 'rxjs';
   moduleId: module.id,
   selector: 'genre-details',
   templateUrl: './genre-details.component.html',
-  styleUrls: ['./genre-details.component.css'],
+  styleUrls: ['./genre-details.component.less'],
 })
 
 export class GenreDetailsComponent implements OnInit {
