@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
+        "styles.less",
         "assets/bower_components/bootstrap/dist/css/bootstrap.min.css",
         "assets/bower_components/slick-carousel/slick/slick.css",
         "assets/bower_components/slick-carousel/slick/slick-theme.css",
@@ -55,7 +55,7 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
+    "styleExt": "less",
     "component": {}
   }
 }

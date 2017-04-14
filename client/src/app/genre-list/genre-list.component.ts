@@ -10,7 +10,7 @@ import 'rxjs/add/operator/switchMap';
   moduleId: module.id,
   selector: 'genre',
   templateUrl: './genre-list.component.html',
-  styleUrls: ['./genre-list.component.css'],
+  styleUrls: ['./genre-list.component.less'],
 })
 
 export class GenreComponent implements OnInit {

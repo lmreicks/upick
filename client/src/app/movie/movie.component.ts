@@ -16,7 +16,7 @@ import 'slick-carousel';
   moduleId: module.id,
   selector: 'movie',
   templateUrl: './movie.component.html',
-  styleUrls: ['./movie.component.css'],
+  styleUrls: ['./movie.component.less'],
 })
 export class MovieComponent implements OnInit, AfterContentChecked {
 
@@ -30,6 +30,8 @@ export class MovieComponent implements OnInit, AfterContentChecked {
 
   gomovies: any;
   urltitle: any;
+  isRandom: boolean;
+  genreId: boolean;
 
   imdbdata:any;
   rottendata:any;
@@ -45,13 +47,12 @@ export class MovieComponent implements OnInit, AfterContentChecked {
   //add a splash screen until all of the information is loaded
 
   ngOnInit() {
-    //scrolls to top after navigation
-      this.router.events.subscribe((evt) => {
-        if (!(evt instanceof NavigationEnd)) {
-          return;
-        }
-        window.scrollTo(0, 0)
-      });
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0)
+    });
 
 // gets the data from movie-detail resolver as movie, subscribes it to this instance of movie
       this.route.data

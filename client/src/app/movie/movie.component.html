@@ -30,7 +30,9 @@
                         </canvas>
                         </div>
                         <p>IMDB Rating</p>
+                        <h5 class="rating-text">{{movie.imdb_rating | number: '1.1'}}</h5>
                     </div>
+                    
                 </li>
                 <li>
                     <div *ngIf="!!rottendata">
@@ -46,7 +48,9 @@
                         <!--<span id="percent"><h4>75</h4><i class="fa fa-percent" style="font-size:8px;" aria-hidden="true"></i></span>-->
                         </div>
                         <p>Rotten Tomatoes</p>
+                        <h5 class="rating-text">{{movie.rotten_tomatoes}}</h5>
                     </div>
+                    
                 </li>
                 <li>
                     <div *ngIf="movie.gomovies_id">
