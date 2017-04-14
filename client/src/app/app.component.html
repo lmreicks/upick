@@ -1,52 +1,63 @@
 <!--992 mobile-->
 <header>
-    <div>
-        <div class="container">
-            <ul class="main-nav">
-                <li class="nav-link">
-                    <a [routerLink]="['/']" style="padding:0;">
-                        <img src="./assets/Upick.png" height="70px">
-                    </a>
-                </li>
-                <li class="nav-link" ><a [routerLink]="['/']">Home</a></li>
-                <li class="nav-link" ><a [routerLink]="['/genre']">Genre</a></li>   
-                <li class="nav-link" ><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
-                <li class="nav-link" ><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
-                <div class="input-group search-bar">
-                    <input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
+    <div class="container">
+        <ul class="main-nav">
+            <li class="nav-link">
+                <a [routerLink]="['/']" style="padding:0;">
+                    <img src="./assets/Upick.png" height="70px">
+                </a>
+            </li>
+            <li class="nav-link" ><a [routerLink]="['/']">Home</a></li>
+            <li class="nav-link" ><a [routerLink]="['/genre']">Genre</a></li>   
+            <li class="nav-link" ><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
+            <li class="nav-link" ><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
+
+            <div (click)="displayMobileSearch = !displayMobileSearch" class="tablet-search-icon">
+                <i class="fa fa-search fa-2x" aria-hidden="true"></i>
+            </div>
+            
+        </ul>
+        <div class="mobile">
+                <div (click)="displayMobileNav = !displayMobileNav" class="mobile-nav-menu-button">
+                    <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
                 </div>
-                <div (click)="displayMobileSearch = !displayMobileSearch" class="tablet-search-icon">
+
+                <a [routerLink]="['/']"><img src="./assets/Upick.png" height="70px"></a>
+                
+                <div (click)="displayMobileSearch = !displayMobileSearch" class="mobile-search-icon">
                     <i class="fa fa-search fa-2x" aria-hidden="true"></i>
                 </div>
-            </ul>
-            <div class="mobile">
-                    <div (click)="displayMobileNav = !displayMobileNav" class="mobile-nav-menu-button">
-                        <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
-                    </div>
+        </div>
 
-                    <a [routerLink]="['/']"><img src="./assets/Upick.png" height="70px"></a>
-                    
-                    <div (click)="displayMobileSearch = !displayMobileSearch" class="mobile-search-icon">
-                        <i class="fa fa-search fa-2x" aria-hidden="true"></i>
-                    </div>
-            </div>
+        <ul class="mobile-nav" *ngIf="displayMobileNav">
+            <li class="nav-link"><a [routerLink]="['/']">Home</a></li>
+            <li class="nav-link"><a [routerLink]="['/genre']">Genre</a></li>   
+            <li class="nav-link"><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
+            <li class="nav-link"><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
+        </ul>
 
-            <ul class="mobile-nav" *ngIf="displayMobileNav">
-                <li class="nav-link"><a [routerLink]="['/']">Home</a></li>
-                <li class="nav-link"><a [routerLink]="['/genre']">Genre</a></li>   
-                <li class="nav-link"><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
-                <li class="nav-link"><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
-            </ul>
-
-            <div class="mobile-search" *ngIf="displayMobileSearch">
-                <div class="mobile-search-bar">
-                    <input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
-                </div>
+        <div class="mobile-search" *ngIf="displayMobileSearch">
+            <div class="mobile-search-bar">
+                <input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
             </div>
         </div>
     </div>
-    <div>
-        <ul class="dropdown" *ngIf=!!searchItems>
+    <div class="input-group search-bar">
+        <input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
+        <div class="dropdown-container">
+            <ul class="dropdown" *ngIf=!!searchItems>
+                <div class=searchItem *ngFor="let movie of searchItems;  let l = last">
+                    <li>
+                        <a [routerLink]="['/movie', movie.id]">{{movie.title}}</a>
+                    </li>
+                    <hr *ngIf=!l/>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mobile-dropdown-container">
+        <ul class="mobile-dropdown" *ngIf=!!searchItems>
             <div class=searchItem *ngFor="let movie of searchItems;  let l = last">
                 <li>
                     <a [routerLink]="['/movie', movie.id]">{{movie.title}}</a>
@@ -56,6 +67,7 @@
         </ul>
     </div>
 </header>
+
 <div class="container main">
     <router-outlet></router-outlet>
 </div>
