@@ -20,16 +20,19 @@ export class AppComponent {
   dropVisible: boolean = false;
   navVisible: boolean = true;
   searchVisible: boolean = true;
-  searchItems: any;
+  searchItems: Array<any>;
+  selectedIndex:number = 0;
   term = new FormControl();
+
 
   constructor(public MovService: MovieService, public router: Router, private lc: NgZone) {
     this.term.valueChanges
       .debounceTime(400)
       .distinctUntilChanged()
       .flatMap(term => this.MovService.movieSearch(term))
-      .subscribe(res => this.searchItems = res);
-  
+      .subscribe(res => {
+        this.searchItems = res;
+      });
 
   window.onscroll = () => {
         let st = window.pageYOffset;
@@ -44,10 +47,10 @@ export class AppComponent {
           this.direction = dir;
         });
       if (dir == "down") {
-        this.headerVisible = false;
+        //this.headerVisible = false;
       }
       else {
-        this.headerVisible = true;
+        //this.headerVisible = true;
         //top++;
       }
     };
@@ -60,12 +63,16 @@ export class AppComponent {
   }
 
   selectItem(event:any) {
-    if (this.dropVisible) {
-      if(event.key == "ArrowDown") {
-        
+    if (this.dropVisible && this.searchItems) {
+      if (event.key == "ArrowDown" && this.selectedIndex < this.searchItems.length - 1) {
+        this.selectedIndex++;
       }
-      if (event.key == "ArrowUp") {
-
+      if (event.key == "ArrowUp" && this.selectedIndex > 0) {
+        this.selectedIndex--;
+      }
+      if (event.key == "Enter") {
+        this.router.navigate(['movie', this.searchItems[this.selectedIndex].id]);
+        this.dropVisible = false;
       }
     }
   }

@@ -101,10 +101,10 @@ h1 {
 }
 
 .dropdown > .searchItem:hover {
-
+  background-color: lightblue;
 }
 
-.dropdown > .selected {
+.active {
   background-color: lightblue;
 }
 

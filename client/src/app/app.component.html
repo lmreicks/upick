@@ -14,11 +14,8 @@
                             <div class="input-group search-bar">
                                 <input (focus)="dropVisible = true" (focusout)="dropVisible = false" type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
                             </div>
-                        <!--<span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
-                        </span>-->
                         <ul class="dropdown" *ngIf="!!searchItems" [ngClass]="{'dropdown-hidden': !headerVisible || !dropVisible}">
-                            <div class=searchItem *ngFor="let item of searchItems;  let l = last" [ngClass]="{'search-selected': item.id}">
+                            <div class=searchItem *ngFor="let item of searchItems;  let l = last; let i = index" [ngClass]="{'active': i === selectedIndex }">
                                 <li>
                                     <a [routerLink]="['/movie', item.id]">{{item.title}}</a>
                                 </li>
@@ -44,24 +41,7 @@
                     <li class="nav-link"><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
                     <li class="nav-link"><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
                 </ul>
-
-                <div class="input-group search-active" [ngClass]="{'mobile-search': searchVisible }">
-                    <!--<input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
-                    <ul>
-                        <li *ngFor="let item of searchItems">{{item}}</li>
-                    </ul>-->
-                </div>
             </div>
-        </div>
-        <div>
-            <!--<ul class="dropdown" *ngIf=!!searchItems>
-                <div class=searchItem *ngFor="let item of searchItems;  let l = last">
-                    <li>
-                        <a [routerLink]="['/movie', item.id]">{{item.title}}</a>
-                    </li>
-                    <hr *ngIf=!l/>
-                </div>
-            </ul>-->
         </div>
 </div>
 <div class="container router">

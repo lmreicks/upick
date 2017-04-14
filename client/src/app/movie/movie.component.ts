@@ -4,6 +4,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import 'chart.js';
 
 import { Movie } from '../models/movie.model';
+import { Chart } from '../models/chart.model';
 import { GenreService } from '../services/genre.service';
 import { MovieService } from '../services/movie.service';
 
@@ -18,86 +19,60 @@ import 'slick-carousel';
   styleUrls: ['./movie.component.css'],
 })
 export class MovieComponent implements OnInit, AfterContentChecked {
-  public data: any = [];
-  public rottendata: any = [];
-  public type: string = 'doughnut';
-  public options: any = {
-    responsive: true,
-    legend: false,
-    cutoutPercentage: 75,
-    tooltips: {
-      enabled: false,
-    }
-  };
-  public rottenoptions: any = {
-    responsive: true,
-    legend: false,
-    cutoutPercentage: 75,
-    tooltips: {
-      enabled: false,
-    }
-  };
-  public colors: any[] = [{
-    backgroundColor: ['#006494', '#44A1C2'],
-    borderColor: ['#006494', '#44A1C2']
-  }];
-  public rottencolors: any[] = [{
-    backgroundColor: ['#006494', '#44A1C2'],
-    borderColor: ['#006494', '#44A1C2']
-  }];
+
   movie: Movie = new Movie();
-  movieId: number;
+  chart: Chart = new Chart();
+
   baseUrl: string = 'https://www.youtube.com/embed/';
   url: SafeResourceUrl;
   trailer: boolean = false;
-  startSrc: string = 'about:blank';
-  closeResult: string;
-  chart: boolean = false;
-  rottenchart: boolean = false;
+  slider: boolean = false;
+
   gomovies: any;
   urltitle: any;
+
+  imdbdata:any;
+  rottendata:any;
 
   constructor(
     private MovService: MovieService,
     private GenService: GenreService,
     private route: ActivatedRoute,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
   ) { }
 
-  ngOnInit() {
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-      window.scrollTo(0, 0)
-    });
-    this.route.params.subscribe(param => {
-      this.movieId = +param['id'];
-      /*this.MovService.getTest(this.movieId).then(movie => {
-        this.movie = movie;*/
+  //add a splash screen until all of the information is loaded
 
-      this.MovService.getMoreInfo(this.movieId).then(movie => {
-        this.movie = movie;
-        if (this.movie.trailer_url) {
-          this.loadFrame(this.movie.trailer_url);
+  ngOnInit() {
+    //scrolls to top after navigation
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+          return;
         }
-        if (this.movie.imdb_rating) {
-          this.loadImdb(this.movie.imdb_rating);
-        }
-        if (this.movie.rotten_tomatoes) {
-          this.loadRotten(parseInt(this.movie.rotten_tomatoes));
-        }
-        if (this.movie.title && this.movie.gomovies_id) {
-          this.urltitle = this.movie.title;
-          this.gomovies = 'https://gomovies.to/film/' + this.urltitle.toLowerCase().replace(/ /g, '\-') + '-' + this.movie.gomovies_id;
-          console.log(this.gomovies);
-        }
-      })
-    });
+        window.scrollTo(0, 0)
+      });
+
+// gets the data from movie-detail resolver as movie, subscribes it to this instance of movie
+      this.route.data
+          .subscribe((data: { movie: Movie }) => {
+              this.movie = data.movie; 
+
+              this.loadFrame(this.movie.trailer_url);
+              if (this.movie.rotten_tomatoes) {
+                this.rottendata = [100 - parseInt(this.movie.rotten_tomatoes), parseInt(this.movie.rotten_tomatoes)];
+              }
+              if (this.movie.imdb_rating) {
+                this.imdbdata = [10 - this.movie.imdb_rating, this.movie.imdb_rating];
+              }
+              this.urltitle = this.movie.title;
+              this.gomovies = 'https://gomovies.to/film/' + this.urltitle.toLowerCase().replace(/ /g, '\-') + '-' + this.movie.gomovies_id;
+
+      });
   }
 
   ngAfterContentChecked() {
+    //recommended movies carousel
     $('.rec-slider').not('.slick-initialized').slick({
       slidesToShow: 4,
       arrows: true,
@@ -105,24 +80,11 @@ export class MovieComponent implements OnInit, AfterContentChecked {
       autoplay: true,
       autoplaySpeed: 2000
     });
+    this.slider = true;
   }
 
   loadFrame(id: String) {
     this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + id);
-  }
-
-  loadImdb(rating: number) {
-    this.data = [10 - rating, rating];
-    this.chart = !this.chart;
-  }
-
-  loadRotten(rating: number) {
-    this.rottendata = [100 - rating, rating];
-    this.rottenchart = !this.rottenchart;
-  }
-
-  showTrailer() {
-    this.trailer = !this.trailer;
   }
 
 }

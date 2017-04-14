@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent }  from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MovieComponent } from './movie/movie.component';
+import { MovieDetailResolver } from './services/movie-detail.resolve.service';
 import { GenreComponent } from './genre-list/genre-list.component';
 import { GenreDetailsComponent } from './genre-details/genre-details.component';
 import { NowPlayingComponent } from './now-playing/now-playing.component';
@@ -19,7 +20,7 @@ import { routing, appRoutingProviders } from './app.routing';
 @NgModule({
   imports:      [ BrowserModule, HttpModule, JsonpModule, routing, ChartsModule, FormsModule, ReactiveFormsModule ],
   declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent, NowPlayingComponent, PageNotFound ],
-  providers:    [ GenreService, MovieService, appRoutingProviders, GenreService ],
+  providers:    [ GenreService, MovieService, appRoutingProviders, GenreService, MovieDetailResolver],
   bootstrap:    [ AppComponent ]
 })
 
