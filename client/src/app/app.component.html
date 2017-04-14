@@ -42,19 +42,8 @@
             </div>
         </div>
     </div>
-    <div class="input-group search-bar">
-        <input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
-        <div class="dropdown-container">
-            <ul class="dropdown" *ngIf=!!searchItems>
-                <div class=searchItem *ngFor="let movie of searchItems;  let l = last">
-                    <li>
-                        <a [routerLink]="['/movie', movie.id]">{{movie.title}}</a>
-                    </li>
-                    <hr *ngIf=!l/>
-                </div>
-            </ul>
-        </div>
-    </div>
+
+    <search></search>
 
     <div class="mobile-dropdown-container">
         <ul class="mobile-dropdown" *ngIf=!!searchItems>

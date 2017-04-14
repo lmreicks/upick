@@ -15,10 +15,12 @@ import { PageNotFound } from './404/notfound.component';
 import { GenreService } from './services/genre.service';
 import { MovieService } from './services/movie.service';
 import { routing, appRoutingProviders } from './app.routing';
+import { SearchComponent } from './search/search.component';
+import { ClickOutsideDirective } from './click-outside.directive';
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, JsonpModule, routing, ChartsModule, FormsModule, ReactiveFormsModule ],
-  declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent, NowPlayingComponent, PageNotFound ],
+  declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent, NowPlayingComponent, PageNotFound, SearchComponent, ClickOutsideDirective ],
   providers:    [ GenreService, MovieService, appRoutingProviders, GenreService ],
   bootstrap:    [ AppComponent ]
 })

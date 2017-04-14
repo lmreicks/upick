@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Movie } from './models/movie.model';
 import { FormControl } from '@angular/forms';
 
+import { SearchComponent } from './search/search.component';
 import { MovieService } from './services/movie.service';
 
 @Component({
