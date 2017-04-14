@@ -56,6 +56,8 @@ export class MovieComponent implements OnInit, AfterContentChecked {
   rottenchart: boolean = false;
   gomovies: any;
   urltitle: any;
+  isRandom: boolean;
+  genreId: boolean;
 
   constructor(
     private MovService: MovieService,
@@ -71,6 +73,10 @@ export class MovieComponent implements OnInit, AfterContentChecked {
         return;
       }
       window.scrollTo(0, 0)
+    });
+    this.route.queryParams.subscribe((queryParam) => {
+      this.isRandom = queryParam.random;
+      this.genreId = queryParam.genreId;
     });
     this.route.params.subscribe(param => {
       this.movieId = +param['id'];

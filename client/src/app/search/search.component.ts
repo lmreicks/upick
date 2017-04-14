@@ -30,7 +30,6 @@ export class SearchComponent {
   }
 
   redirect(movie: any) {
-    this.searchItems = null;
     this.term.reset();
     this.router.navigate(['/movie', movie.id]);
   }
@@ -38,15 +37,15 @@ export class SearchComponent {
   handleKeyPress(event: any) {
     console.log(event.keyCode);
     // handle up
-    if (event.keyCode === 38 && this.searchItems && this.searchItems.length && this.selectedIndex > 0) {
+    if (event.key == 'ArrowUp' && this.searchItems && this.searchItems.length && this.selectedIndex > 0) {
         this.selectedIndex--;
     }
     // handle down
-    if (event.keyCode === 40 && this.searchItems && this.selectedIndex < this.searchItems.length - 1) {
+    if (event.key == 'ArrowDown' && this.searchItems && this.selectedIndex < this.searchItems.length - 1) {
       this.selectedIndex++;
     }
     // handle enter
-    if (event.keyCode === 13 && this.searchItems && this.selectedIndex >= 0 && this.selectedIndex < this.searchItems.length) {
+    if (event.key == 'Enter' && this.searchItems && this.selectedIndex >= 0 && this.selectedIndex < this.searchItems.length) {
       this.redirect(this.searchItems[this.selectedIndex]);
     }
   }

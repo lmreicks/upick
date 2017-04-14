@@ -2,5 +2,4 @@
     <div class="genres" *ngFor="let genre of genres">
         <button class="btn" [routerLink]="[genre.name, genre.id]" role="button">{{genre.name}}</button>
     </div>
-    <button class="genres btn" role="button" [routerLink]="['../random']">Random</button>
 </div>

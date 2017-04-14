@@ -30,7 +30,7 @@ export class AppComponent {
   getRandom() {
     let vm = this;
     this.MovService.getRandom().then(function (res) {
-      vm.router.navigate(['movie', res.id]);
+      vm.router.navigate(['movie', res.id], {queryParams: {random: true}});
     });
   }
 }
