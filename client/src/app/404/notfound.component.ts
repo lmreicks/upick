@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
  moduleId: module.id,
- selector: '404',
- templateUrl: './notfound.component.html'
+ template: '<h1>Not Found</h1>'
 })
 
 export class PageNotFound { }
