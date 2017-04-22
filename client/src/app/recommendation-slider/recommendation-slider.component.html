@@ -1,0 +1,5 @@
+
+<span [routerLink]="['/movie', image.id]" *ngFor="let image of images" >
+  <img src="https://image.tmdb.org/t/p/w500{{image.poster_path}}">
+  <h5>{{image.title}}</h5>
+</span>

@@ -74,14 +74,16 @@ export class MovieComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked() {
     //recommended movies carousel
-    $('.rec-slider').not('.slick-initialized').slick({
-      slidesToShow: 4,
-      arrows: true,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 2000
+    $( document ).ready(function() {
+        $('.rec-slider').not('.slick-initialized').slick({
+          slidesToShow: 4,
+          arrows: true,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 2000
+        });
+        this.slider = true;
     });
-    this.slider = true;
   }
 
   loadFrame(id: String) {

@@ -18,10 +18,11 @@ import { MovieService } from './services/movie.service';
 import { routing, appRoutingProviders } from './app.routing';
 import { SearchComponent } from './search/search.component';
 import { ClickOutsideDirective } from './click-outside.directive';
+import { RecommendationSliderComponent } from './recommendation-slider/recommendation-slider.component';
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, JsonpModule, routing, ChartsModule, FormsModule, ReactiveFormsModule ],
-  declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent, NowPlayingComponent, PageNotFound, SearchComponent, ClickOutsideDirective ],
+  declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent, NowPlayingComponent, PageNotFound, SearchComponent, ClickOutsideDirective, RecommendationSliderComponent ],
   providers:    [ GenreService, MovieService, appRoutingProviders, GenreService, MovieDetailResolver ],
   bootstrap:    [ AppComponent ]
 })
