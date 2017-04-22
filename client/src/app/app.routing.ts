@@ -25,9 +25,9 @@ const appRoutes: Routes = [
   { path: 'genre/:genre/:id', component: GenreDetailsComponent},
   // list of all genres
   { path: 'genre', component: GenreComponent},
-  // { path: '404', component: PageNotFound},
-  // {path: '**', redirectTo: '/404'}
-]
+  { path: '404', component: PageNotFound},
+  {path: '**', redirectTo: '/404'}
+];
 
 export const appRoutingProviders: any[] = [ MovieDetailResolver ];
 
