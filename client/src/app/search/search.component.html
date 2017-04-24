@@ -1,12 +1,12 @@
-  <div class="input-group search-bar">
-      <input type="text" class="form-control" placeholder="Search.." [formControl]="term" (window:keydown)="handleKeyPress($event)"/>
-      <div class="dropdown-container" (clickOutside)="close()" *ngIf="!!searchItems">
-          <ul class="dropdown" *ngIf=!!searchItems>
-              <div class=searchItem *ngFor="let movie of searchItems;  let l = last; let i = index;" [ngClass]="{'selected': i === selectedIndex}">
-                <li (click)="redirect(movie)" >
+<div class="input-group search-bar">
+    <input type="text" class="form-control" placeholder="Search.." [formControl]="term" (window:keydown)="handleKeyPress($event)"/>
+    <div class="dropdown-container" (clickOutside)="close()" *ngIf="!!searchItems">
+        <ul class="dropdown" *ngIf=!!searchItems>
+            <div class=searchItem *ngFor="let movie of searchItems;  let l = last; let i = index;" [ngClass]="{'selected': i === selectedIndex}">
+                <li (click)="redirect(movie)">
                     {{movie.title}}
                 </li>
-              </div>
-          </ul>
-      </div>
-  </div>
+            </div>
+        </ul>
+    </div>
+</div>

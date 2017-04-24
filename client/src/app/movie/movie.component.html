@@ -1,93 +1,91 @@
 <ng-template [ngIf]="!!movie">
     <div [ngBusy]="busy"></div>
-    <div class="container wrapper">
+    <div class="wrapper">
         <div class="row">
-        <div class="col-xs-4 poster">
-            <img *ngIf="movie.poster_path" id="poster" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" class="img-responsive">
-            <div class="genre-wrapper">
-                <div class="genres" *ngFor="let genre of movie.genres">
-                    <button class="btn" [routerLink]="['../../genre', genre.name, genre.id]" role="button">{{genre.name}}</button>
+            <!-- On Mobile we want title above the image -->
+            <div class="mobile-title">
+                <span>
+                    <h4 id="title" *ngIf = "movie.title">{{movie.title}} ({{movie.release_date.substring(0, 4)}})</h4>
+                    <button *ngIf="movie.trailer_url" class="btn trailer_button" (click)="trailer = !trailer">Trailer</button>
+                </span>
+            </div>
+            <!-- End Mobile Title -->
+            <div class="col-md-4 poster">
+                <img *ngIf="movie.poster_path" id="poster" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" class="img-responsive">
+                <div class="genre-wrapper">
+                    <div class="genres" *ngFor="let genre of movie.genres">
+                        <button class="btn" [routerLink]="['../../genre', genre.name, genre.id]" role="button">{{genre.name}}</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xs-7 description">
-            <span id="line1">
-                <h4 id="title" *ngIf = "movie.title">{{movie.title}}</h4>
-                <h4 id="date" *ngIf="movie.release_date">({{movie.release_date.substring(0, 4)}})</h4>
-                <button *ngIf="movie.trailer_url" class="btn trailer_button" (click)="trailer = !trailer">Trailer</button>
-            </span>
-            <ul>
-                <li>
-                    <div *ngIf="!!imdbdata">
+            <div class="col-md-7 description">
+                <span id="line1">
+                    <h4 id="title" *ngIf = "movie.title">{{movie.title}} ({{movie.release_date.substring(0, 4)}})</h4>
+                    <button *ngIf="movie.trailer_url" class="btn trailer_button" (click)="trailer = !trailer">Trailer</button>
+                </span>
+                <div id="line2">
+                    <div *ngIf="!!imdbdata" class="charts">
+                        <h5 class="rating-text">{{movie.imdb_rating | number: '1.1'}}</h5>
                         <div class="chart">
-                        <canvas height="100%" width="100%" id="chart"
-                            #thischart
-                            baseChart
-                            [colors]="chart.colors"
-                            [data]="imdbdata"
-                            [options]="chart.options"
-                            [chartType]="chart.type">
-                        </canvas>
+                            <canvas height="100%" width="100%" id="chart"
+                                #thischart
+                                baseChart
+                                [colors]="chart.colors"
+                                [data]="imdbdata"
+                                [options]="chart.options"
+                                [chartType]="chart.type">
+                            </canvas>
                         </div>
                         <p>IMDB Rating</p>
-                        <h5 class="rating-text">{{movie.imdb_rating | number: '1.1'}}</h5>
                     </div>
-                    
-                </li>
-                <li>
-                    <div *ngIf="!!rottendata">
-                        <div class="chart">
-                        <canvas height="100%" width="100%" id="chart"
-                            #thischart
-                            baseChart
-                            [colors]="chart.colors"
-                            [data]="rottendata"
-                            [options]="chart.options"
-                            [chartType]="chart.type">
-                        </canvas>
-                        <!--<span id="percent"><h4>75</h4><i class="fa fa-percent" style="font-size:8px;" aria-hidden="true"></i></span>-->
-                        </div>
-                        <p>Rotten Tomatoes</p>
+
+                    <div *ngIf="!!rottendata" class="charts">
                         <h5 class="rating-text">{{movie.rotten_tomatoes}}</h5>
-                    </div>
-                    
-                </li>
-                <li>
-                    <div *ngIf="movie.gomovies_id">
+                        <div class="chart">
+                            <canvas height="100%" width="100%" id="chart"
+                                #thischart
+                                baseChart
+                                [colors]="chart.colors"
+                                [data]="rottendata"
+                                [options]="chart.options"
+                                [chartType]="chart.type">
+                            </canvas>
+                        </div>
+                        <p>Rotten Tomatoes</p>  
+                    </div>    
+
+                    <div *ngIf="movie.gomovies_id" class="movie-link">
                         <a [href]="gomovies"><img src="https://gomovies.to/assets/images/gomovies-logo-light.png" id="gomovies2" class="img-responsive"></a>
                     </div>
-                </li>
-                <li>
-                    <div>
-                    <a *ngIf="movie.netflix_id" href="https://netflix.com/watch/{{movie.netflix_id}}"><img src="https://img.clipartfest.com/150375db1abffd280f73465b3e236510_client-logo-netflix-logo-png-netflix-clipart-transparent_720-377.png" height="100px" width="200px"></a>
+                    <div *ngIf="movie.netflix_id" class="movie-link">
+                        <a href="https://netflix.com/watch/{{movie.netflix_id}}"><img src="https://img.clipartfest.com/150375db1abffd280f73465b3e236510_client-logo-netflix-logo-png-netflix-clipart-transparent_720-377.png" height="100px" width="200px"></a>
                     </div>
-                </li>
-            </ul>
-            <iframe id="iframe" *ngIf="movie.trailer_url && url && trailer"
-                width="510" height="400"
-                [src]="url">
-            </iframe>
-            <div class="panel panel-default" *ngIf="movie">
-                <div *ngIf="movie.overview" class="panel-heading">
-                    <h3 class="panel-title">Description</h3>
                 </div>
-                <div *ngIf="movie.overview" class="panel-body">
-                    {{movie.overview}}
-                </div>
-                <div *ngIf = "movie.actors" class="panel-heading">
-                    <h3 class="panel-title">Cast</h3>
-                </div>
-                <div *ngIf = "movie.actors" class="panel-body">
-                    {{movie.actors}}
-                </div>
-                <div *ngIf = "movie.director" class="panel-heading">
-                    <h3 class="panel-title">Director</h3>
-                </div>
-                <div *ngIf = "movie.director" class="panel-body">
-                    {{movie.director}}
+                <iframe id="iframe" *ngIf="movie.trailer_url && url && trailer"
+                    width="510" height="400"
+                    [src]="url">
+                </iframe>
+                <div class="panel panel-default" *ngIf="movie">
+                    <div *ngIf="movie.overview" class="panel-heading">
+                        <h3 class="panel-title">Description</h3>
+                    </div>
+                    <div *ngIf="movie.overview" class="panel-body">
+                        {{movie.overview}}
+                    </div>
+                    <div *ngIf = "movie.actors" class="panel-heading">
+                        <h3 class="panel-title">Cast</h3>
+                    </div>
+                    <div *ngIf = "movie.actors" class="panel-body">
+                        {{movie.actors}}
+                    </div>
+                    <div *ngIf = "movie.director" class="panel-heading">
+                        <h3 class="panel-title">Director</h3>
+                    </div>
+                    <div *ngIf = "movie.director" class="panel-body">
+                        {{movie.director}}
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
         <div class="col-sm-12 rec-wrapper" *ngIf="movie.recommended">
             <h3 id="rec">Recommened</h3><br>

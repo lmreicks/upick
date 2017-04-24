@@ -27,7 +27,7 @@
 
 .rating-text {
     position: relative;
-    bottom: 88px;
+    top: 60px;
     color: white;
     font-size: 20px;
 }
@@ -41,12 +41,9 @@
     margin-left: 10px;
 }
 
-.rec-wrapper {
-    margin-bottom: 40px;
-    margin-top: 40px;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
+.charts {
+    margin: -20px 10px 0px;
+    text-align: center;
 }
 
 .genres {
@@ -81,20 +78,18 @@
     margin-bottom: 10px;
 }
 
-ul {
-    align-items:center;
-    padding:0;
-    list-style-type: none;
-    display: inline-flex;
-}
-
-ul li {
-    text-align: center;
-    margin: 10px;
-}
-
 .trailer_button {
     float: right;
+}
+.movie-link {
+    margin: 25px;
+    min-width: 300px;
+}
+
+#line2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #rec {
@@ -122,12 +117,7 @@ ul li {
 
 #line1 {
     display:flex;
-}
-
-.recommended {
-    justify-content:center;
-    margin: 10px;
-    margin-bottom: 30px;
+    justify-content: space-between;
 }
 
 #gomovies {
@@ -140,6 +130,26 @@ ul li {
     max-height:70px;
 }
 
-@media only screen and (max-width: 992px) {
+.mobile-title {
+    display: none;
+}
 
+@media only screen and (max-width: 991px) {
+    .rec-wrapper, .trailer_button, #date, #line1 {
+        display: none;
+    }
+    .mobile-title {
+        display: inline;
+        text-align: center;
+    }
+
+    .description {
+        margin: 0px;
+    }
+    #poster {
+        margin: auto;
+    }
+    .wrapper {
+        margin-top: 10px;
+    }
 }

@@ -1,4 +1,4 @@
-<div class="slider-container container">
+<div class="slider-container">
   <div class="slides">
     <div *ngFor="let image of visible; let i = index" class="image-container" [routerLink]="['/movie', image.id]">
         <img src="https://image.tmdb.org/t/p/w500{{image.poster_path}}">

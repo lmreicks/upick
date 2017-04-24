@@ -1,4 +1,4 @@
-<header>
+<header [ngClass]="{'search-open' : displayMobileSearch}" >
     <div class="container">
         <ul class="main-nav">
             <li class="nav-link">
@@ -17,43 +17,26 @@
             
         </ul>
         <div class="mobile">
-                <div (click)="displayMobileNav = !displayMobileNav" class="mobile-nav-menu-button">
+                <div (click)="displayMobileNav = !displayMobileNav; displayMobileSearch = false;" class="mobile-nav-menu-button">
                     <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
                 </div>
 
                 <a [routerLink]="['/']"><img src="./assets/Upick.png" height="70px"></a>
                 
-                <div (click)="displayMobileSearch = !displayMobileSearch" class="mobile-search-icon">
+                <div (click)="displayMobileSearch = !displayMobileSearch; displayMobileNav = false;" class="mobile-search-icon">
                     <i class="fa fa-search fa-2x" aria-hidden="true"></i>
                 </div>
         </div>
 
         <ul class="mobile-nav" *ngIf="displayMobileNav">
-            <li class="nav-link"><a [routerLink]="['/']">Home</a></li>
-            <li class="nav-link"><a [routerLink]="['/genre']">Genre</a></li>   
-            <li class="nav-link"><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
-            <li class="nav-link"><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
-        </ul>
-
-        <div class="mobile-search" *ngIf="displayMobileSearch">
-            <div class="mobile-search-bar">
-                <input type="text" class="form-control" placeholder="Search.." [formControl]="term"/>
-            </div>
-        </div>
-    </div>
-
-    <search></search>
-
-    <div class="mobile-dropdown-container">
-        <ul class="mobile-dropdown" *ngIf=!!searchItems>
-            <div class=searchItem *ngFor="let movie of searchItems;  let l = last">
-                <li>
-                    <a [routerLink]="['/movie', movie.id]">{{movie.title}}</a>
-                </li>
-                <hr *ngIf=!l/>
-            </div>
+            <li class="nav-link" (click)="displayMobileNav = false;"><a [routerLink]="['/']">Home</a></li>
+            <li class="nav-link" (click)="displayMobileNav = false;"><a [routerLink]="['/genre']">Genre</a></li>   
+            <li class="nav-link" (click)="displayMobileNav = false;"><a [routerLink]="['/nowplaying']">Now Playing</a></li>                               
+            <li class="nav-link" (click)="displayMobileNav = false;"><a style="cursor:pointer" (click)="getRandom()">Random</a></li>
         </ul>
     </div>
+    <search class="search-bar"></search>
+    <search *ngIf="displayMobileSearch" class="mobile-search"></search>
 </header>
 
 <div class="container main">
@@ -62,10 +45,10 @@
 
 <footer>
     <div class="container">
-        <div class="col-xs-3">
+        <div class="col-sm-3">
             <h3>UPICK</h3>
         </div>
-        <div class="col-xs-offset-4 col-xs-5 copywrite">
+        <div class="col-sm-offset-4 col-sm-5 copywrite">
             <p>Copyright © upick. All rights reservered</p>
         </div>
     </div>
