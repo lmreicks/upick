@@ -22,7 +22,8 @@ import { RecommendationSliderComponent } from './recommendation-slider/recommend
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, JsonpModule, routing, ChartsModule, FormsModule, ReactiveFormsModule ],
-  declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent, NowPlayingComponent, PageNotFound, SearchComponent, ClickOutsideDirective, RecommendationSliderComponent ],
+  declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent, NowPlayingComponent,
+                  PageNotFound, SearchComponent, ClickOutsideDirective, RecommendationSliderComponent ],
   providers:    [ GenreService, MovieService, appRoutingProviders, GenreService, MovieDetailResolver ],
   bootstrap:    [ AppComponent ]
 })

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Movie } from '../models/movie.model';
 
 @Component({
   selector: 'recommendation-slider',
@@ -6,13 +7,15 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./recommendation-slider.component.less']
 })
 export class RecommendationSliderComponent implements OnInit {
-  @Input() images:any;
+  @Input() images: Array<Movie>;
+
+  visible: Array<Movie>;
   constructor() {
-    
+
    }
 
   ngOnInit() {
-    console.log(this.images);
+    this.visible = this.images.concat(this.images);
   }
 
 }

@@ -18,7 +18,7 @@ import 'slick-carousel';
   templateUrl: './movie.component.html',
   styleUrls: ['./movie.component.less'],
 })
-export class MovieComponent implements OnInit, AfterContentChecked {
+export class MovieComponent implements OnInit {
 
   movie: Movie = new Movie();
   chart: Chart = new Chart();
@@ -70,20 +70,6 @@ export class MovieComponent implements OnInit, AfterContentChecked {
               this.gomovies = 'https://gomovies.to/film/' + this.urltitle.toLowerCase().replace(/ /g, '\-') + '-' + this.movie.gomovies_id;
 
       });
-  }
-
-  ngAfterContentChecked() {
-    //recommended movies carousel
-    $( document ).ready(function() {
-        $('.rec-slider').not('.slick-initialized').slick({
-          slidesToShow: 4,
-          arrows: true,
-          slidesToScroll: 1,
-          autoplay: true,
-          autoplaySpeed: 2000
-        });
-        this.slider = true;
-    });
   }
 
   loadFrame(id: String) {
