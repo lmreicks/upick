@@ -1,5 +1,5 @@
 <ng-template [ngIf]="!!movie">
-    <script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
+    <div [ngBusy]="busy"></div>
     <div class="container wrapper">
         <div class="row">
         <div class="col-xs-4 poster">
@@ -14,7 +14,7 @@
             <span id="line1">
                 <h4 id="title" *ngIf = "movie.title">{{movie.title}}</h4>
                 <h4 id="date" *ngIf="movie.release_date">({{movie.release_date.substring(0, 4)}})</h4>
-                <button class="btn trailer_button" (click)="trailer = !trailer">Trailer</button>
+                <button *ngIf="movie.trailer_url" class="btn trailer_button" (click)="trailer = !trailer">Trailer</button>
             </span>
             <ul>
                 <li>
@@ -67,11 +67,11 @@
                 width="510" height="400"
                 [src]="url">
             </iframe>
-            <div class="panel panel-default">
+            <div class="panel panel-default" *ngIf="movie">
                 <div *ngIf="movie.overview" class="panel-heading">
                     <h3 class="panel-title">Description</h3>
                 </div>
-                <div class="panel-body">
+                <div *ngIf="movie.overview" class="panel-body">
                     {{movie.overview}}
                 </div>
                 <div *ngIf = "movie.actors" class="panel-heading">

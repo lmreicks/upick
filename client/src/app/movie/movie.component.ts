@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import 'chart.js';
@@ -33,8 +33,9 @@ export class MovieComponent implements OnInit {
   isRandom: boolean;
   genreId: boolean;
 
-  imdbdata:any;
-  rottendata:any;
+  imdbdata: any;
+  rottendata: any;
+  busy: Promise<any>;
 
   constructor(
     private MovService: MovieService,
@@ -55,9 +56,29 @@ export class MovieComponent implements OnInit {
     });
 
 // gets the data from movie-detail resolver as movie, subscribes it to this instance of movie
-      this.route.data
+    let id;
+    this.route.params.subscribe(res => {
+      id = res['id'];
+      this.busy = this.MovService.getMoreInfo(id).then(movie => {
+        this.movie = movie;
+        this.loadFrame(this.movie.trailer_url);
+        if (this.movie.rotten_tomatoes) {
+          this.rottendata = [100 - parseInt(this.movie.rotten_tomatoes), parseInt(this.movie.rotten_tomatoes)];
+        }
+        if (this.movie.imdb_rating) {
+          this.imdbdata = [10 - this.movie.imdb_rating, this.movie.imdb_rating];
+        }
+
+        this.gomovies = 'https://gomovies.to/film/' +
+                        this.movie.title.toLowerCase().replace(/ /g, '\-') + '-' + this.movie.gomovies_id;
+      });
+    });
+
+      
+      /*
+      this.busy = this.route.data
           .subscribe((data: { movie: Movie }) => {
-              this.movie = data.movie; 
+              this.movie = data.movie;
 
               this.loadFrame(this.movie.trailer_url);
               if (this.movie.rotten_tomatoes) {
@@ -66,10 +87,12 @@ export class MovieComponent implements OnInit {
               if (this.movie.imdb_rating) {
                 this.imdbdata = [10 - this.movie.imdb_rating, this.movie.imdb_rating];
               }
-              this.urltitle = this.movie.title;
-              this.gomovies = 'https://gomovies.to/film/' + this.urltitle.toLowerCase().replace(/ /g, '\-') + '-' + this.movie.gomovies_id;
+
+              this.gomovies = 'https://gomovies.to/film/' +
+                              this.movie.title.toLowerCase().replace(/ /g, '\-') + '-' + this.movie.gomovies_id;
 
       });
+      */
   }
 
   loadFrame(id: String) {

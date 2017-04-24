@@ -1,3 +1,4 @@
+<div [ngBusy]="busy"></div>
 <div class="u-container">
     <div class="genres" *ngFor="let genre of genres">
         <button class="btn" [routerLink]="[genre.name, genre.id]" role="button">{{genre.name}}</button>

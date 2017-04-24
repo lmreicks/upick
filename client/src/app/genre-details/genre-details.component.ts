@@ -4,6 +4,7 @@ import { Genre } from '../models/genre.model';
 import { MovieService } from '../services/movie.service';
 import { GenreService } from '../services/genre.service';
 import { Movie } from '../models/movie.model';
+import { Subscription } from 'rxjs';
 
 import 'rxjs';
 
@@ -18,6 +19,7 @@ export class GenreDetailsComponent implements OnInit {
   movies: Movie[];
   genre: Genre = new Genre();
   page: number;
+  busy: Promise<any>;
 
   constructor(
     private GenService: GenreService,
@@ -30,20 +32,24 @@ export class GenreDetailsComponent implements OnInit {
     this.route.params.subscribe(res => this.page = res['page'] !== undefined ? +res['page'] : 1);
     this.route.params.subscribe(res => this.genre.id = res['id']);
     this.route.params.subscribe(res => this.genre.name = res['genre']);
-    this.MovService.getMoviesByGenre(this.genre.id, this.page).then(res => this.movies = res);
+    this.fetchMovies();
     // get all movies in clicked genre
+  }
+
+  fetchMovies() {
+    this.busy = this.MovService.getMoviesByGenre(this.genre.id, this.page).then(res => this.movies = res);
   }
 
   nextPage() {
     window.scrollTo(0, 0);
     this.page++;
-    this.MovService.getMoviesByGenre(this.genre.id, this.page).then(res => this.movies = res);
+    this.fetchMovies();
   }
 
   prevPage() {
     window.scrollTo(0, 0);
     this.page--;
-    this.MovService.getMoviesByGenre(this.genre.id, this.page).then(res => this.movies = res);
+    this.fetchMovies();
   }
 
   getRandom() {
