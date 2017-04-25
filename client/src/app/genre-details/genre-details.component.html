@@ -3,6 +3,7 @@
     <h1>{{genre.name}}</h1>
     <div class="btn btn-primary random-button" (click)="getRandom()">Random {{genre.name}} Movie</div>
 </div>
+<!--
 <label>
     Sort By..
     <select class="form-control">
@@ -11,9 +12,11 @@
         <option>Parental Rating</option>
     </select>
 </label>
+
 <label class="checkbox-inline">
     <input type="checkbox" id="inlineCheckbox1" value="option2"> Adult
 </label>
+-->
 <div *ngIf="!!movies" class="wrapper">
     <div *ngFor="let movie of movies" style="width: 20%; min-width: 210px;">
         <img [routerLink]="['/movie', movie.id]" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" height="300px" width="200px">
