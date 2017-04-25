@@ -5,6 +5,7 @@ import 'chart.js';
 
 import { Movie } from '../models/movie.model';
 import { Chart } from '../models/chart.model';
+import { Genre } from '../models/genre.model';
 import { GenreService } from '../services/genre.service';
 import { MovieService } from '../services/movie.service';
 
@@ -22,6 +23,7 @@ export class MovieComponent implements OnInit, AfterContentChecked {
 
   movie: Movie = new Movie();
   chart: Chart = new Chart();
+  genre: Genre = new Genre();
 
   baseUrl: string = 'https://www.youtube.com/embed/';
   url: SafeResourceUrl;
@@ -54,6 +56,8 @@ export class MovieComponent implements OnInit, AfterContentChecked {
       window.scrollTo(0, 0)
     });
 
+    this.route.params.subscribe(res => this.genre.id = res['genreId']);
+    this.route.params.subscribe(res => this.genre.name = res['genreName']);
 // gets the data from movie-detail resolver as movie, subscribes it to this instance of movie
       this.route.data
           .subscribe((data: { movie: Movie }) => {
@@ -72,15 +76,22 @@ export class MovieComponent implements OnInit, AfterContentChecked {
       });
   }
 
+  getRandom() {
+    this.MovService.getRandomMovieByGenre(this.genre.id).then(res => {
+      this.router.navigate(['movie', res.id, { 'genreId' : this.genre.id }]);
+    });
+  }
+
   ngAfterContentChecked() {
     //recommended movies carousel
     $('.rec-slider').not('.slick-initialized').slick({
-      slidesToShow: 4,
-      arrows: true,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 2000
-    });
+        slidesToShow: 4,
+        arrows: true,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000
+      });
+
     this.slider = true;
   }
 

@@ -12,7 +12,7 @@ import { MovieService } from './../services/movie.service';
 export class SearchComponent {
   searchItems: any;
   term = new FormControl();
-  isOpen: Boolean;
+  isOpen: Boolean = false;
   selectedIndex: number;
 
   constructor(public MovService: MovieService, public router: Router) {
@@ -29,24 +29,32 @@ export class SearchComponent {
     this.searchItems = null;
   }
 
-  redirect(movie: any) {
+  out(event:any) {
+    if (this.isOpen && event.type == 'focusout') {
+      console.log(event);
+    }
+  }
+
+  redirect(movie:any) {
     this.term.reset();
-    this.router.navigate(['/movie', movie.id]);
+        this.router.navigate(['movie', movie.id]);
+        this.isOpen = false;
   }
 
   handleKeyPress(event: any) {
-    console.log(event.keyCode);
     // handle up
-    if (event.key == 'ArrowUp' && this.searchItems && this.searchItems.length && this.selectedIndex > 0) {
-        this.selectedIndex--;
-    }
-    // handle down
-    if (event.key == 'ArrowDown' && this.searchItems && this.selectedIndex < this.searchItems.length - 1) {
-      this.selectedIndex++;
-    }
-    // handle enter
-    if (event.key == 'Enter' && this.searchItems && this.selectedIndex >= 0 && this.selectedIndex < this.searchItems.length) {
-      this.redirect(this.searchItems[this.selectedIndex]);
+    if (this.searchItems && this.isOpen) {
+      if (event.key == 'ArrowUp' && this.selectedIndex > 0) {
+          this.selectedIndex--;
+      }
+      // handle down
+      if (event.key == 'ArrowDown' && this.selectedIndex < this.searchItems.length - 1) {
+        this.selectedIndex++;
+      }
+      // handle enter
+      if (event.key == 'Enter') {
+        this.redirect(this.searchItems[this.selectedIndex]);
+      }
     }
   }
 

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { ChartsModule } from 'ng2-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent }  from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -20,7 +21,7 @@ import { SearchComponent } from './search/search.component';
 import { ClickOutsideDirective } from './click-outside.directive';
 
 @NgModule({
-  imports:      [ BrowserModule, HttpModule, JsonpModule, routing, ChartsModule, FormsModule, ReactiveFormsModule ],
+  imports:      [ BrowserModule, HttpModule, JsonpModule, routing, ChartsModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot() ],
   declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent, NowPlayingComponent, PageNotFound, SearchComponent, ClickOutsideDirective ],
   providers:    [ GenreService, MovieService, appRoutingProviders, GenreService, MovieDetailResolver ],
   bootstrap:    [ AppComponent ]

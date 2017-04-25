@@ -87,7 +87,7 @@ $app->get('/movies/search', function ($request, $response, $args) {
 
     $queryString = $request->getQueryParams();
 
-    $query = "SELECT * FROM movies WHERE `title` LIKE '%" . rawurldecode($queryString['query']) . "%' LIMIT 5";
+    $query = "SELECT * FROM movies WHERE `title` LIKE '%" . rawurldecode($queryString['query']) . "%' ORDER BY `movies`.`rotten_tomatoes` DESC LIMIT 5";
 
     $result = $db->query($query);
 
@@ -162,7 +162,7 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
     }
 
     if ($movie['gomovies_id'] == 'NULL' || $movie['gomovies_id'] == NULL || $movie['gomovies_id'] == "") {
-        $badchars = array(":", "&", "!", "?", ".");
+        $badchars = array(':', '&', '!', '?', '.', ',');
         $title = substr(preg_replace("/ /", "+", $movie['title']), 0, 50);
         $title = str_replace($badchars, "", $title);
         $title = strtolower($title);

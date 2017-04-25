@@ -18,6 +18,7 @@ export class GenreDetailsComponent implements OnInit {
   movies: Movie[];
   genre: Genre = new Genre();
   page: number;
+  pagenumber:number = 4;
 
   constructor(
     private GenService: GenreService,
@@ -27,30 +28,26 @@ export class GenreDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(res => this.page = res['page'] !== undefined ? +res['page'] : 1);
+    this.route.queryParams.subscribe(res => this.page = res['page'] !== undefined ? +res['page'] : 1);
     this.route.params.subscribe(res => this.genre.id = res['id']);
     this.route.params.subscribe(res => this.genre.name = res['genre']);
     this.MovService.getMoviesByGenre(this.genre.id, this.page).then(res => this.movies = res);
     // get all movies in clicked genre
   }
 
-  nextPage() {
+  setPage(page:number) {
     window.scrollTo(0, 0);
-    this.page++;
+    this.page = page;
     this.MovService.getMoviesByGenre(this.genre.id, this.page).then(res => this.movies = res);
-  }
-
-  prevPage() {
-    window.scrollTo(0, 0);
-    this.page--;
-    this.MovService.getMoviesByGenre(this.genre.id, this.page).then(res => this.movies = res);
+    this.router.navigate([], {
+        queryParams: {'page': this.page},
+        relativeTo: this.route
+    });
   }
 
   getRandom() {
-    let vm = this;
-
-    this.MovService.getRandomMovieByGenre(this.genre.id).then(function (res) {
-      vm.router.navigate(['movie', res.id]);
+    this.MovService.getRandomMovieByGenre(this.genre.id).then(res => {
+      this.router.navigate(['movie', res.id, { 'genreId' : this.genre.id }]);
     });
   }
 

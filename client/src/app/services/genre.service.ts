@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { Genre } from '../models/genre.model';
+import { genreLookup } from '../models/genrelookup.model';
  
 import 'rxjs/add/operator/toPromise';
 
@@ -9,8 +10,7 @@ import 'rxjs/add/operator/toPromise';
 export class GenreService {
   private baseUrl = 'http://lexireicks.com/upick/api/genre';
 
-  constructor(private http: Http) { };
-
+  constructor(private http: Http) {};
 
   getGenres(): Promise<Genre[]> {
     return this.http.get(this.baseUrl)
@@ -21,4 +21,9 @@ export class GenreService {
         return err;
       });
   };
+
+  getGenre(id: number) {
+    console.log(genreLookup.get(id));
+    return genreLookup.get(id);
+  } 
 }

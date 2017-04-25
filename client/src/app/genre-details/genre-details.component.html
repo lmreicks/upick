@@ -2,6 +2,17 @@
 <div class="btn btn-primary" style="float: right; margin: 20px 25px 10px 0px;" (click)="getRandom()">
     Random {{genre.name}} Movie
 </div>
+<label>
+Sort By..
+<select class="form-control">
+    <option>Popularity</option>
+    <option>IMDB Rating</option>
+    <option>Parental Rating</option>
+</select>
+</label>
+<label class="checkbox-inline">
+  <input type="checkbox" id="inlineCheckbox1" value="option2"> Adult
+</label>
 <div *ngIf="!!movies" style="display: flex; flex-wrap: wrap">
     <div *ngFor="let movie of movies" style="width: 20%; min-width: 210px;">
         <img [routerLink]="['/movie', movie.id]" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" height="300px" width="200px">
@@ -9,7 +20,17 @@
     </div>
 </div>
 
-<div *ngIf="!!movies" class="pageination">
-    <div *ngIf="page !== 1" class="btn" (click)="nextPage()"><i class="fa fa-arrow-left"></i> Prev </div>
-    <div *ngIf="page < 41" class="btn" (click)="nextPage()">Next <i class="fa fa-arrow-right"></i></div>
+<div *ngIf="!!page" class="pageination">
+    <ngb-pagination
+        (pageChange)="setPage($event)"
+        [collectionSize]="800"
+        [(page)]="page"
+        [maxSize]="5"
+        [pageSize]="20"
+        [rotate]="true"
+        [ellipses]="false"
+        [boundaryLinks]="true">
+    </ngb-pagination>
+    <div *ngIf="page !== 1" class="btn" (click)="setPage(page - 1)"><i class="fa fa-arrow-left"></i> Prev </div>
+    <div *ngIf="page < 41" class="btn" (click)="setPage(page + 1)">Next <i class="fa fa-arrow-right"></i></div>
 </div>

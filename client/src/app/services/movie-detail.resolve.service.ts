@@ -12,11 +12,15 @@ import { MovieService } from './movie.service';
 @Injectable()
 export class MovieDetailResolver implements Resolve<Movie> {
   constructor(private movService: MovieService, private router: Router) {}
+
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Movie> {
 
+    console.log(state);
     let id = route.params['id'];
+    let genreid = route.params['genreId'];
     return this.movService.getMoreInfo(id).then(movie => {
       if (movie) {
+          console.log(genreid);
         return movie;
       } else { // id not found
         this.router.navigate(['/top']);

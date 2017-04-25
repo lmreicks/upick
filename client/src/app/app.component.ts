@@ -22,7 +22,7 @@ export class AppComponent {
   selectedIndex:number = 0;
   term = new FormControl();
 
-  
+
   constructor(public MovService: MovieService, public router: Router) {
     this.term.valueChanges.debounceTime(400)
                           .distinctUntilChanged()
