@@ -1,0 +1,47 @@
+
+
+.slider-container {
+    overflow: hidden;
+    width: 100%;
+    margin: 0 -25px;
+}
+
+.slides {
+    width: 500%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    -moz-animation:rotation 60s infinite;
+    -webkit-animation:rotation 60s infinite;
+    animation:rotation 60s infinite;
+}
+
+.image-container {
+    min-width: 227px;
+    img {
+        height: 300px;
+        width: 200px;
+    }
+    h5 {
+        width: 200px;
+    }
+}
+
+@keyframes rotation {
+0% { left: 0%; }
+7.1% { left: -225px; }
+14.2% { left: -450px; }
+21.3% { left: -680px; }
+28.4% { left: -905px; }
+35.5% { left: -1135px; }
+42.6% { left: -1360px; }
+49.7% { left: -1585px; }
+56.8% { left: -1815px; }
+63.9% { left: -2040px; }
+71.0% { left: -2270px; }
+78.1% { left: -2495px; }
+85.2% { left: -2720px; }
+93.3% { left: -2940px; }
+}
+
+

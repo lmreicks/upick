@@ -1,6 +1,7 @@
-<h1 style="display: inline-block;">{{genre.name}}</h1>
-<div class="btn btn-primary" style="float: right; margin: 20px 25px 10px 0px;" (click)="getRandom()">
-    Random {{genre.name}} Movie
+<div [ngBusy]="busy"></div>
+<div class="title-wrapper">
+    <h1>{{genre.name}}</h1>
+    <span class="btn btn-primary random-button" (click)="getRandom()">Random {{genre.name}} Movie</span>
 </div>
 <label>
 Sort By..

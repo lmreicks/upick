@@ -15,6 +15,7 @@ import 'rxjs/add/operator/switchMap';
 
 export class NowPlayingComponent implements OnInit {
   movies: Movie[];
+  busy: Promise<any>;
 
   constructor(
         private MovService: MovieService,
@@ -23,7 +24,7 @@ export class NowPlayingComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.MovService.getNowPlaying()
+    this.busy = this.MovService.getNowPlaying()
     .then(res => this.movies = res);
     }
 }

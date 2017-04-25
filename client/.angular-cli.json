@@ -23,7 +23,9 @@
         "assets/bower_components/bootstrap/dist/css/bootstrap.min.css",
         "assets/bower_components/slick-carousel/slick/slick.css",
         "assets/bower_components/slick-carousel/slick/slick-theme.css",
-        "assets/bower_components/font-awesome/css/font-awesome.min.css"
+        "assets/bower_components/font-awesome/css/font-awesome.min.css",
+        "../node_modules/angular2-busy/build/style/busy.css",
+        "../node_modules/chart.js/dist/Chart.bundle.js"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

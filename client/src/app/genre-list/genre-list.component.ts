@@ -17,12 +17,13 @@ export class GenreComponent implements OnInit {
     genres: Genre[];
     movie: any;
     movies: Movie[];
+    busy: Promise<any>;
 
     constructor(private GenService: GenreService,
                 private router: Router,
                 private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.GenService.getGenres().then(x => this.genres = x);
+    this.busy = this.GenService.getGenres().then(x => this.genres = x);
   }
 }

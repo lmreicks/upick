@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { ChartsModule } from 'ng2-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BusyModule } from 'angular2-busy';
 
 import { AppComponent }  from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -19,10 +20,13 @@ import { MovieService } from './services/movie.service';
 import { routing, appRoutingProviders } from './app.routing';
 import { SearchComponent } from './search/search.component';
 import { ClickOutsideDirective } from './click-outside.directive';
+import { RecommendationSliderComponent } from './recommendation-slider/recommendation-slider.component';
 
 @NgModule({
-  imports:      [ BrowserModule, HttpModule, JsonpModule, routing, ChartsModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot() ],
-  declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent, NowPlayingComponent, PageNotFound, SearchComponent, ClickOutsideDirective ],
+  imports:      [ BrowserModule, HttpModule, JsonpModule, routing, ChartsModule, FormsModule, ReactiveFormsModule,
+                BrowserAnimationsModule, BusyModule ],
+  declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent, NowPlayingComponent,
+                  PageNotFound, SearchComponent, ClickOutsideDirective, RecommendationSliderComponent ],
   providers:    [ GenreService, MovieService, appRoutingProviders, GenreService, MovieDetailResolver ],
   bootstrap:    [ AppComponent ]
 })
