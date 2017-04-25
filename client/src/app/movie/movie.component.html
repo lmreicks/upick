@@ -1,5 +1,7 @@
 <ng-template [ngIf]="!!movie">
+    <!-- Loading -->
     <div [ngBusy]="busy"></div>
+
     <div class="wrapper">
         <div class="row">
             <!-- On Mobile we want title above the image -->
@@ -10,6 +12,7 @@
                 </span>
             </div>
             <!-- End Mobile Title -->
+
             <div class="col-md-4 poster">
                 <img *ngIf="movie.poster_path" id="poster" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" class="img-responsive">
                 <div class="genre-wrapper">
@@ -19,11 +22,11 @@
                 </div>
             </div>
             <div class="col-md-7 description">
-                <span id="line1">
+                <span id="titleblock">
                     <h4 id="title" *ngIf = "movie.title">{{movie.title}} ({{movie.release_date.substring(0, 4)}})</h4>
                     <button *ngIf="movie.trailer_url" class="btn trailer_button" (click)="trailer = !trailer">Trailer</button>
                 </span>
-                <div id="line2">
+                <div id="chartblock">
                     <div *ngIf="!!imdbdata" class="charts">
                         <h5 class="rating-text">{{movie.imdb_rating | number: '1.1'}}</h5>
                         <div class="chart">

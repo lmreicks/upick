@@ -1,121 +1,43 @@
 .wrapper {
     margin-top: 50px;
-}
-.description {
-    margin-left: 30px;
-}
 
-#percent {
-    z-index: 10000;
-}
-
-.rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
-}
-.rating > span {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
-}
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-   content: "\2605";
-   position: absolute;
-}
-
-.rating-text {
-    position: relative;
-    top: 60px;
-    color: white;
-    font-size: 20px;
-}
-
-.trailer_button {
-    background-color: #44A1C2;
-    color:white;
-    margin-top:7px;
-    height:40px;
-    font-size:20px;
-    margin-left: 10px;
-}
-
-.charts {
-    margin: -20px 10px 0px;
-    text-align: center;
-}
-
-.genres {
-    display: inline-flex;
-    margin: 5px;
-    margin-top: 10px;
-}
-
-.genres > .btn {
-    background-color: lightgray;
-    font-size: 15px;
-}
-
-.genres > .btn:hover {
-    background-color: #44A1C2;
-}
-
-.genre-wrapper {
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    .genres {
-        display: inline-flex;
-        margin: 5px;
-        margin-top: 10px;
-
-}
-
-.description {
-    margin-left: 30px;
-
-.netflix {
-    min-width: 200px;
-}
-
-.trailer_button {
-    float: right;
-}
-.movie-link {
-    margin: 25px;
-    min-width: 300px;
-}
-
-#line2 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-#rec {
-    text-align: center;
-    width: 100%;
-    align-self:flex-start;
-    order:-1;
-}
-
-.movie-container {
-    display:flex;
-}
-.custom-modal {
-    opacity: 0.5 !important;
-}
-    #titleblock {
+    /* Left column (genre, poster) */
+    .genre-wrapper {
         display:flex;
+        flex-wrap: wrap;
+        justify-content: center;
 
-        #title {
-            font-size: 30px;
+        .genres {
+            display: inline-flex;
+            margin: 5px;
+            margin-top: 10px;
+
+            .btn {
+                background-color: lightgray;
+                font-size: 15px;
+
+                :hover {
+                    background-color: #44A1C2;
+                }
+            }
         }
+    }
 
-        #date {
-            margin-left: 10px;
-            font-size: 30px;
+    /* Right Column (description, charts, movie links, trailer, title block, etc) */
+    .description {
+        margin-left: 30px;
+
+        #titleblock {
+            display:flex;
+
+            #title {
+                font-size: 30px;
+            }
+
+            #date {
+                margin-left: 10px;
+                font-size: 30px;
+            }
         }
 
         .trailer_button {
@@ -126,17 +48,16 @@
             font-size:20px;
             margin-left: 10px;
         }
-    }
 
-    ul {
-        align-items:center;
-        padding:0;
-        list-style-type: none;
-        display: inline-flex;
+        #chartblock {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
 
-        li {
-            text-align: center;
-            margin: 10px;
+            .charts {
+                margin: -20px 10px 0px;
+                text-align: center;
+            }
 
             .chart {
                 text-align: center;
@@ -151,45 +72,45 @@
 
             .rating-text {
                 position: relative;
-                bottom: 88px;
+                top: 60px;
                 color: white;
                 font-size: 20px;
             }
+        }
 
-            #gomovies {
-                margin-left:10px;
-                max-height:50px;
-            }
+        .movie-link {
+            margin: 25px;
+            min-width: 300px;
+        }
 
+        .netflix {
+            min-width: 200px;
+        }
+
+        .panelblock {
+            display:inline-flex;
+        }
+
+    }
+
+    /* Recommendations */
+    .rec-wrapper {
+        margin-bottom: 40px;
+        margin-top: 40px;
+        display:flex;
+        justify-content: space-between;
+
+        #rec {
+            text-align: center;
+            width: 100%;
+            align-self:flex-start;
+            order:-1;
         }
     }
-
-    .panelblock {
-        display:inline-flex;
-    }
-
 }
 
-.rec-wrapper {
-    margin-bottom: 40px;
-    margin-top: 40px;
-    display:flex;
-    justify-content: space-between;
-}
 
-#gomovies {
-    margin:10px;
-    max-height:40px;
-}
-
-    #rec {
-        text-align: center;
-        width: 100%;
-        align-self:flex-start;
-        order:-1;
-    }
-}
-
+/* Mobile CSS */
 .mobile-title {
     display: none;
 }
