@@ -52,7 +52,10 @@ export class GenreDetailsComponent implements OnInit {
 
   getRandom() {
     this.MovService.getRandomMovieByGenre(this.genre.id).then(res => {
-      this.router.navigate(['movie', res.id, { 'genreId' : this.genre.id }]);
+      this.router.navigate(['movie', res.id],
+      { queryParams: { 
+          'random': this.genre.id
+      }});
     });
   }
 

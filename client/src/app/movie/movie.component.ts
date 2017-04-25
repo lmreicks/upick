@@ -56,7 +56,7 @@ export class MovieComponent implements OnInit {
       window.scrollTo(0, 0)
     });
 
-    this.route.params.subscribe(res => this.genre.id = +res['genreId']);
+    this.route.queryParams.subscribe(param => this.genre.id = +param['random']);
     this.genre.name = genreLookup.get(this.genre.id);
     //use genre id to get name
 
@@ -81,7 +81,10 @@ export class MovieComponent implements OnInit {
 
   getRandom() {
     this.MovService.getRandomMovieByGenre(this.genre.id).then(res => {
-      this.router.navigate(['movie', res.id, { 'genreId' : this.genre.id }]);
+      this.router.navigate(['movie', res.id],
+      { queryParams: { 
+          'random': this.genre.id
+      }});
     });
   }
 
