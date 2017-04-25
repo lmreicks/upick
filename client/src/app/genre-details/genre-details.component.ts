@@ -45,11 +45,10 @@ export class GenreDetailsComponent implements OnInit {
         relativeTo: this.route
     });
   }
-  
+
   fetchMovies() {
     this.busy = this.MovService.getMoviesByGenre(this.genre.id, this.page).then(res => this.movies = res);
   }
-
 
   getRandom() {
     this.MovService.getRandomMovieByGenre(this.genre.id).then(res => {

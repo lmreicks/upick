@@ -4,6 +4,7 @@
 
     <div class="wrapper">
         <div class="row">
+            <button *ngIf="!!genre.name" class="btn reroll" (click)="getRandom()">Reroll {{genre.name}}</button>
             <!-- On Mobile we want title above the image -->
             <div class="mobile-title">
                 <span>
@@ -13,6 +14,7 @@
             </div>
             <!-- End Mobile Title -->
 
+            <!-- Left Column (poster, genres)-->
             <div class="col-md-4 poster">
                 <img *ngIf="movie.poster_path" id="poster" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" class="img-responsive">
                 <div class="genre-wrapper">
@@ -21,11 +23,16 @@
                     </div>
                 </div>
             </div>
+            <!-- End Left Column -->
+
+            <!-- Right Column (description, title block, charts, movie link, etc) -->
             <div class="col-md-7 description">
                 <span id="titleblock">
                     <h4 id="title" *ngIf = "movie.title">{{movie.title}} ({{movie.release_date.substring(0, 4)}})</h4>
                     <button *ngIf="movie.trailer_url" class="btn trailer_button" (click)="trailer = !trailer">Trailer</button>
                 </span>
+
+                <!-- Charts -->
                 <div id="chartblock">
                     <div *ngIf="!!imdbdata" class="charts">
                         <h5 class="rating-text">{{movie.imdb_rating | number: '1.1'}}</h5>
@@ -57,18 +64,24 @@
                         </div>
                         <p>Rotten Tomatoes</p>  
                     </div>    
+                    <!-- End Charts -->
 
+                    <!-- Movie Links -->
                     <div *ngIf="movie.gomovies_id" class="movie-link">
-                        <a [href]="gomovies"><img src="https://gomovies.to/assets/images/gomovies-logo-light.png" id="gomovies2" class="img-responsive"></a>
+                        <a [href]="gomovies"><img src="https://gomovies.to/assets/images/gomovies-logo-light.png" id= "gomovies" class="img-responsive"></a>
                     </div>
                     <div *ngIf="movie.netflix_id" class="movie-link netflix">
                         <a href="https://netflix.com/watch/{{movie.netflix_id}}"><img src="https://img.clipartfest.com/150375db1abffd280f73465b3e236510_client-logo-netflix-logo-png-netflix-clipart-transparent_720-377.png" height="100px" width="200px"></a>
                     </div>
+                    <!-- End Movie Links -->
                 </div>
+                <!-- Trailer -->
                 <iframe id="iframe" *ngIf="movie.trailer_url && url && trailer"
                     width="510" height="400"
                     [src]="url">
                 </iframe>
+
+                <!-- Description panel-->
                 <div class="panel panel-default" *ngIf="movie">
                     <div *ngIf="movie.overview" class="panel-heading">
                         <h3 class="panel-title">Description</h3>
@@ -89,12 +102,15 @@
                         {{movie.director}}
                     </div>
                 </div>
+                <!-- End Description panel-->
             </div>
         </div>
-        <div class="col-sm-12 rec-wrapper" *ngIf="movie.recommended">
-            <h3 id="rec">Recommened</h3><br>
-            <recommendation-slider [images] ="movie.recommended"></recommendation-slider>
-        </div>
+
+        <!-- Recommended -->
+            <div class="col-sm-12 rec-wrapper" *ngIf="movie.recommended">
+                <h3 id="rec">Recommened</h3><br>
+                <recommendation-slider [images]="movie.recommended"></recommendation-slider>
+            </div>
     </div>
 
 </ng-template>

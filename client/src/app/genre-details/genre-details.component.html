@@ -4,15 +4,15 @@
     <span class="btn btn-primary random-button" (click)="getRandom()">Random {{genre.name}} Movie</span>
 </div>
 <label>
-Sort By..
-<select class="form-control">
-    <option>Popularity</option>
-    <option>IMDB Rating</option>
-    <option>Parental Rating</option>
-</select>
+    Sort By..
+    <select class="form-control">
+        <option>Popularity</option>
+        <option>IMDB Rating</option>
+        <option>Parental Rating</option>
+    </select>
 </label>
 <label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox1" value="option2"> Adult
+    <input type="checkbox" id="inlineCheckbox1" value="option2"> Adult
 </label>
 <div *ngIf="!!movies" style="display: flex; flex-wrap: wrap">
     <div *ngFor="let movie of movies" style="width: 20%; min-width: 210px;">
