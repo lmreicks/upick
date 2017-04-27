@@ -1,0 +1,27 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MovieService } from '../services/movie.service';
+import { Movie } from "../models/movie.model";
+
+@Component({
+	selector: 'search-page',
+	templateUrl: 'search-page.component.html',
+	styleUrls: ['search-page.component.less']
+})
+
+export class SearchPageComponent implements OnInit {
+	query: string;
+	movies: Movie[];
+  	busy: Promise<any>;
+
+	constructor(
+    private MovService: MovieService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
+
+	ngOnInit() {
+		this.route.queryParams.subscribe(param => this.query = param['query']);
+		this.busy = this.MovService.movieSearchPage(this.query).then(res => this.movies = res);
+	 }
+}

@@ -5,14 +5,13 @@ import { Router } from '@angular/router';
 import { MovieService } from './../services/movie.service';
 
 @Component({
-  selector: 'search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.less']
+  selector: 'search-bar',
+  templateUrl: './search-bar.component.html',
+  styleUrls: ['./search-bar.component.less']
 })
-export class SearchComponent {
+export class SearchBarComponent {
   searchItems: any;
   term = new FormControl();
-  isOpen: Boolean = false;
   selectedIndex: number;
 
   constructor(public MovService: MovieService, public router: Router) {
@@ -29,21 +28,23 @@ export class SearchComponent {
     this.searchItems = null;
   }
 
-  out(event:any) {
-    if (this.isOpen && event.type == 'focusout') {
-      console.log(event);
-    }
-  }
-
-  redirect(movie:any) {
+  movieRedirect(movie:any) {
     this.term.reset();
         this.router.navigate(['movie', movie.id]);
-        this.isOpen = false;
+  }
+
+  searchPageRedirect() {
+    this.router.navigate(['search'], {
+      queryParams: {
+        query: this.term.value
+      }
+    })
+    this.term.reset();
   }
 
   handleKeyPress(event: any) {
     // handle up
-    if (this.searchItems && this.isOpen) {
+    if (this.searchItems) {
       if (event.key == 'ArrowUp' && this.selectedIndex > 0) {
           this.selectedIndex--;
       }
@@ -53,7 +54,12 @@ export class SearchComponent {
       }
       // handle enter
       if (event.key == 'Enter') {
-        this.redirect(this.searchItems[this.selectedIndex]);
+        if (this.selectedIndex == -1) {
+          this.searchPageRedirect();
+        }
+        else {
+          this.movieRedirect(this.searchItems[this.selectedIndex]);
+        }
       }
     }
   }

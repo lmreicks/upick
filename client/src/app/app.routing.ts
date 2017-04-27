@@ -7,6 +7,7 @@ import { NowPlayingComponent } from './now-playing/now-playing.component';
 import { GenreDetailsComponent } from './genre-details/genre-details.component';
 import { GenreComponent} from './genre-list/genre-list.component';
 import { PageNotFound } from './404/notfound.component';
+import { SearchPageComponent } from "./search-page/search-page.component";
 
 const appRoutes: Routes = [
   // list of top most popular movies
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
   { path: 'genre/:genre/:id', component: GenreDetailsComponent},
   // list of all genres
   { path: 'genre', component: GenreComponent},
+  { path: 'search', component: SearchPageComponent },
   { path: '404', component: PageNotFound},
   {path: '**', redirectTo: '/404'}
 ];

@@ -3,7 +3,7 @@
     <div class="dropdown-container" (clickOutside)="close()" *ngIf="!!searchItems">
         <ul class="dropdown" *ngIf=!!searchItems>
             <div class=searchItem *ngFor="let movie of searchItems;  let l = last; let i = index;" [ngClass]="{'selected': i === selectedIndex}">
-                <li (click)="redirect(movie)">
+                <li (click)="movieRedirect(movie)">
                     {{movie.title}}
                 </li>
             </div>

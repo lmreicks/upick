@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Movie } from './models/movie.model';
 import { FormControl } from '@angular/forms';
 
-import { SearchComponent } from './search/search.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 import { MovieService } from './services/movie.service';
 
 @Component({

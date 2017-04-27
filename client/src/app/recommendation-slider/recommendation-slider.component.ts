@@ -18,4 +18,8 @@ export class RecommendationSliderComponent implements OnInit {
     this.visible = this.images.concat(this.images);
   }
 
+  repeat(i:number) {
+    return i = 0;
+  }
+
 }

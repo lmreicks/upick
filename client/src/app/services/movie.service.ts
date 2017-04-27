@@ -87,4 +87,14 @@ export class MovieService {
     return this.http.get(this.baseUrl + 'movies/search?query=' + query)
             .map((res) => res.json());
   }
+
+  movieSearchPage(query: string): Promise<Movie[]> {
+    return this.http.get(this.baseUrl + 'movies/search?query=' + query)
+      .toPromise()
+      .then(function (res) {
+        return res.json();
+      }, function (err) {
+        return err;
+      });
+  }
 }

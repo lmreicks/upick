@@ -87,7 +87,7 @@ $app->get('/movies/search', function ($request, $response, $args) {
 
     $queryString = $request->getQueryParams();
 
-    $query = "SELECT * FROM movies WHERE `title` LIKE '%" . rawurldecode($queryString['query']) . "%' ORDER BY `movies`.`rotten_tomatoes` DESC LIMIT 5";
+    $query = "SELECT * FROM movies WHERE `title` LIKE '%" . rawurldecode($queryString['query']) . "%' ORDER BY `movies`.`rotten_tomatoes` DESC LIMIT 10";
 
     $result = $db->query($query);
 

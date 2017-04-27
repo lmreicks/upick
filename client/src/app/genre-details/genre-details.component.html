@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div *ngIf="!!page" class="pageination">
+<div *ngIf="!!page && !!movies" class="pageination">
     <ngb-pagination
         (pageChange)="setPage($event)"
         [collectionSize]="800"
