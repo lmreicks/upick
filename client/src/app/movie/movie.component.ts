@@ -66,7 +66,7 @@ export class MovieComponent implements OnInit {
       this.busy = this.MovService.getMoreInfo(id).then(movie => {
         this.movie = movie;
         this.loadFrame(this.movie.trailer_url);
-        if (this.movie.rotten_tomatoes) {
+        if (this.movie.rotten_tomatoes && this.movie.rotten_tomatoes.length > 0 && parseInt(this.movie.rotten_tomatoes) > 0) {
           this.rottendata = [100 - parseInt(this.movie.rotten_tomatoes), parseInt(this.movie.rotten_tomatoes)];
         }
         if (this.movie.imdb_rating) {
@@ -82,7 +82,7 @@ export class MovieComponent implements OnInit {
   getRandom() {
     this.MovService.getRandomMovieByGenre(this.genre.id).then(res => {
       this.router.navigate(['movie', res.id],
-      { queryParams: { 
+      { queryParams: {
           'random': this.genre.id
       }});
     });
