@@ -19,7 +19,7 @@ export class SearchBarComponent {
                           .distinctUntilChanged()
                           .flatMap(term => this.MovService.movieSearch(term))
                           .subscribe(res => {
-                            this.searchItems = res;
+                            this.searchItems = res.slice(0, 5);
                             this.selectedIndex = -1;
                           });
   }

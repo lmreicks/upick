@@ -66,10 +66,11 @@ export class MovieComponent implements OnInit {
       this.busy = this.MovService.getMoreInfo(id).then(movie => {
         this.movie = movie;
         this.loadFrame(this.movie.trailer_url);
+        this.rottendata = null;
         if (this.movie.rotten_tomatoes && this.movie.rotten_tomatoes.length > 0 && parseInt(this.movie.rotten_tomatoes) > 0) {
           this.rottendata = [100 - parseInt(this.movie.rotten_tomatoes), parseInt(this.movie.rotten_tomatoes)];
         }
-        if (this.movie.imdb_rating) {
+        if (this.movie.imdb_rating && this.movie.imdb_rating > 0) {
           this.imdbdata = [10 - this.movie.imdb_rating, this.movie.imdb_rating];
         }
 

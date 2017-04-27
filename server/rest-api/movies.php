@@ -220,7 +220,6 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         echo json_encode($movie);
     } else {
         // We haven't fetched additional data yet, lets do it now
-        $netflixApi = "http://netflixroulette.net/api/api.php?title=" . rawurlencode($movie['title']) . "&year=" . $releaseDate[0][0];
         $getTrailerUrl = "https://api.themoviedb.org/3/movie/" . $id . "/videos?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US";
         $openMovieRequest = "http://www.omdbapi.com/?i=" . $imdbId;
         $recommendedRequest = "https://api.themoviedb.org/3/movie/" . $id . "/recommendations?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US";
@@ -229,23 +228,16 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         $openMovieResponse = curl($openMovieRequest);
         $recommendedResponse = curl($recommendedRequest);
         $trailerResponseArray = json_decode($trailerResponse, true);
-        $netflixresponseArray = json_decode($netflixresponse, true);
         $openMovieResponseArray = json_decode($openMovieResponse, true);
         $recommendedResponseArray = json_decode($recommendedResponse, true);
-        //echo $openMovieRequest . "<br>";
-        //var_dump($recommendedResponseArray['results']);
-        //echo "<br>";
-        //echo "<br>";
+
         $results = array();
         foreach ($recommendedResponseArray['results'] as $result) {
             array_push($results, $result['id']);
         }
         $results = "'" . implode(',', $results) . "'";
         $trailerKey =  "'" . $trailerResponseArray['results'][0]['key'] . "'";
-        //echo $results;
-        //echo json_encode($openMovieResponseArray);
 
-        $Netid = "NULL";
         $cast = "NULL";
         $director = "NULL";
         $recommended = "NULL";
@@ -265,14 +257,7 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
             //echo $director . "<br>";
         }
 
-        //come back to this, should we just return the title, id, poster path?
-        //$recommended = "'" . $recommendedResponseArray['']
-
-        if ($netflixresponseArray['errorcode'] != 404) {
-            $Netid = "'" . $netflixresponseArray["show_id"] . "'";
-        }
-
-        $query = "UPDATE movies SET `hasMoreInfo`= 1, `netflix_id` = " . $Netid . ", `actors` = " . $cast . ", `trailer_url` = " . $trailerKey . ", `director` = " . $director . ", `imdb_rating` = " . $imdbrating . ", `parental_rating` = " . $parental_rating . ", `rotten_tomatoes` = " . $rottentomatoes . ", `recommended` = " . $results . ", `overview` = " . $plot . " WHERE id=" . $id;
+        $query = "UPDATE movies SET `hasMoreInfo`= 1, `actors` = " . $cast . ", `trailer_url` = " . $trailerKey . ", `director` = " . $director . ", `imdb_rating` = " . $imdbrating . ", `parental_rating` = " . $parental_rating . ", `rotten_tomatoes` = " . $rottentomatoes . ", `recommended` = " . $results . ", `overview` = " . $plot . " WHERE id=" . $id;
         //echo $query;
         $db->query($query);
 
@@ -295,26 +280,6 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
 
         echo json_encode($movie);
     }
-    }
-});
-
-$app->get('/test/{id}', function ($request, $response, $args) {
-    require_once('dbconnect.php');
-
-    $id = $request->getAttribute('id');
-    $query = "SELECT * FROM movies WHERE id =". $id;
-
-    $movie = $db->query($query)->fetch_assoc();
-
-    if ($movie['gomovies_id'] == 'NULL') {
-        $getMovie = "https://gomovies.to/movie/search/" . preg_replace("/ /", "+", $movie['title']);
-        $fileoutput = file_get_contents($getMovie);
-        $doc = new DOMDocument();
-        $doc->loadHTML($fileoutput);
-        $items = $doc->getElementsByTagName("div");
-        foreach ($items as $item) {
-            $movieid = $item->getAttribute('data-movie-id');
-        }
     }
 });
 
