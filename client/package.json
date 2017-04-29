@@ -52,6 +52,7 @@
     "@types/slick-carousel": "^1.6.31",
     "angular-in-memory-web-api": "~0.2.4",
     "angular2-busy": "^2.0.4",
+    "angulartics2": "^2.2.1",
     "chart.js": "^2.5.0",
     "core-js": "^2.4.1",
     "easy-pie-chart": "^2.1.7",

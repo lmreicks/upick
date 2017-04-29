@@ -6,6 +6,7 @@ import { ChartsModule } from 'ng2-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BusyModule } from 'angular2-busy';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { AppComponent }  from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -24,7 +25,9 @@ import { ClickOutsideDirective } from './click-outside.directive';
 import { RecommendationSliderComponent } from './recommendation-slider/recommendation-slider.component';
 
 @NgModule({
-  imports:      [BrowserModule, HttpModule, JsonpModule, routing, ChartsModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule, BusyModule, NgbModule.forRoot() ],
+  imports:      [BrowserModule, HttpModule, JsonpModule, routing, ChartsModule, FormsModule,
+                ReactiveFormsModule, BrowserAnimationsModule, BusyModule, NgbModule.forRoot(),
+                Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]) ],
   declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent, NowPlayingComponent,
                   PageNotFound, SearchComponent, ClickOutsideDirective, RecommendationSliderComponent ],
   providers:    [ GenreService, MovieService, appRoutingProviders, GenreService, MovieDetailResolver],
