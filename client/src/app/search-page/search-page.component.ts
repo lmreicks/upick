@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from '../services/movie.service';
-import { Movie } from "../models/movie.model";
+import { Movie } from '../models/movie.model';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -13,7 +13,6 @@ import 'rxjs/add/operator/toPromise';
 export class SearchPageComponent implements OnInit {
 	query: string;
 	movies: Movie[];
-  	busy: Promise<any>;
 
 	constructor(
     private MovService: MovieService,
@@ -24,7 +23,7 @@ export class SearchPageComponent implements OnInit {
 	ngOnInit() {
 		this.route.queryParams.subscribe(param => {
 			this.query = param['query'];
-			this.busy = this.MovService.movieSearchPage(param['query']).then(res => this.movies = res);
+			this.MovService.movieSearchPage(param['query']).then(res => this.movies = res);
 		});
 	}
 }

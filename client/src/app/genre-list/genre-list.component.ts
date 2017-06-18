@@ -3,6 +3,7 @@ import { Genre } from '../models/genre.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GenreService } from '../services/genre.service';
 import { Movie } from '../models/movie.model';
+import { CoreCacheService } from '../services/core-cache.service';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -14,16 +15,26 @@ import 'rxjs/add/operator/switchMap';
 })
 
 export class GenreComponent implements OnInit {
+    selectedGenre: number;
     genres: Genre[];
+    genreId: number;
+    genreName: string;
     movie: any;
     movies: Movie[];
-    busy: Promise<any>;
 
-    constructor(private GenService: GenreService,
+    constructor(private CoreCache: CoreCacheService,
                 private router: Router,
                 private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.busy = this.GenService.getGenres().then(x => this.genres = x);
+    this.genres = this.CoreCache.getGenres();
+    this.route.params.subscribe(param => {
+      this.selectedGenre = this.CoreCache.getGenreId(param['genre']);
+    });
   }
+
+  loadDetails(genreId: number) {
+    this.route.params.subscribe(param => this.selectedGenre = this.CoreCache.getGenreId(param['genre']));
+  }
+
 }

@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Genre } from '../models/genre.model';
+import { CoreCacheService } from '../services/core-cache.service';
 import { MovieService } from '../services/movie.service';
-import { GenreService } from '../services/genre.service';
 import { Movie } from '../models/movie.model';
 import { Subscription } from 'rxjs';
 
 import 'rxjs';
+import { genreLookup } from '../models/genrelookup.model';
 
 @Component({
   moduleId: module.id,
@@ -15,45 +16,51 @@ import 'rxjs';
   styleUrls: ['./genre-details.component.less'],
 })
 
-export class GenreDetailsComponent implements OnInit {
+export class GenreDetailsComponent implements /*OnInit,*/ OnChanges {
+  @Input() genreId: number;
   movies: Movie[];
   genre: Genre = new Genre();
   page: number;
-  busy: Promise<any>;
 
   constructor(
-    private GenService: GenreService,
+    private CoreCache: CoreCacheService,
     private MovService: MovieService,
     private router: Router,
     private route: ActivatedRoute) {
   }
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(res => this.page = res['page'] !== undefined ? +res['page'] : 1);
-    this.route.params.subscribe(res => this.genre.id = res['id']);
-    this.route.params.subscribe(res => this.genre.name = res['genre']);
-    this.fetchMovies();
-    // get all movies in clicked genre
+  ngOnChanges() {
+    this.page = 1;
+    this.genre.id = this.genreId;
+    this.genre.name = genreLookup.get(+this.genre.id);
+    console.log(this.genre);
+    this.fetchMovies(this.genre.id);
   }
 
-  setPage(page:number) {
+  setPage(page: number) {
     window.scrollTo(0, 0);
     this.page = page;
-    this.MovService.getMoviesByGenre(this.genre.id, this.page).then(res => this.movies = res);
+    this.CoreCache.getMoviesByGenre(this.genre.id, this.page).subscribe(res => {
+      console.log(res);
+      this.movies = res;
+    });
     this.router.navigate([], {
         queryParams: {'page': this.page},
         relativeTo: this.route
     });
   }
 
-  fetchMovies() {
-    this.busy = this.MovService.getMoviesByGenre(this.genre.id, this.page).then(res => this.movies = res);
+  fetchMovies(id: number) {
+    this.CoreCache.getMoviesByGenre(this.genre.id, this.page).subscribe(res => {
+      console.log(res);
+      this.movies = res;
+    });
   }
 
   getRandom() {
     this.MovService.getRandomMovieByGenre(this.genre.id).then(res => {
       this.router.navigate(['movie', res.id],
-      { queryParams: { 
+      { queryParams: {
           'random': this.genre.id
       }});
     });

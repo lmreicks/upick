@@ -1,6 +1,13 @@
-<div [ngBusy]="busy"></div>
+
 <div class="u-container">
     <div class="genres" *ngFor="let genre of genres">
-        <button class="btn" [routerLink]="[genre.name, genre.id]" role="button">{{genre.name}}</button>
+        <button class="btn" (click)="loadDetails(genre.Id)" [routerLink]="['../genre', genre.name]" role="button">{{genre.name}}</button>
+    </div>
+    
+    <!-- Mobile -->
+    <div class="mobile" *ngFor="let genre of genres">
+        <button type="button" class="btn mobile-btn" (click)="loadDetails(genre.Id)" [routerLink]="['../genre', genre.name]">{{genre.name}}</button>
     </div>
 </div>
+
+<genre-details *ngIf="!!selectedGenre" [genreId]="selectedGenre"></genre-details>

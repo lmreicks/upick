@@ -18,7 +18,6 @@ import 'rxjs/add/operator/switchMap';
 export class HomeComponent implements OnInit {
   genres: Genre;
   movies: Movie[];
-  busy: Promise<any>;
 
   constructor(
         private GenService: GenreService,
@@ -28,7 +27,6 @@ export class HomeComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.busy = this.MovService.getTopMovies()
-    .then(res => this.movies = res);
+    this.MovService.getTopMovies().then(res => this.movies = res);
     }
 }

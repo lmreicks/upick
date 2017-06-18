@@ -37,12 +37,6 @@ header {
   flex: 1 0 auto;
 }
 
-.search-bar {
-  position: absolute;
-  left: ~"calc(60% + 75px)";
-  top:20px;
-}
-
 footer {
   flex: 0 0 auto;
   color:white;
@@ -71,10 +65,6 @@ footer {
       text-decoration: none;
       font-size: 17px;
     }
-  }
-
-  .search-open {
-    height: 156px;
   }
 
   .dropdown-container {
@@ -146,26 +136,13 @@ footer {
 }
 
 // For tablets
-@media screen and (max-width:990px) {
-    .mobile-search {
-      display:flex;
-      justify-content: center;
-      position: absolute;
-      right: ~"calc(50% - 125px)";
-      top: 95px;
-
-      .mobile-search-bar {
-        margin: 10px;
-        width: 300px;
-      }
+@media screen and (max-width:890px) {
+    .search {
+      display:none;
     }
 
     .search-open {
-      height: 156px;
-    }
-
-    .search-bar {
-      display: none;
+      height:150px;
     }
 
     .tablet-search-icon {

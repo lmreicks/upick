@@ -201,6 +201,7 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
     } else {
         $imdbId = $movie['imdb_id'];
     }
+ 
     //if have more info, just get recommended and genres, echo result
     if($movie['hasMoreInfo'] == 1) {
         $recommendedIds = explode(',', $movie['recommended']);
@@ -221,7 +222,7 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
     } else {
         // We haven't fetched additional data yet, lets do it now
         $getTrailerUrl = "https://api.themoviedb.org/3/movie/" . $id . "/videos?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US";
-        $openMovieRequest = "http://www.omdbapi.com/?i=" . $imdbId;
+        $openMovieRequest = "http://www.omdbapi.com/?i=" . $imdbId . "&apikey=7df26ca8";
         $recommendedRequest = "https://api.themoviedb.org/3/movie/" . $id . "/recommendations?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US";
         $netflixresponse = curl($netflixApi);
         $trailerResponse = curl($getTrailerUrl);
@@ -244,21 +245,14 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
 
         if ($openMovieResponseArray['Response'] == true) {
             $parental_rating = "'" . $openMovieResponseArray['Rated'] . "'";
-            //echo $parental_rating . "<br>";
             $rottentomatoes = "'" . $openMovieResponseArray['Ratings'][1]['Value'] . "'";
-            //echo $rottentomatoes . "<br>";
             $imdbrating = "'" . $openMovieResponseArray['imdbRating'] . "'";
-            //echo $imdbrating . "<br>";
             $plot = "'" . addslashes($openMovieResponseArray['Plot']) . "'";
-            //echo $plot . "<br>";
             $cast = "'" . addslashes($openMovieResponseArray['Actors']) . "'";
-            //echo $cast . "<br>";
             $director = "'" . addslashes($openMovieResponseArray['Director']) . "'";
-            //echo $director . "<br>";
         }
 
         $query = "UPDATE movies SET `hasMoreInfo`= 1, `actors` = " . $cast . ", `trailer_url` = " . $trailerKey . ", `director` = " . $director . ", `imdb_rating` = " . $imdbrating . ", `parental_rating` = " . $parental_rating . ", `rotten_tomatoes` = " . $rottentomatoes . ", `recommended` = " . $results . ", `overview` = " . $plot . " WHERE id=" . $id;
-        //echo $query;
         $db->query($query);
 
         $movie = $db->query("SELECT * FROM movies WHERE id =". $id)->fetch_assoc();

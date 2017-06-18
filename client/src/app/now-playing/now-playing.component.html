@@ -1,4 +1,4 @@
-<div [ngBusy]="busy"></div>
+
 <h1>Now Playing</h1>
 <div class="home" *ngIf="!!movies" class="wrapper">
     <div *ngFor="let movie of movies" style="width: 20%; min-width: 210px; cursor:pointer;" [routerLink]="['/movie', movie.id]">

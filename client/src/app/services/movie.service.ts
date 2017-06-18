@@ -9,17 +9,25 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MovieService {
   private baseUrl = 'http://lexireicks.com/upick/api/';
+  movieObservable: Observable<Movie[]>;
 
   constructor(private http: Http) { };
 
-  getMoviesByGenre(id: number, pageNumber: number): Promise<Movie[]> {
-    return this.http.get(this.baseUrl + 'genre/' + id + '/movies/' + pageNumber)
-      .toPromise()
-      .then(function (res) {
-        return res.json();
-      }, function (err) {
-        return err;
-      });
+  getMoviesByGenre(id: number): Observable<Movie[]> {
+      this.movieObservable = this.http.get(this.baseUrl + 'genre/' + id + '/movies')
+        .map((response, err) => {
+          console.log(response);
+          this.movieObservable = null;
+
+          if (response.status === 400) {
+            return err;
+          } else if (response.status === 200) {
+            console.log(response.json());
+            return response.json();
+        }
+      })
+      .share();
+      return this.movieObservable;
   }
 
   getRandom(): Promise<Movie> {

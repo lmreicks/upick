@@ -19,7 +19,12 @@ export class SearchBarComponent {
                           .distinctUntilChanged()
                           .flatMap(term => this.MovService.movieSearch(term))
                           .subscribe(res => {
-                            this.searchItems = res.slice(0, 5);
+                            if (res != null && res.length >= 5) {
+                              console.log(this.searchItems);
+                              this.searchItems = res.slice(0, 5);
+                            } else {
+                              this.searchItems = res;
+                            }
                             this.selectedIndex = -1;
                           });
   }
@@ -28,7 +33,7 @@ export class SearchBarComponent {
     this.searchItems = null;
   }
 
-  movieRedirect(movie:any) {
+  movieRedirect(movie: any) {
     this.term.reset();
         this.router.navigate(['movie', movie.id]);
   }
@@ -45,19 +50,18 @@ export class SearchBarComponent {
   handleKeyPress(event: any) {
     // handle up
     if (this.searchItems) {
-      if (event.key == 'ArrowUp' && this.selectedIndex > 0) {
+      if (event.key === 'ArrowUp' && this.selectedIndex > 0) {
           this.selectedIndex--;
       }
       // handle down
-      if (event.key == 'ArrowDown' && this.selectedIndex < this.searchItems.length - 1) {
+      if (event.key === 'ArrowDown' && this.selectedIndex < this.searchItems.length - 1) {
         this.selectedIndex++;
       }
       // handle enter
-      if (event.key == 'Enter') {
-        if (this.selectedIndex == -1) {
+      if (event.key === 'Enter') {
+        if (this.selectedIndex === -1) {
           this.searchPageRedirect();
-        }
-        else {
+        } else {
           this.movieRedirect(this.searchItems[this.selectedIndex]);
         }
       }

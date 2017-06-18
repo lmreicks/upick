@@ -1,15 +1,19 @@
-<div class="input-group search-bar">
-    <input type="text" class="form-control" placeholder="Search.." [formControl]="term" (window:keydown)="handleKeyPress($event)"/>
-    <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
-    </span>
+<div class="search-bar">
+
+<div class="input-group">
+    <input type="text" class="search-input form-control" placeholder="Search.." [formControl]="term" (window:keydown)="handleKeyPress($event)"/>
     <div class="dropdown-container" (clickOutside)="close()" *ngIf="!!searchItems">
         <ul class="dropdown" *ngIf=!!searchItems>
             <div class=searchItem *ngFor="let movie of searchItems;  let l = last; let i = index;" [ngClass]="{'selected': i === selectedIndex}">
                 <li (click)="movieRedirect(movie)">
-                    {{movie.title}}
+                    <img *ngIf="movie.poster_path" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" class="search-img">
+                    <p class="search-item-title">{{movie.title}}</p>
+                    <small>{{movie.release_date.substring(0, 4)}}</small><br>
+                    <small>{{movie.parental_rating}}</small>
                 </li>
             </div>
         </ul>
     </div>
+</div>
+<button class="btn btn-default search-btn" type="button">Search</button>
 </div>

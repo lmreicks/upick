@@ -38,7 +38,6 @@ export class MovieComponent implements OnInit {
 
   imdbdata: any;
   rottendata: any;
-  busy: Promise<any>;
 
   constructor(
     private MovService: MovieService,
@@ -58,12 +57,12 @@ export class MovieComponent implements OnInit {
 
     this.route.queryParams.subscribe(param => this.genre.id = +param['random']);
     this.genre.name = genreLookup.get(this.genre.id);
-    //use genre id to get name
+    // use genre id to get name
 
     let id;
     this.route.params.subscribe(res => {
       id = res['id'];
-      this.busy = this.MovService.getMoreInfo(id).then(movie => {
+      this.MovService.getMoreInfo(id).then(movie => {
         this.movie = movie;
         this.loadFrame(this.movie.trailer_url);
         this.rottendata = null;

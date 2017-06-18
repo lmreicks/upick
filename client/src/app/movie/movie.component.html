@@ -1,6 +1,5 @@
 <ng-template [ngIf]="!!movie">
     <!-- Loading -->
-    <div [ngBusy]="busy"></div>
 
     <div class="wrapper">
         <div class="row">
@@ -16,7 +15,7 @@
                 <img *ngIf="movie.poster_path" id="poster" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" class="img-responsive">
                 <div class="genre-wrapper">
                     <div class="genres" *ngFor="let genre of movie.genres">
-                        <button class="btn" [routerLink]="['../../genre', genre.name, genre.id]" role="button">{{genre.name}}</button>
+                        <button class="btn" [routerLink]="['../../genre', genre.name]" role="button">{{genre.name}}</button>
                     </div>
                 </div>
             </div>
@@ -28,6 +27,12 @@
                     <h4 id="title" *ngIf = "movie.title">{{movie.title}} ({{movie.release_date.substring(0, 4)}})</h4>
                     <button *ngIf="movie.trailer_url" class="btn trailer_button" (click)="trailer = !trailer">Trailer</button>
                 </span>
+
+                <!-- Trailer -->
+                <iframe id="iframe" *ngIf="movie.trailer_url && url && trailer"
+                    width="510" height="400"
+                    [src]="url">
+                </iframe>
 
                 <!-- Charts -->
                 <div id="chartblock">
@@ -69,18 +74,9 @@
                     </div>
                     <!-- End Movie Links -->
                 </div>
-                <!-- Trailer -->
-                <iframe id="iframe" *ngIf="movie.trailer_url && url && trailer"
-                    width="510" height="400"
-                    [src]="url">
-                </iframe>
 
                 <!-- Description panel-->
                 <div class="panel panel-default" *ngIf="movie">
-                    <div *ngIf="movie.overview" class="panel-heading">
-                        <h3 class="panel-title">Description</h3>
-                        <h3 class="panel-title">Description</h3>
-                    </div>
                     <div *ngIf="movie.overview" class="panel-heading">
                         <h3 class="panel-title">Description</h3>
                     </div>

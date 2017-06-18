@@ -15,11 +15,11 @@ import { MovieService } from './services/movie.service';
 export class AppComponent {
   name = 'UPick';
   @Input('query') query: string;
-  navVisible: boolean = true;
-  searchVisible: boolean = true;
-  dropVisible: boolean = true;
+  navVisible = true;
+  searchVisible = true;
+  dropVisible = true;
   searchItems: Array<any>;
-  selectedIndex:number = 0;
+  selectedIndex = 0;
   term = new FormControl();
 
 
@@ -37,15 +37,15 @@ export class AppComponent {
     });
   }
 
-  selectItem(event:any) {
+  selectItem(event: any) {
     if (this.dropVisible && this.searchItems) {
-      if (event.key == "ArrowDown" && this.selectedIndex < this.searchItems.length - 1) {
+      if (event.key === 'ArrowDown' && this.selectedIndex < this.searchItems.length - 1) {
         this.selectedIndex++;
       }
-      if (event.key == "ArrowUp" && this.selectedIndex > 0) {
+      if (event.key === 'ArrowUp' && this.selectedIndex > 0) {
         this.selectedIndex--;
       }
-      if (event.key == "Enter") {
+      if (event.key === 'Enter') {
         this.router.navigate(['movie', this.searchItems[this.selectedIndex].id]);
         this.dropVisible = false;
       }

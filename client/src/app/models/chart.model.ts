@@ -1,5 +1,5 @@
 export class Chart {
-  	type: string = 'doughnut';
+  	type = 'doughnut';
   	options: any = {
     	responsive: true,
     	legend: false,
