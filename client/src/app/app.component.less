@@ -5,8 +5,9 @@ header {
   .main-nav {
     list-style-type: none;
     margin: 0;
-    padding: 0;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    overflow: visible;
     background-color: #44A1C2;
 
     .nav-link { 
@@ -20,7 +21,7 @@ header {
         display: inline-block;
         color: white;
         text-align: center;
-        padding: 23px 16px;
+        padding: 23px 10px;
         text-decoration: none;
         font-size: 17px;
       }
@@ -35,6 +36,10 @@ header {
 
 .main {
   flex: 1 0 auto;
+  background-color: #eee;
+  border: 1px solid #bbbbbb;
+  z-index: 0;
+  border-top:none;
 }
 
 footer {
@@ -133,6 +138,10 @@ footer {
         display: inline-block;
       }
   }
+}
+
+.customtooltip {
+  z-index: 99999999999;
 }
 
 // For tablets

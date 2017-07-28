@@ -15,10 +15,10 @@ export class SearchPageComponent implements OnInit {
 	movies: Movie[];
 
 	constructor(
-    private MovService: MovieService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) { }
+		private MovService: MovieService,
+		private route: ActivatedRoute,
+		private router: Router
+	) { }
 
 	ngOnInit() {
 		this.route.queryParams.subscribe(param => {

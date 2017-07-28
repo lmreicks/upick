@@ -1,3 +1,4 @@
+<div class="search-container">
 <div class="search-bar">
 
 <div class="input-group">
@@ -15,5 +16,6 @@
         </ul>
     </div>
 </div>
-<button class="btn btn-default search-btn" type="button">Search</button>
+<a *ngIf="showSearch" (click)="searchPageRedirect()"><i class="fa fa-search fa-lg"></i></a>
+</div>
 </div>

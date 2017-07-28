@@ -47,25 +47,55 @@ $app->get('/genre/{id}/random', function ($request, $response, $args) {
 });
 
 //get all movie titles from this genre
-$app->get('/genre/{id}/movies', function ($request, $response, $args) {
+$app->get('/genre/{id}/movies/{page}', function ($request, $response, $args) {
     require_once('dbconnect.php');
 
     $id = $request->getAttribute('id');
+    $page = $request->getAttribute('page');
+    $queryString = $request->getQueryParams();
 
+    $startYear = $queryString['startYear'];
+    $endYear = $queryString['endYear'];
+    $ratingStart = $queryString['ratingStart'];
+    $ratingEnd = $queryString['ratingEnd'];
+
+    if (!isset($startYear)) {
+        $startYear = 1890;
+    }
+    if (!isset($endYear)) {
+        $endYear = 2017;
+    }
+
+    if (!isset($ratingStart)) {
+        $ratingStart = 0;
+    }
+
+    if (!isset($ratingEnd)) {
+        $ratingEnd = 10;
+    }
+
+    $page  = ($page - 1) * 20;
     $movielookup = "SELECT movieId FROM genre_lookup WHERE genreId='$id'";
 
-    $movieIdresult = $db->query($movielookup);
-    
-    while($movId = $movieIdresult->fetch_assoc()) {
-        $movieId = $movId['movieId'];
-        $movieList = "SELECT * FROM movies WHERE id='$movieId'";
-        $movieResult = $db->query($movieList);
-        while($movie = $movieResult->fetch_assoc()) {
-            $data[] = $movie;
-        }
-    }
     header('Content-Type: application/json');
-    echo json_encode($data);
+
+    $movieIdresult = $db->query($movielookup);
+    while($movId = $movieIdresult->fetch_assoc()) {
+        $movieIds[] = $movId['movieId'];
+    }
+
+    $movieList = "SELECT * FROM movies WHERE id IN (" . implode(",", $movieIds) . ") && release_date > '$startYear' && release_date < '$endYear' && vote_average > '$ratingStart' && vote_average < '$ratingEnd'";
+
+    $movieResult = $db->query($movieList);
+    while($movie = $movieResult->fetch_assoc()) {
+        $data[] = $movie;
+    }
+
+    if ($data !== null && count($data) > 0 ) {
+        echo json_encode(array_slice($data, $page, 20));
+    } else {
+        echo json_encode($error);
+    }
 });
 
 //get all movies from one genre

@@ -18,6 +18,7 @@ import 'rxjs/add/operator/switchMap';
 export class HomeComponent implements OnInit {
   genres: Genre;
   movies: Movie[];
+  steps: any = ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5', 'Step 6', 'Step 7', 'Step 8', 'Step 9', 'Step 10', 'Step 11', 'Step 13'];
 
   constructor(
         private GenService: GenreService,

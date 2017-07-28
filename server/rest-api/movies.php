@@ -97,6 +97,68 @@ $app->get('/movies/search', function ($request, $response, $args) {
     echo json_encode($movies);
 });
 
+$app->post('/movies/pick-three', function ($request, $response, $args) {
+    require_once('dbconnect.php');
+    $data = json_decode($request->getBody(), true);
+
+    $recommended = Array();
+
+    $moviesArray = array();
+    
+    $keywordList = array();
+    $releaseDates = array();
+    foreach($data as $movie) {
+        $releaseDates[] = substr($movie['release_date'], 0, 4);
+        $tempMovie = json_decode(json_encode(more($movie['id'])), true);
+        $keywords = explode(', ', $tempMovie['keywords']);
+        $keywordList = array_merge($keywordList, $keywords);
+        $movieIds = array();
+
+        $queryGenre = "SELECT movieId FROM genre_lookup WHERE `genreId` IN (SELECT `genreId` FROM genre_lookup WHERE `movieId`=" . $movie['id'] . ")";
+        echo $queryGenre;
+        for ($i = 0; $i < count($keywords); $i++) {
+            $query = "SELECT * FROM movies WHERE `overview` LIKE '%" . $keywords[$i] . "%'";
+            $result = $db->query($query);
+
+            while ($row = $result->fetch_assoc()) {
+                $ids[] = $row['id'];
+            }
+            $movieIds = array_merge($movieIds, $ids);
+        }
+    }
+
+    // foreach ($keywordList as $word) {
+    //     echo $word;
+    //     echo "<br/>";
+    // }
+
+
+$result = array_filter( array_count_values($movieIds), function( $el) {
+    return $el > 1; 
+});
+
+if (count($result) > 0 ) {
+    while($element = current($result)) {
+        $id =  key($result);
+        asort($releaseDates);
+        $query = "SELECT * FROM movies WHERE id =". $id . "&& `release_date` > " . ($releaseDates[0] - 5) . " && release_date < " . ($releaseDates[2] + 5);
+
+        $movie = $db->query($query);
+        if ($movie->num_rows <= 0) {
+            next($result);
+        } else {
+            $movie = $movie->fetch_assoc();
+            array_push($moviesArray, $movie);
+        }
+        next($result);
+    }
+}
+
+echo json_encode($moviesArray);
+
+});
+
+
 $app->get('/movies/netflix', function ($request, $response, $args) {
     require_once('dbconnect.php');
 
@@ -110,30 +172,134 @@ $app->get('/movies/netflix', function ($request, $response, $args) {
     echo json_encode($data);
 });
 
-function curl($url) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-    $data = curl_exec($ch);
-    $err = curl_error($ch);
-    curl_close($ch);
-    if ($data) {
-        return $data;
-    }
-    else {
-        return $err;
-    }
-}
-
-// Get more info about a movie, if we dont have it in the db, query the movie api
-$app->get('/movies/{id}/more', function ($request, $response, $args) {
+$app->get('/movies/{id}/trailer', function ($request, $response, $args) {
     require_once('dbconnect.php');
     $id = $request->getAttribute('id');
-    $query = "SELECT * FROM movies WHERE id =". $id;
+    
+    $getTrailerUrl = "https://api.themoviedb.org/3/movie/" . $id . "/videos?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US";
+    $trailerResponse = curl($getTrailerUrl);
+    $trailerResponseArray = json_decode($trailerResponse, true);
+    $trailerKey =  "'" . $trailerResponseArray['results'][0]['key'] . "'";
+
+    $query = "UPDATE movies SET `trailer_url` = " . $trailerKey . " WHERE id=" . $id;
+    
+    $db->query($query);
+
+    echo json_encode($trailerKey);
+});
+
+// Get more info about a movie, if we dont have it in the db, query the movie api
+$app->get('/movies/{id}/more', function($request, $response, $args) {
+    $id = $request->getAttribute('id');
+    echo json_encode(more($id));
+});
+
+function more($id) {
+    require('dbconnect.php');
+    $blacklist = [
+    'is',
+    'as',
+    'the',
+    'he',
+    'she',
+    'a',
+    'and',
+    'it',
+    'by',
+    'that',
+    'this',
+    'which',
+    'what',
+    'was',
+    'now',
+    'are',
+    'in',
+    'her',
+    'him',
+    'his',
+    'hers',
+    'yet',
+    'so',
+    'for',
+    'after',
+    'although',
+    'if',
+    'because',
+    'cause',
+    'once',
+    'even',
+    'where',
+    'while',
+    'until',
+    'not',
+    'only',
+    'whether',
+    'about',
+    'above',
+    'across',
+    'after',
+    'against',
+    'along',
+    'amidst',
+    'among',
+    'around',
+    'at',
+    'before',
+    'behind',
+    'below',
+    'beneath',
+    'beside',
+    'besides',
+    'between',
+    'beyond',
+    'except',
+    'for',
+    'from',
+    'into',
+    'on',
+    'off',
+    'over',
+    'past',
+    'through',
+    'with',
+    'without',
+    'an',
+    'to',
+    'how',
+    'out',
+    'but',
+    'also',
+    'of',
+    'their',
+    'themselves',
+    'them',
+    'they',
+    'really',
+    'get',
+    'gets',
+    'daughter',
+    'son',
+    'bring',
+    'brings',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+    'ten',
+    'find',
+    'finds',
+    'true',
+    'false'
+];
+    $query = "SELECT * FROM movies WHERE id=". $id;
 
     $movie = $db->query($query);
     if ($movie->num_rows <= 0) {
-        // query tmdb, add new movie
         echo "no results";
     }
     
@@ -209,35 +375,55 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         $recommendedString = implode(',', $recommendedIds);
         $query = "SELECT * FROM movies WHERE id in (". $recommendedString.")";
         $movieResult = $db->query($query);
-//if no result skip
+        //if no result skip
 
         if ($movieResult) {
             while($movieRes = $movieResult->fetch_assoc()) {
                 $movies[] = $movieRes;
             }
         }
+
+        $overview  = $movie['overview'];
+        // replaces all punctuation
+        $overview = preg_replace("#[[:punct:]]#", "", $overview);
+        $overview = preg_replace('/[0-9]+/', '', $overview);
+        $overview = explode(' ', $overview);
+
+        $keywords = array();
+
+        if ($movie['keywords'] == null || $movie['keywords'] == 'NULL') {
+            foreach ($overview as $word) {
+                if (!in_array($word, $blacklist) && !ctype_upper($word[0])) {
+                    array_push($keywords, $word);
+                }
+            }
+            $keywords = "'" . implode(', ', $keywords) . "'";
+            $movie['keywords'] = $keywords;
+            $query = "UPDATE movies SET `keywords`=" . $keywords . " WHERE `id`=" . $id;
+            $db->query($query);
+        }
+
         $movie['recommended'] = $movies;
         $movie['genres'] = $genres;
-        echo json_encode($movie);
+
+        return $movie;
     } else {
         // We haven't fetched additional data yet, lets do it now
-        $getTrailerUrl = "https://api.themoviedb.org/3/movie/" . $id . "/videos?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US";
         $openMovieRequest = "http://www.omdbapi.com/?i=" . $imdbId . "&apikey=7df26ca8";
         $recommendedRequest = "https://api.themoviedb.org/3/movie/" . $id . "/recommendations?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US";
-        $netflixresponse = curl($netflixApi);
-        $trailerResponse = curl($getTrailerUrl);
+
         $openMovieResponse = curl($openMovieRequest);
         $recommendedResponse = curl($recommendedRequest);
-        $trailerResponseArray = json_decode($trailerResponse, true);
+
         $openMovieResponseArray = json_decode($openMovieResponse, true);
         $recommendedResponseArray = json_decode($recommendedResponse, true);
+
 
         $results = array();
         foreach ($recommendedResponseArray['results'] as $result) {
             array_push($results, $result['id']);
         }
         $results = "'" . implode(',', $results) . "'";
-        $trailerKey =  "'" . $trailerResponseArray['results'][0]['key'] . "'";
 
         $cast = "NULL";
         $director = "NULL";
@@ -252,7 +438,21 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
             $director = "'" . addslashes($openMovieResponseArray['Director']) . "'";
         }
 
-        $query = "UPDATE movies SET `hasMoreInfo`= 1, `actors` = " . $cast . ", `trailer_url` = " . $trailerKey . ", `director` = " . $director . ", `imdb_rating` = " . $imdbrating . ", `parental_rating` = " . $parental_rating . ", `rotten_tomatoes` = " . $rottentomatoes . ", `recommended` = " . $results . ", `overview` = " . $plot . " WHERE id=" . $id;
+        $overview = preg_replace("#[[:punct:]]#", "", $overview);
+        $overview = preg_replace('/[0-9]+/', '', $overview);
+        $overview = str_replace( ',', '', $overview);
+        $overview = explode(' ', $overview);
+
+        $keywords = array();
+        foreach ($overview as $word) {
+            if (!in_array($word, $blacklist) && !ctype_upper($word[0])) {
+                array_push($keywords, $word);
+            }
+        }
+
+        $keywords = "'" . implode(', ', $keywords) . "'";
+
+        $query = "UPDATE movies SET `hasMoreInfo`= 1, `actors` = " . $cast . ", `director` = " . $director . ", `imdb_rating` = " . $imdbrating . ", `parental_rating` = " . $parental_rating . ", `rotten_tomatoes` = " . $rottentomatoes . ", `recommended` = " . $results . ", `overview` = " . $plot . ", `keywords` = " . $keywords . " WHERE id=" . $id;
         $db->query($query);
 
         $movie = $db->query("SELECT * FROM movies WHERE id =". $id)->fetch_assoc();
@@ -269,12 +469,30 @@ $app->get('/movies/{id}/more', function ($request, $response, $args) {
         else {
             $movies[] = null;
         }
+
+        $movie['keywords'] = $keywords;
         $movie['recommended'] = $movies;
         $movie['genres'] = $genres;
 
-        echo json_encode($movie);
+        return $movie;
     }
+}
+}
+
+
+function curl($url) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $data = curl_exec($ch);
+    $err = curl_error($ch);
+    curl_close($ch);
+    if ($data) {
+        return $data;
     }
-});
+    else {
+        return $err;
+    }
+}
 
 ?>

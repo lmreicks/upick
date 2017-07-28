@@ -25,11 +25,11 @@
             <div class="col-md-7 description">
                 <span id="titleblock">
                     <h4 id="title" *ngIf = "movie.title">{{movie.title}} ({{movie.release_date.substring(0, 4)}})</h4>
-                    <button *ngIf="movie.trailer_url" class="btn trailer_button" (click)="trailer = !trailer">Trailer</button>
+                    <button class="btn trailer_button" (click)="LoadTrailer()">Trailer</button>
                 </span>
 
                 <!-- Trailer -->
-                <iframe id="iframe" *ngIf="movie.trailer_url && url && trailer"
+                <iframe id="iframe" *ngIf="trailer"
                     width="510" height="400"
                     [src]="url">
                 </iframe>

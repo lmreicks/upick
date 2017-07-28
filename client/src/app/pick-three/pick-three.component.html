@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="left-column col-sm-4">
+        <div class="search-bar">
+            <div class="input-group">
+                <input type="text" class="search-input form-control" placeholder="Search.." [formControl]="term" (window:keydown)="handleKeyPress($event)"
+                />
+                <div class="dropdown-container" (clickOutside)="close()" *ngIf="!!searchItems">
+                    <ul class="dropdown" *ngIf=!!searchItems>
+                        <div class=searchItem *ngFor="let movie of searchItems;  let l = last; let i = index;" [ngClass]="{'selected': i === selectedIndex}">
+                            <li (click)="selectMovie(movie)">
+                                <img *ngIf="movie.poster_path" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" class="search-img">
+                                <p class="search-item-title">{{movie.title}}</p>
+                                <small>{{movie.release_date.substring(0, 4)}}</small><br>
+                                <small>{{movie.parental_rating}}</small>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-column col-sm-8">
+        <h2 class="your-picks">Your Picks</h2>
+        <div class="movies">
+            <div class="movie-block" *ngFor="let movie of movies">
+                <span class="fa fa-stack delete" (click)="delete(movie)">
+                    <i class="fa fa-times fa-stack-1x"></i>
+                </span>
+                <img src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" height="300px" width="200px">
+                <div class="scroll-title">
+                    <h4>{{movie.title}}</h4>
+                </div>
+            </div>
+            <div class="movie-block neon-block" *ngIf="movies.length === 0">
+                <div class="neon-background"></div>
+                <div class="neon-strip"></div>
+                <div class="bulb"></div>
+                <div class="neon"></div>
+            </div>
+            <div class="movie-block" *ngIf="movies.length <= 1">
+                <div class="neon-background"></div>
+                <div class="neon-strip"></div>
+                <div class="bulb"></div>
+                <div class="neon"></div>
+            </div>
+            <div class="movie-block" *ngIf="movies.length <= 2">
+                <div class="neon-background"></div>
+                <div class="neon-strip"></div>
+                <div class="bulb"></div>
+                <div class="neon"></div>
+            </div>
+            <button class="btn btn-success find-movies-button" (click)="findMovies()">Find Movies!</button>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="recommendations.length > 0">
+        <div class="col-sm-12 movies">
+            <div class="movie-block" *ngFor="let movie of recommendations" (click)="goToMovie(movie)">
+                <img src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" height="300px" width="200px">
+                <div class="scroll-title">
+                    <h4>{{movie.title}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>

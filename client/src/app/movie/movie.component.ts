@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import 'chart.js';
@@ -20,16 +20,16 @@ import 'slick-carousel';
   templateUrl: './movie.component.html',
   styleUrls: ['./movie.component.less'],
 })
-export class MovieComponent implements OnInit {
+export class MovieComponent implements OnInit, OnDestroy {
 
   movie: Movie = new Movie();
   chart: Chart = new Chart();
   genre: Genre = new Genre();
 
-  baseUrl: string = 'https://www.youtube.com/embed/';
+  baseUrl = 'https://www.youtube.com/embed/';
   url: SafeResourceUrl;
-  trailer: boolean = false;
-  slider: boolean = false;
+  trailer = false;
+  slider = false;
 
   gomovies: any;
   urltitle: any;
@@ -64,7 +64,6 @@ export class MovieComponent implements OnInit {
       id = res['id'];
       this.MovService.getMoreInfo(id).then(movie => {
         this.movie = movie;
-        this.loadFrame(this.movie.trailer_url);
         this.rottendata = null;
         if (this.movie.rotten_tomatoes && this.movie.rotten_tomatoes.length > 0 && parseInt(this.movie.rotten_tomatoes) > 0) {
           this.rottendata = [100 - parseInt(this.movie.rotten_tomatoes), parseInt(this.movie.rotten_tomatoes)];
@@ -88,8 +87,22 @@ export class MovieComponent implements OnInit {
     });
   }
 
-  loadFrame(id: String) {
-    this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + id);
-  }
+  LoadTrailer() {
+    if (!this.url || this.url === null) {
+      this.MovService.getTrailer(this.movie.id).then(trailerId => {
+        this.trailer = true;
+        trailerId = trailerId.substring(1, trailerId.length - 1);
+        this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + trailerId);
+      });
+    }
+  this.trailer = !this.trailer;
+}
+
+ngOnDestroy() {
+  this.trailer = false;
+  this.url = null;
+  this.movie = null;
+  this.chart = null;
+}
 
 }

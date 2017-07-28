@@ -1,0 +1,20 @@
+<div class="rzslider">
+<span #bar class="rz-bar-wrapper"><span class="rz-bar"></span></span> <!-- // 0 The slider bar -->
+<span class="rz-bar-wrapper">
+  <span class="rz-bar rz-selection"></span>
+</span> <!-- // 1 Highlight between two handles -->
+<span #left class="rz-pointer rz-pointer-min"></span> <!-- // 2 Left slider handle -->
+<span #right *ngIf="range" class="rz-pointer rz-pointer-max"></span> <!-- // 3 Right slider handle -->
+<span class="rz-bubble rz-limit rz-floor"></span> <!-- // 4 Floor label -->
+<span class="rz-bubble rz-limit rz-ceil"></span> <!-- // 5 Ceiling label -->
+<span class="rz-bubble"></span> <!-- // 6 Label above left slider handle -->
+<span class="rz-bubble"></span> <!-- // 7 Label above right slider handle -->
+<span class="rz-bubble"></span> <!-- // 8 Range label when the slider handles are close ex. 15 - 17 -->
+<ul *ngIf="showTicks" class="rz-ticks"> <!-- // 9 The ticks -->
+  <li *ngFor="let tick of ticks" class="rz-tick"
+      [ngClass]="{'rz-selected': tick.selected}">
+    <span *ngIf="tick.value != null" class="rz-tick-value">{{ tick.value }}</span>
+    <span *ngIf="tick.legend != null" class="rz-tick-legend">{{ tick.legend }}</span>
+  </li>
+</ul>
+</div>

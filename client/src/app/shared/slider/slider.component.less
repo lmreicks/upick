@@ -1,0 +1,75 @@
+.slider-container {
+    width:200px;
+    margin: 30px;
+}
+
+.range-ribbon {
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: #ccc;
+    top: 11px;
+}
+
+.slider-handle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 12px solid #a6d8ef;
+    cursor: -webkit-grab;
+    background-color: #5082e0;
+    opacity: .7;
+    -webkit-border-radius: 18px;
+    -moz-border-radius: 18px;
+    border-radius: 18px;
+}
+
+.show {
+    opacity: 0.8 !important;
+}
+
+.tooltip {
+    position: absolute;
+    height: 25px;
+    top: -30px;
+    text-align: center;
+    color: white;
+    min-width: 50px;
+    width: auto;
+    border-radius: 10px;
+    background-color: black;
+    opacity: 0.8;
+}
+
+.ui-slider-horizontal {
+    height: 26px;
+    margin-top: 7px;
+    clear: both;
+    position: relative;
+}
+
+.grabbed {
+    cursor: -webkit-grabbing;
+}
+
+.start {
+    left: calc(~'0% - 12px');
+}
+
+.end {
+    left: calc(~'100% - 12px');
+}
+
+.min {
+    position: absolute;
+    top: 110%;
+    font-size: smaller;
+    left: -5%;
+}
+
+.max { 
+    position: absolute;
+    top: 110%;
+    font-size: smaller;
+    left: 95%;
+}

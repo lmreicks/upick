@@ -1,13 +1,36 @@
-
-<div class="u-container">
-    <div class="genres" *ngFor="let genre of genres">
-        <button class="btn" (click)="loadDetails(genre.Id)" [routerLink]="['../genre', genre.name]" role="button">{{genre.name}}</button>
+<div class="filter-block pull-right">
+    <button class="btn filter-btn pull-right" (click)="showFilter = !showFilter"><i class="fa fa-filter" aria-hidden="true"></i></button>
+    <div *ngIf="showFilter" class="filter">
+        <div class="col-xs-9">
+            <div class="filter-section">
+                <label class="filter-label col-xs-3">Year Range</label>
+                <div class="col-xs-9">
+                    <slider (onChange)="yearChange($event)" [max]="2017" [min]="1890" [round]="true"></slider>
+                </div>
+            </div>
+            <div class="filter-section">
+                <label class="filter-label col-xs-3">Rating</label>
+                <div class="col-xs-9">
+                    <slider (onChange)="ratingChange($event)" [max]="10" [min]="0" [round]="true"></slider>
+                </div>
+            </div>
+            <button class="btn-xs btn-success" (click)="filter()">Apply Filters</button>
+        </div>
     </div>
-    
+</div>
+<div class="u-container">
+    <div class="genre-list">
+        <div class="genres" *ngFor="let genre of genres">
+            <button class="btn" (click)="loadDetails(genre)" role="button">{{genre.name}}</button>
+        </div>
+    </div>
+
     <!-- Mobile -->
-    <div class="mobile" *ngFor="let genre of genres">
-        <button type="button" class="btn mobile-btn" (click)="loadDetails(genre.Id)" [routerLink]="['../genre', genre.name]">{{genre.name}}</button>
+    <div class="genre-list">
+        <div class="mobile" *ngFor="let genre of genres">
+            <button type="button" class="btn mobile-btn" (click)="loadDetails(genre)">{{genre.name}}</button>
+        </div>
     </div>
 </div>
 
-<genre-details *ngIf="!!selectedGenre" [genreId]="selectedGenre"></genre-details>
+<genre-details *ngIf="!!selectedGenre" [genreId]="selectedGenre" [queryParams]="queryParams"></genre-details>

@@ -1,0 +1,223 @@
+.left-column {
+    width: 28%;
+}
+
+.right-column {
+    width: 72%;
+    min-height:500px;
+}
+
+.search-bar {
+    margin-top:20px;
+}
+
+.your-picks {
+    text-align: center;
+}
+
+.find-movies-button {
+    position: absolute;
+    bottom:0;
+    left:292px;
+}
+
+.movies {
+    display: flex;
+    flex-wrap: wrap;
+
+    .movie-block {
+        margin: 10px;
+        height: 320px;
+        width: 220px;
+
+        h4 {
+            text-align: center;
+        }
+
+        .neon-background {
+            position: absolute;
+            height: 300px;
+            width: 200px;
+            animation:a2 2s ease-in-out 0s infinite;
+            background-color:#44A1C2;
+        }
+
+        .neon-strip {
+            position: absolute;
+            height: 293px;
+            width: 193px;
+            margin-left: 3.5px;
+            margin-top: 3.5px;
+            box-shadow: inset 0px 0px 10px 0px rgba(100, 40, 0, 0.8), 0px 0px 10px 0px rgba(100, 40, 0, 0.8);
+            border: 2px solid rgba(100, 14, 0, 0.8);
+            border-radius: 3px;
+        }
+
+        .bulb {
+            position: absolute;
+            height: 300px;
+            width: 200px;
+            border: 19px dotted rgba(0, 0, 0, 0.8);
+        }
+    }
+
+    .delete {
+        position: absolute;
+        margin-top: -10px;
+        margin-left: 185px;
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 1px 1px 5px 0px;
+
+        .fa-circle {
+            color: white;
+        }
+    }
+}
+
+.input-group {
+    width:100%;
+}
+
+.search-input {
+    border-radius:4px !important;
+}
+
+.search-img {
+    float: left;
+    max-width: 40px;
+}
+
+.dropdown-container {
+    .dropdown {
+        z-index: 10;
+        padding: 4px;
+        margin-top: 34px;
+        width: 100%;
+        background-color: #fff;
+        list-style: none;
+        border: 1px solid grey;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        
+        .searchItem {
+            height:70px;
+            text-decoration: none;
+            display: block;
+            padding:4px;
+
+            hr {
+                margin: 0px;
+            }
+
+            li {
+                padding-bottom: 5px;
+                p {
+                    margin-bottom:0;
+                    padding-left: 50px;
+                    font-weight:500;
+                }
+
+                small {
+                    margin-bottom:0;
+                    padding-left: 5%;
+                }
+            }
+        }
+
+        :hover {
+                background-color: lightblue;
+            }
+
+        .selected {
+            background-color: lightblue;
+        }
+    }
+}
+
+@media screen and (max-width:890px) {
+    .search-bar {
+        position: absolute;
+        left:4%;
+        width:100%;
+        top: 95px;
+    }
+    .searchItem {
+        li {
+            small {
+                display:none;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 705) {
+    .search-bar {
+        width:100% !important;
+    }
+}
+
+
+
+/*рамка*/
+.neon {
+    position:absolute;
+    margin-left: -5px;
+    margin-top: -5px;
+    animation:a1 2s ease-in-out 0s infinite;
+    font-family:"Monoton", cursive;
+    font-size:5em;
+    text-align:left;
+    color:red;
+    border-radius: 5px;
+    height:310px;
+    border:5px dotted red;
+    width:210px;
+    text-shadow:0px 0px 100px red
+}
+/* "крепления" под буквы */
+.neon:after {
+    content:"";
+    border-top:3px dotted #000;
+    border-bottom:3px dotted #000;
+    position:absolute;
+    top:40px;
+    left:0;
+    z-index:-1
+}
+
+/*мигающая рамка*/
+@keyframes a1 {
+    0% {
+        border:20px dotted rgba(132, 132, 71, 0.71);
+    }
+    50% {
+        border:20px dotted rgba(132, 132, 71, 0.71);
+    }
+    50.001% {
+        border:20px dotted rgba(255, 255, 15, 0.78);
+    }
+    100% {
+        border:20px dotted rgba(255, 255, 15, 0.78);
+    }
+}
+
+/*мигающая рамка*/
+@keyframes a2 {
+    0% {
+        box-shadow:0px 0px 17px 1px #0a0c3d;
+        border:10px solid #0a0c3d;
+    }
+    50% {
+        box-shadow:0px 0px 17px 1px #0a0c3d;
+        border:10px solid #0a0c3d;
+    }
+    50.001% {
+        box-shadow:0px 0px 17px 1px red;
+        border:10px solid red;
+    }
+    100% {
+        box-shadow:0px 0px 17px 1px red;
+        border:10px solid red;
+    }
+}

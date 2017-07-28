@@ -15,12 +15,6 @@ export class GenreService {
   constructor(private http: Http) {};
 
   getGenres(): Observable<Genre[]> {
-    /*return this.http.get(this.baseUrl)
-      .then(function(res) {
-        return res.json();
-      }, function(err) {
-        return err;
-      });*/
       this.observable = this.http.get(this.baseUrl)
         .map((response, err) => {
           console.log(response);

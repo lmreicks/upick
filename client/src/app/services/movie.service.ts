@@ -1,33 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Http } from '@angular/http';
+import { Http, RequestOptionsArgs, Headers } from '@angular/http';
 import { Movie } from '../models/movie.model';
+import { CoreCacheService } from './core-cache.service';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 @Injectable()
 export class MovieService {
   private baseUrl = 'http://lexireicks.com/upick/api/';
-  movieObservable: Observable<Movie[]>;
+  private data = new ReplaySubject<Movie[]>();
+  IsQueryInProgress = false;
 
   constructor(private http: Http) { };
 
-  getMoviesByGenre(id: number): Observable<Movie[]> {
-      this.movieObservable = this.http.get(this.baseUrl + 'genre/' + id + '/movies')
-        .map((response, err) => {
-          console.log(response);
-          this.movieObservable = null;
-
-          if (response.status === 400) {
-            return err;
-          } else if (response.status === 200) {
-            console.log(response.json());
-            return response.json();
-        }
-      })
-      .share();
-      return this.movieObservable;
+  getMoviesByGenre(id: number, pageNumber: number, force: boolean = false, queryParams?: any) {
+      if (this.data.observers.length || force) {
+        this.http.get(this.baseUrl + 'genre/' + id + '/movies/' + pageNumber + queryParams)
+        .subscribe(
+          data => {
+          this.IsQueryInProgress = true;
+          this.data.next(data.json());
+      }, error => {
+        this.data.error(error);
+        this.data = new ReplaySubject<Movie[]>();
+      });
+    }
+    return this.data;
   }
 
   getRandom(): Promise<Movie> {
@@ -43,22 +44,21 @@ export class MovieService {
   getMoreInfo(id: number): Promise<Movie> {
     return this.http.get(this.baseUrl + 'movies/' + id + '/more')
       .toPromise()
-      .then(function (res) {
-        console.log(res.json());
+      .then(res => {
         return res.json();
-      }, function (err) {
+      }, err => {
         return err;
       });
   }
 
-  getTest(id: number): Promise<Movie> {
-    return this.http.get(this.baseUrl + 'test/' + id)
+  getTrailer(movieId: String) {
+    return this.http.get(this.baseUrl + '/movies/' + movieId + '/trailer')
       .toPromise()
-      .then(function (res) {
+      .then(res => {
         return res.json();
-      }, function (err) {
+      }, err => {
         return err;
-      });
+      })
   }
 
   getRandomMovieByGenre(id: number): Promise<Movie> {
@@ -102,6 +102,17 @@ export class MovieService {
       .then(function (res) {
         return res.json();
       }, function (err) {
+        return err;
+      });
+  }
+
+  pickThree(movies: Movie[]): Promise<Movie[]> {
+    return this.http.post(this.baseUrl + 'movies/pick-three', movies)
+      .toPromise()
+      .then(res => {
+        console.log(res.json());
+        return res.json();
+      }, err => {
         return err;
       });
   }

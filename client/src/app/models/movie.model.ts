@@ -16,4 +16,5 @@ export class Movie {
     rotten_tomatoes: string;
     genres: Genre[];
     gomovies_id: string;
+    keywords: string[];
 }

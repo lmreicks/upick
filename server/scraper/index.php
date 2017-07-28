@@ -53,7 +53,7 @@ function getMoviesByGenre($genreId) {
     $movieRequest = "https://api.themoviedb.org/3/discover/movie?api_key=733865115819c8da6e8cc41c46684ed8&language=en-US&include_adult=true&with_genres=" . $genreId . "&page=";
     //15599 pages
     echo "Using Query String " . $movieRequest . "</br>";
-    for ($i = 1; $i <= 40; $i++) {
+    for ($i = 40; $i <= 80; $i++) {
         $response = curl($movieRequest . $i);
         $responseArray = json_decode($response, true);
 
@@ -112,8 +112,6 @@ function getMoviesByGenre($genreId) {
                 }
 
                 echo "Data entered correctly";
-
-
         }
     }
     $db->close();
@@ -153,7 +151,8 @@ function clearDb()
 
 //clearDb();
 //printGenres();
-//getMoviesByGenre(12);
+//28
+//getMoviesByGenre(28);
 //getGenres();
 
 ?>

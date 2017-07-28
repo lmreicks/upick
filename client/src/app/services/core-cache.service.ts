@@ -16,7 +16,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class CoreCacheService {
     public genres: Genre[] = [];
-    public movies: Movie[];
+    public movies: Movie[] = [];
     private movieObservable: Observable<Movie[]>;
     private genreObservable: Observable<Genre[]>;
 
@@ -35,24 +35,21 @@ export class CoreCacheService {
     return this.genres;
   }
 
-  getMoviesByGenre(genreId: number, pageNumber: number): Observable<Movie[]> {
+  getMoviesByGenre(genreId: number, pageNumber: number) {
       if (!this.genres) {
           this.getGenres();
       }
       let index = this.genres.map(x => x.id).indexOf(genreId);
       let start = 20 * (pageNumber - 1);
-      console.log(start);
-      if (!this.genres[index].movies) {
-          console.log(this.genres);
-          this.MovService.getMoviesByGenre(genreId).subscribe(movies => {
-              console.log(movies);
-              this.genres[index].movies = movies;
-              return Observable.of(this.genres[index].movies.slice(start, start + 20));
-          });
-      } else {
-          console.log(this.genres[index]);
-          return Observable.of(this.genres[index].movies.slice(start, start + 20));
+      let movies: Movie[];
+
+      if (this.genres[index] && (!this.genres[index].movies || this.genres[index].movies.length === 0)) {
+          this.genres[index].movies = [];
+          return this.MovService.getMoviesByGenre(genreId, pageNumber);
+      } else if (this.genres[index].movies.length > 0) {
+          movies = this.genres[index].movies.slice(start, start + 20);
       }
+      return Observable.of(movies);
   }
 
   getGenreName(id: number): string {
@@ -60,7 +57,6 @@ export class CoreCacheService {
   }
 
   getGenreId(genre: string): number {
-      console.log(genre);
       let genreNumber = 0;
     if (genre) {
         genre = genre.charAt(0).toUpperCase() + genre.slice(1);
@@ -72,5 +68,7 @@ export class CoreCacheService {
         return genreNumber;
     }
     return genreNumber;
-}
+  }
+
+  g
 }

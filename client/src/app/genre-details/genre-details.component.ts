@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Genre } from '../models/genre.model';
 import { CoreCacheService } from '../services/core-cache.service';
@@ -16,11 +16,14 @@ import { genreLookup } from '../models/genrelookup.model';
   styleUrls: ['./genre-details.component.less'],
 })
 
-export class GenreDetailsComponent implements /*OnInit,*/ OnChanges {
+export class GenreDetailsComponent implements OnChanges, AfterViewInit, OnInit {
   @Input() genreId: number;
-  movies: Movie[];
+  @Input() queryParams: string;
+
+  movies: Movie[] = [];
   genre: Genre = new Genre();
   page: number;
+  domLoaded = false;
 
   constructor(
     private CoreCache: CoreCacheService,
@@ -29,20 +32,30 @@ export class GenreDetailsComponent implements /*OnInit,*/ OnChanges {
     private route: ActivatedRoute) {
   }
 
-  ngOnChanges() {
+  ngOnInit() {
     this.page = 1;
     this.genre.id = this.genreId;
     this.genre.name = genreLookup.get(+this.genre.id);
-    console.log(this.genre);
     this.fetchMovies(this.genre.id);
+  }
+
+  ngOnChanges(changes) {
+    console.log(changes);
+    this.page = 1;
+    this.genre.id = this.genreId;
+    this.genre.name = genreLookup.get(+this.genre.id);
+    this.fetchMovies(this.genre.id);
+  }
+
+  ngAfterViewInit() {
+    this.domLoaded = true;
   }
 
   setPage(page: number) {
     window.scrollTo(0, 0);
     this.page = page;
-    this.CoreCache.getMoviesByGenre(this.genre.id, this.page).subscribe(res => {
-      console.log(res);
-      this.movies = res;
+    this.MovService.getMoviesByGenre(this.genre.id, this.page, false, this.queryParams).subscribe(movies => {
+      this.movies = movies;
     });
     this.router.navigate([], {
         queryParams: {'page': this.page},
@@ -51,9 +64,8 @@ export class GenreDetailsComponent implements /*OnInit,*/ OnChanges {
   }
 
   fetchMovies(id: number) {
-    this.CoreCache.getMoviesByGenre(this.genre.id, this.page).subscribe(res => {
-      console.log(res);
-      this.movies = res;
+    this.MovService.getMoviesByGenre(this.genre.id, this.page, false, this.queryParams).subscribe(movies => {
+      this.movies = movies;
     });
   }
 

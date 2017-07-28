@@ -1,0 +1,25 @@
+<div style="clear:both; position:relative;" class="slider-container ui-slider-horizontal">
+      <div #ribbon id="{{id + '-ribbon'}}" class="range-ribbon">
+      </div>
+      <span class="min">{{ min }}<span *ngIf="isPercentage">%</span></span>
+      <span class="max">{{ max }}<span *ngIf="isPercentage">%</span></span>
+      <span draggable
+            #start
+            [max]="startMax"
+            [min]="originalStartOffset"
+            (onMove)="getStartValue($event)"
+            (mouseover)="startTooltip = true"
+            (mouseout)="startTooltip = false"
+            class="slider-handle start"></span>
+      <span draggable
+            #end
+            [max]="width"
+            [min]="endMin"
+            (onMove)="getEndValue($event)"
+            (mouseover)="endTooltip = true"
+            (mouseout)="endTooltip = false"
+            class="slider-handle end">
+      </span>
+      <span *ngIf="startTooltip" class="tooltip" [ngStyle]="{'left': (endMin - 14) + 'px'}">{{startValue}}<span *ngIf="isPercentage">%</span></span>
+      <span *ngIf="endTooltip" class="tooltip" [ngStyle]="{'left': (startMax - 14) + 'px'}">{{endValue}}<span *ngIf="isPercentage">%</span></span>
+</div>

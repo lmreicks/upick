@@ -1,0 +1,63 @@
+[22-Mar-2017 11:29:49 America/Chicago] PHP Warning:  require_once(./dbconnect.php): failed to open stream: No such file or directory in /home1/rreicks13/public_html/lexireicks/upick/scraper/scraperNew.php on line 25
+[22-Mar-2017 11:29:49 America/Chicago] PHP Fatal error:  require_once(): Failed opening required './dbconnect.php' (include_path='.:/opt/php55/lib/php') in /home1/rreicks13/public_html/lexireicks/upick/scraper/scraperNew.php on line 25
+[23-Mar-2017 19:24:37 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 98
+[23-Mar-2017 19:30:09 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 97
+[23-Mar-2017 19:30:54 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 98
+[23-Mar-2017 19:31:22 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 98
+[23-Mar-2017 19:34:46 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 98
+[23-Mar-2017 19:35:18 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 98
+[23-Mar-2017 19:35:32 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 98
+[23-Mar-2017 19:35:47 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 98
+[23-Mar-2017 19:38:52 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 101
+[23-Mar-2017 19:39:02 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 97
+[23-Mar-2017 19:39:23 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 138
+[23-Mar-2017 19:41:20 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 97
+[23-Mar-2017 19:41:38 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 98
+[20-Apr-2017 07:49:03 America/Chicago] PHP Warning:  implode(): Invalid arguments passed in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 84
+[20-Apr-2017 07:49:47 America/Chicago] PHP Warning:  implode(): Invalid arguments passed in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 84
+[20-Apr-2017 07:50:01 America/Chicago] PHP Warning:  implode(): Invalid arguments passed in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 101
+[20-Apr-2017 07:50:01 America/Chicago] PHP Warning:  Illegal string offset '' in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 101
+[07-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'rreicks1_lexi'@'192.254.190.129' (using password: YES) in /home1/rreicks13/public_html/lexireicks/upick/api/dbconnect.php on line 7
+[07-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 136
+[07-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 137
+[07-Jun-2017 06:00:02 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 138
+[08-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'rreicks1_lexi'@'192.254.190.129' (using password: YES) in /home1/rreicks13/public_html/lexireicks/upick/api/dbconnect.php on line 7
+[08-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 136
+[08-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 137
+[08-Jun-2017 06:00:02 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 138
+[09-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'rreicks1_lexi'@'192.254.190.129' (using password: YES) in /home1/rreicks13/public_html/lexireicks/upick/api/dbconnect.php on line 7
+[09-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 136
+[09-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 137
+[09-Jun-2017 06:00:02 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 138
+[10-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'rreicks1_lexi'@'192.254.190.129' (using password: YES) in /home1/rreicks13/public_html/lexireicks/upick/api/dbconnect.php on line 7
+[10-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 136
+[10-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 137
+[10-Jun-2017 06:00:02 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 138
+[11-Jun-2017 06:00:03 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'rreicks1_lexi'@'192.254.190.129' (using password: YES) in /home1/rreicks13/public_html/lexireicks/upick/api/dbconnect.php on line 7
+[11-Jun-2017 06:00:03 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 136
+[11-Jun-2017 06:00:03 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 137
+[11-Jun-2017 06:00:03 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 138
+[12-Jun-2017 06:00:03 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'rreicks1_lexi'@'192.254.190.129' (using password: YES) in /home1/rreicks13/public_html/lexireicks/upick/api/dbconnect.php on line 7
+[12-Jun-2017 06:00:03 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 136
+[12-Jun-2017 06:00:03 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 137
+[12-Jun-2017 06:00:03 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 138
+[13-Jun-2017 06:00:04 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'rreicks1_lexi'@'192.254.190.129' (using password: YES) in /home1/rreicks13/public_html/lexireicks/upick/api/dbconnect.php on line 7
+[13-Jun-2017 06:00:04 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 136
+[13-Jun-2017 06:00:04 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 137
+[13-Jun-2017 06:00:04 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 138
+[14-Jun-2017 06:00:04 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'rreicks1_lexi'@'192.254.190.129' (using password: YES) in /home1/rreicks13/public_html/lexireicks/upick/api/dbconnect.php on line 7
+[14-Jun-2017 06:00:04 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 136
+[14-Jun-2017 06:00:04 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 137
+[14-Jun-2017 06:00:04 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 138
+[15-Jun-2017 06:00:03 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'rreicks1_lexi'@'192.254.190.129' (using password: YES) in /home1/rreicks13/public_html/lexireicks/upick/api/dbconnect.php on line 7
+[15-Jun-2017 06:00:03 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 136
+[15-Jun-2017 06:00:03 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 137
+[15-Jun-2017 06:00:03 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 138
+[16-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'rreicks1_lexi'@'192.254.190.129' (using password: YES) in /home1/rreicks13/public_html/lexireicks/upick/api/dbconnect.php on line 7
+[16-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 136
+[16-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 137
+[16-Jun-2017 06:00:02 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 138
+[17-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'rreicks1_lexi'@'192.254.190.129' (using password: YES) in /home1/rreicks13/public_html/lexireicks/upick/api/dbconnect.php on line 7
+[17-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 136
+[17-Jun-2017 06:00:02 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 137
+[17-Jun-2017 06:00:02 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in /home1/rreicks13/public_html/lexireicks/upick/api/scraper/index.php on line 138

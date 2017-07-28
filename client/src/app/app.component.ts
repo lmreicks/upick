@@ -16,7 +16,7 @@ export class AppComponent {
   name = 'UPick';
   @Input('query') query: string;
   navVisible = true;
-  searchVisible = true;
+  showSearch = true;
   dropVisible = true;
   searchItems: Array<any>;
   selectedIndex = 0;

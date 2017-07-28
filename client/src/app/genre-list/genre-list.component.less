@@ -1,10 +1,9 @@
 button:focus {outline:0;}
 
 .u-container {
-    margin-top: 30px;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    width:100%;
 }
 
 .genres {
@@ -14,8 +13,33 @@ button:focus {outline:0;}
 }
 
 .btn {
-    background-color: lightgray;
+    border: 1px solid #bbbbbb;
+    background-color: white;
     font-size: 20px;
+}
+
+.filter-block {
+    margin: 10px;
+    display: inline-table;
+    width:100%;
+}
+
+.genre-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-btn {
+    font-size: 16px;
+}
+
+.filter-section {
+    display:flex;
+}
+
+.filter-label {
+    margin-top:1%;
 }
 
 .btn:hover {

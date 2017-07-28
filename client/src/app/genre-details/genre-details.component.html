@@ -1,16 +1,18 @@
-<div *ngIf="!!movies" class="title-wrapper">
+<div *ngIf="!!movies && movies.length" class="title-wrapper">
     <h1>{{genre.name}}</h1>
     <div class="btn btn-primary random-button" (click)="getRandom()">Random {{genre.name}} Movie</div>
 </div>
 
 <div *ngIf="!!movies" class="wrapper">
     <div class="movie-block" *ngFor="let movie of movies">
-        <img [routerLink]="['/movie', movie.id]" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" height="300px" width="200px">
-        <h4 style="width: 200px">{{movie.title}}</h4>
+        <img ng-if="domLoaded" [routerLink]="['/movie', movie.id]" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" height="300px" width="200px">
+        <div (mouseover)="movie.scrolling = true" (mouseout)="movie.scrolling = false" class="scroll-title">
+            <h4 [ngClass]="{'scrolling' : movie.scrolling }">{{movie.title}}</h4>
+        </div>
     </div>
 </div>
 
-<div *ngIf="!!page && !!movies" class="pageination">
+<div *ngIf="!!page && !!movies && movies.length" class="pageination">
     <ngb-pagination
         (pageChange)="setPage($event)"
         [collectionSize]="800"

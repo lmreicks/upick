@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Movie } from '../models/movie.model';
+import { Movie } from '../../models/movie.model';
 
 @Component({
   selector: 'recommendation-slider',
@@ -18,7 +18,7 @@ export class RecommendationSliderComponent implements OnInit {
     this.visible = this.images.concat(this.images);
   }
 
-  repeat(i:number) {
+  repeat(i: number) {
     return i = 0;
   }
 
