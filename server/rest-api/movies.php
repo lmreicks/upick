@@ -321,7 +321,6 @@ function more($id) {
         die("could not enter data: " . $db->error);
     }
     else {
-
         while($row = $genreTitleList->fetch_assoc()) {
             $genres[] = $row;
         }

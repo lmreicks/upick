@@ -3,13 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { ChartsModule } from 'ng2-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-<<<<<<< HEAD
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-=======
-import { BusyModule } from 'angular2-busy';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
->>>>>>> 07f93298c8e728c8225174ff6cc7626dfcdc9933
 
 import { AppComponent }  from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -35,7 +29,6 @@ import { ToolTipModule } from 'angular2-tooltip'
 import { Slider2Component } from './shared/slider2/slider2.component';
 
 @NgModule({
-<<<<<<< HEAD
   imports:      [
     BrowserModule,
     HttpModule,
@@ -72,14 +65,6 @@ import { Slider2Component } from './shared/slider2/slider2.component';
     GenreService,
     MovieDetailResolver
     ],
-=======
-  imports:      [BrowserModule, HttpModule, JsonpModule, routing, ChartsModule, FormsModule,
-                ReactiveFormsModule, BrowserAnimationsModule, BusyModule, NgbModule.forRoot(),
-                Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]) ],
-  declarations: [ AppComponent, HomeComponent, MovieComponent, GenreComponent, GenreDetailsComponent, NowPlayingComponent,
-                  PageNotFound, SearchComponent, ClickOutsideDirective, RecommendationSliderComponent ],
-  providers:    [ GenreService, MovieService, appRoutingProviders, GenreService, MovieDetailResolver],
->>>>>>> 07f93298c8e728c8225174ff6cc7626dfcdc9933
   bootstrap:    [ AppComponent ]
 })
 

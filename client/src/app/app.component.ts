@@ -2,7 +2,6 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Movie } from './models/movie.model';
 import { FormControl } from '@angular/forms';
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { MovieService } from './services/movie.service';
@@ -24,7 +23,7 @@ export class AppComponent {
   term = new FormControl();
 
 
-  constructor(public MovService: MovieService, public router: Router, public angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
+  constructor(public MovService: MovieService, public router: Router) {
     this.term.valueChanges.debounceTime(400)
                           .distinctUntilChanged()
                           .flatMap(term => this.MovService.movieSearch(term))

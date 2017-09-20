@@ -26,8 +26,7 @@
     "test:webpack": "karma start karma.webpack.conf.js",
     "build:webpack": "rimraf dist && webpack --config config/webpack.prod.js --bail",
     "build:babel": "babel src -d src --extensions \".es6\" --source-maps",
-    "copy-dist-files": "node ./copy-dist-files.js",
-    "i18n": "ng-xi18n"
+    "copy-dist-files": "node ./copy-dist-files.js"
   },
   "keywords": [],
   "author": "Ross Reicks",
@@ -51,21 +50,10 @@
     "@types/node": "^6.0.66",
     "@types/slick-carousel": "^1.6.32",
     "angular-in-memory-web-api": "~0.2.4",
-    "angular2-busy": "^2.0.4",
-<<<<<<< HEAD
-    "angular2-draggable": "^1.0.4",
-    "angular2-tooltip": "^3.1.0",
     "chart.js": "^2.6.0",
-=======
-    "angulartics2": "^2.2.1",
-    "chart.js": "^2.5.0",
->>>>>>> 07f93298c8e728c8225174ff6cc7626dfcdc9933
     "core-js": "^2.4.1",
     "easy-pie-chart": "^2.1.7",
     "ng2-charts": "^1.6.0",
-    "ng2-slideable-directive": "^1.0.13",
-    "ng2-slider-component": "^1.0.9",
-    "ng2-styled-directive": "^1.0.5",
     "rxjs": "5.0.1",
     "slick-carousel": "^1.6.0",
     "systemjs": "0.19.39",
